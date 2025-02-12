@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F7AB0A] to-[#F7CD2E];
+  }
+
+  .bg-gradient-custom {
+    @apply bg-gradient-to-b from-gray-900 to-gray-800;
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .glass-effect {
+    @apply bg-opacity-10 backdrop-blur-lg bg-white/10;
+  }
+}
