@@ -19,19 +19,19 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
+}
 
-  & * {
-    border-color: white !important;
-  }
+.high-contrast * {
+  border-color: white !important;
+}
 
-  & .text-gray-400 {
-    color: #ffffff !important;
-  }
+.high-contrast .text-gray-400 {
+  color: #ffffff !important;
+}
 
-  & .glass-effect {
-    background: rgba(0, 0, 0, 0.9) !important;
-    backdrop-filter: none !important;
-  }
+.high-contrast .glass-effect {
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: none !important;
 }
 
 /* Tamaños de fuente accesibles */
@@ -71,12 +71,31 @@ body {
   }
 
   .section-title {
-    @apply absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl;
+    @apply mb-16 uppercase tracking-[20px] text-gray-500 text-2xl text-center;
+  }
+
+  /* Hero responsivo */
+  .hero-content {
+    @apply w-full max-w-none px-4 sm:px-6 md:px-8 lg:px-12;
+  }
+
+  .hero-text {
+    @apply space-y-4 sm:space-y-6 md:space-y-8;
   }
 
   /* Mejoras de accesibilidad para botones y enlaces */
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-primary-dark dark:focus:ring-primary-light focus:ring-offset-2;
+  }
+
+  /* Navegación horizontal responsiva */
+  .horizontal-nav {
+    @apply flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8;
+  }
+
+  /* Circles responsive */
+  .circle-container {
+    @apply absolute inset-0 flex items-center justify-center;
   }
 }
 

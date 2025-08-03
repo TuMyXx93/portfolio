@@ -54,25 +54,6 @@ export const ConcentricCircles = () => {
           }}
         />
       ))}
-      
-      {/* Círculo central más prominente */}
-      <motion.div
-        className={`
-          absolute w-32 h-32 border-2 border-amber-300 rounded-full
-          ${shouldAnimate ? 'animate-ping' : ''}
-        `}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.3 }}
-        transition={{ delay: 1, duration: 1.5, ease: "easeOut" }}
-      />
-      
-      {/* Punto central para referencia */}
-      <motion.div
-        className="absolute w-2 h-2 bg-amber-400 rounded-full"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 2, duration: 0.5 }}
-      />
     </div>
   );
 };

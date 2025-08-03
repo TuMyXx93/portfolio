@@ -68,104 +68,50 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
       {/* Círculos Concéntricos de Fondo */}
       <ConcentricCircles />
       
-      {/* Contenido Central */}
-      <motion.div
-        variants={shouldAnimate ? containerVariants : undefined}
-        initial={shouldAnimate ? "hidden" : undefined}
-        animate={shouldAnimate ? "visible" : { opacity: 1 }}
-        className="relative z-20 text-center hero-content"
-      >
-        {/* Imagen de Perfil */}
-        <motion.div variants={shouldAnimate ? itemVariants : undefined}>
-          <ProfileImage />
-        </motion.div>
+      {/* Imagen de Perfil - Centrada en los círculos */}
+      <ProfileImage />
+      
+      {/* Contenido Central - Debajo de la imagen */}
+      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen">
+        {/* Espacio para la imagen centrada */}
+        <div className="h-40 md:h-48 lg:h-56"></div>
         
-        {/* Texto Principal */}
+        {/* Contenido de texto */}
         <motion.div
-          variants={shouldAnimate ? itemVariants : undefined}
-          className="mt-8 mb-12 hero-text"
+          variants={shouldAnimate ? containerVariants : undefined}
+          initial={shouldAnimate ? "hidden" : undefined}
+          animate={shouldAnimate ? "visible" : { opacity: 1 }}
+          className="text-center hero-content max-w-4xl mx-auto px-4"
         >
-          <motion.h2 
-            className="text-sm uppercase text-gray-400 tracking-[8px] mb-4 font-light"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
+          {/* Texto Principal */}
+          <motion.div
+            variants={shouldAnimate ? itemVariants : undefined}
+            className="mb-12 hero-text"
           >
-            {t('hero.subtitle')}
-          </motion.h2>
-          <motion.h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 0.8 }}
-          >
-            {t('hero.title')}
-          </motion.h1>
+            <motion.h2 
+              className="text-sm uppercase text-gray-400 tracking-[8px] mb-4 font-light"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+            >
+              {t('hero.subtitle')}
+            </motion.h2>
+            <motion.h1 
+              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-tight mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+            >
+              {t('hero.title')}
+            </motion.h1>
+          </motion.div>
+          
+          {/* Navegación Horizontal */}
+          <motion.div variants={shouldAnimate ? itemVariants : undefined}>
+            <HorizontalNavigation onNavigate={onNavigate} />
+          </motion.div>
         </motion.div>
-        
-        {/* Navegación Horizontal */}
-        <motion.div variants={shouldAnimate ? itemVariants : undefined}>
-          <HorizontalNavigation onNavigate={onNavigate} />
-        </motion.div>
-      </motion.div>
-
-      {/* Elementos decorativos adicionales */}
-      {shouldAnimate && (
-        <>
-          {/* Partículas flotantes */}
-          <motion.div
-            className="absolute top-20 left-1/4 w-1 h-1 bg-amber-400 rounded-full particle"
-            animate={{ 
-              y: [-100, -200],
-              x: [0, 50],
-              opacity: [0, 1, 0],
-              scale: [1, 0.5]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: 2
-            }}
-          />
-          <motion.div
-            className="absolute bottom-32 right-1/3 w-1.5 h-1.5 bg-amber-300 rounded-full particle"
-            animate={{ 
-              y: [100, 0],
-              x: [0, -30],
-              opacity: [0, 1, 0],
-              scale: [0.5, 1]
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              delay: 3
-            }}
-          />
-        </>
-      )}
-
-      {/* Indicador de scroll sutil */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 0.6, y: 0 }}
-        transition={{ delay: 3, duration: 1 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-amber-400/30 rounded-full flex justify-center"
-          whileHover={{ borderColor: "rgba(251, 191, 36, 0.6)" }}
-        >
-          <motion.div
-            className="w-1 h-3 bg-amber-400 rounded-full mt-2"
-            animate={shouldAnimate ? { y: [0, 12, 0] } : {}}
-            transition={shouldAnimate ? {
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            } : {}}
-          />
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };

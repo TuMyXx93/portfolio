@@ -1,6 +1,8 @@
 'use client';
 import { CircularHero } from '@/components/hero/CircularHero';
 import { About } from '@/components/sections/About';
+import { Experience } from '@/components/sections/Experience';
+import { Skills } from '@/components/sections/Skills';
 import { Projects } from '@/components/sections/Projects';
 
 export default function Home() {
@@ -23,17 +25,11 @@ export default function Home() {
       </section>
       
       <section id="experience" className="min-h-screen bg-slate-900">
-        {/* Contenido de Experience - A implementar */}
-        <div className="flex items-center justify-center h-full">
-          <h2 className="text-4xl text-white">Experiencia</h2>
-        </div>
+        <Experience />
       </section>
       
       <section id="skills" className="min-h-screen bg-slate-800">
-        {/* Contenido de Skills - A implementar */}
-        <div className="flex items-center justify-center h-full">
-          <h2 className="text-4xl text-white">Habilidades</h2>
-        </div>
+        <Skills />
       </section>
       
       <section id="projects" className="min-h-screen bg-slate-900">
