@@ -6,7 +6,7 @@ export const PROJECTS: Project[] = [
     title: 'Portfolio Next.js',
     description:
       'Portfolio profesional desarrollado con Next.js, TypeScript y Tailwind CSS',
-    image: '/images/portfolio.png',
+    image: '/images/portfolio.svg',
     technologies: [
       { name: 'Next.js', icon: 'nextjs.svg', color: '#ffffff' },
       { name: 'TypeScript', icon: 'typescript.svg', color: '#007ACC' },
