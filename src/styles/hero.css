@@ -1,13 +1,426 @@
-/* Estilos específicos para el Hero Circular */
+/* ====================================
+   HERO CIRCULAR - OPTIMIZACIÓN FINAL
+   ==================================== */
 
-/* Optimizaciones para animaciones */
+/* Variables CSS para consistencia */
+:root {
+  --hero-primary: #f59e0b;
+  --hero-secondary: #fbbf24;
+  --hero-accent: #92400e;
+  --hero-gradient: linear-gradient(135deg, var(--hero-primary), var(--hero-secondary));
+  --hero-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+  --hero-glow: 0 0 30px rgba(251, 191, 36, 0.4);
+  --hero-animation-fast: 0.3s;
+  --hero-animation-normal: 0.6s;
+  --hero-animation-slow: 1.2s;
+  --hero-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --hero-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Optimización de rendimiento global */
+.hero-content * {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* ====================================
+   CÍRCULOS CONCÉNTRICOS OPTIMIZADOS
+   ==================================== */
+
+.concentric-circle {
+  transform-origin: center;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.1));
+  transition: all var(--hero-animation-normal) var(--hero-ease);
+}
+
+.concentric-circle:nth-child(1) {
+  animation: rotateClockwise 30s linear infinite;
+  stroke-width: 1;
+  opacity: 0.3;
+}
+
+.concentric-circle:nth-child(2) {
+  animation: rotateCounterClockwise 25s linear infinite;
+  stroke-width: 1.5;
+  opacity: 0.4;
+}
+
+.concentric-circle:nth-child(3) {
+  animation: rotateClockwise 35s linear infinite;
+  stroke-width: 2;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.15));
+}
+
+.concentric-circle:nth-child(4) {
+  animation: rotateCounterClockwise 20s linear infinite;
+  stroke-width: 1.5;
+  opacity: 0.4;
+}
+
+.concentric-circle:nth-child(5) {
+  animation: rotateClockwise 40s linear infinite;
+  stroke-width: 1;
+  opacity: 0.3;
+}
+
+/* Efectos de hover para círculos */
+.concentric-circle:hover {
+  opacity: 0.8 !important;
+  filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.3));
+  stroke-width: 3;
+  transform: scale(1.02);
+}
+
+/* ====================================
+   PERFIL DE IMAGEN AVANZADO
+   ==================================== */
+
+.profile-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.profile-image {
+  transition: all var(--hero-animation-normal) var(--hero-ease-bounce);
+  filter: drop-shadow(var(--hero-shadow));
+  border: 4px solid transparent;
+  background: var(--hero-gradient);
+  background-clip: padding-box;
+}
+
+.profile-image:hover {
+  transform: scale(1.08) rotateY(5deg);
+  filter: drop-shadow(var(--hero-glow)) brightness(1.1);
+  animation: profilePulse 2s ease-in-out infinite;
+}
+
+.rotating-border {
+  border: 2px solid;
+  border-image: var(--hero-gradient) 1;
+  border-radius: 50%;
+  animation: rotateClockwise 15s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.2));
+}
+
+.rotating-border:nth-child(2) {
+  animation: rotateCounterClockwise 12s linear infinite;
+  border-width: 3px;
+  opacity: 0.7;
+}
+
+.orbital-point {
+  background: radial-gradient(circle, var(--hero-secondary), var(--hero-primary));
+  box-shadow: var(--hero-glow);
+  animation: orbitFloat 8s ease-in-out infinite;
+}
+
+.orbital-point:nth-child(odd) {
+  animation-delay: -2s;
+  background: radial-gradient(circle, var(--hero-primary), var(--hero-accent));
+}
+
+/* ====================================
+   NAVEGACIÓN HORIZONTAL AVANZADA
+   ==================================== */
+
+.nav-button {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(251, 191, 36, 0.2);
+  transition: all var(--hero-animation-fast) var(--hero-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--hero-gradient);
+  opacity: 0;
+  transition: all var(--hero-animation-normal) var(--hero-ease);
+  z-index: -1;
+}
+
+.nav-button:hover::before {
+  left: 0;
+  opacity: 0.1;
+}
+
+.nav-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  border-color: var(--hero-secondary);
+  box-shadow: 
+    var(--hero-shadow),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+  color: var(--hero-secondary);
+}
+
+.nav-button:active {
+  transform: translateY(-1px) scale(1.02);
+  transition-duration: 0.1s;
+}
+
+.nav-icon {
+  transition: all var(--hero-animation-fast) var(--hero-ease);
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.nav-button:hover .nav-icon {
+  transform: scale(1.2) rotate(5deg);
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+/* ====================================
+   EFECTOS DE TEXTO MEJORADOS
+   ==================================== */
+
+.hero-text h1 {
+  background: linear-gradient(135deg, #ffffff, #f1f5f9, #e2e8f0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+  transition: all var(--hero-animation-normal) var(--hero-ease);
+}
+
+.hero-text h1:hover {
+  background: linear-gradient(135deg, #ffffff, var(--hero-secondary), #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transform: scale(1.02);
+}
+
+.hero-text h2 {
+  transition: all var(--hero-animation-normal) var(--hero-ease);
+  position: relative;
+}
+
+.hero-text h2::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: var(--hero-gradient);
+  transition: width var(--hero-animation-normal) var(--hero-ease);
+}
+
+.hero-text h2:hover::after {
+  width: 100%;
+}
+
+/* ====================================
+   PARTÍCULAS Y ELEMENTOS DECORATIVOS
+   ==================================== */
+
+.particle {
+  pointer-events: none;
+  filter: blur(0.5px);
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% { 
+    transform: translateY(-50px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Efecto de ondas en hover */
+.wave-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.1), transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all var(--hero-animation-slow) var(--hero-ease);
+  pointer-events: none;
+}
+
+.wave-effect:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* ====================================
+   ANIMACIONES PRINCIPALES
+   ==================================== */
+
+@keyframes rotateClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCounterClockwise {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes profilePulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.8);
+  }
+}
+
+@keyframes orbitFloat {
+  0%, 100% { 
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateY(-10px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes gentleGlow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3));
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+  }
+}
+
+/* ====================================
+   RESPONSIVE Y ACCESIBILIDAD
+   ==================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .concentric-circle {
+    stroke-width: 1.5;
+  }
+  
+  .nav-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Móviles */
+@media (max-width: 640px) {
+  .concentric-circle {
+    stroke-width: 1;
+    opacity: 0.4;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .nav-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Preferencias de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .concentric-circle,
+  .rotating-border,
+  .orbital-point,
+  .particle {
+    animation: none !important;
+  }
+  
+  .profile-image:hover,
+  .nav-button:hover {
+    transform: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --hero-primary: #ffcc00;
+    --hero-secondary: #ffffff;
+    --hero-accent: #000000;
+  }
+  
+  .nav-button {
+    border-width: 3px;
+    background: rgba(0, 0, 0, 0.9);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .hero-text h2 {
+    color: #374151;
+  }
+}
+
+/* ====================================
+   OPTIMIZACIONES DE RENDIMIENTO
+   ==================================== */
+
+/* GPU acceleration para elementos críticos */
+.concentric-circle,
+.profile-image,
+.nav-button,
+.particle {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Lazy loading para animaciones complejas */
+.orbital-point {
+  animation-play-state: paused;
+}
+
+.profile-container:hover .orbital-point {
+  animation-play-state: running;
+}
+
+/* Optimizaciones heredadas del sistema anterior */
 .hero-circle {
   will-change: transform;
   backface-visibility: hidden;
   perspective: 1000px;
+  transform: translateZ(0);
 }
 
-/* Gradientes personalizados para el hero */
 .hero-gradient {
   background: radial-gradient(
     ellipse at center,
@@ -17,96 +430,20 @@
   );
 }
 
-/* Efectos de resplandor para elementos destacados */
 .glow-amber {
   box-shadow: 
-    0 0 20px rgba(251, 191, 36, 0.3),
-    0 0 40px rgba(251, 191, 36, 0.1);
+    0 0 20px rgba(251, 191, 36, 0.4),
+    0 0 40px rgba(251, 191, 36, 0.2),
+    inset 0 0 10px rgba(251, 191, 36, 0.1);
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3));
 }
 
-/* Animación personalizada para círculos */
-@keyframes circle-float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(180deg);
-  }
-}
-
-.circle-float {
-  animation: circle-float 6s ease-in-out infinite;
-}
-
-/* Responsive optimizations */
-@media (max-width: 768px) {
-  .hero-circle {
-    transform: scale(0.8);
-  }
-  
-  .hero-content {
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-circle {
-    transform: scale(0.6);
-  }
-}
-
-/* Reducir movimiento para usuarios con preferencias de accesibilidad */
-@media (prefers-reduced-motion: reduce) {
-  .hero-circle,
-  .circle-float {
-    animation: none !important;
-  }
-  
-  .animate-ping,
-  .animate-pulse {
-    animation: none !important;
-  }
-  
-  /* Mantener solo una transición sutil */
-  .hero-circle {
-    transition: opacity 0.3s ease;
-  }
-}
-
-/* Mejoras de accesibilidad para focus */
-.hero-nav-button:focus-visible {
-  outline: 2px solid #F7AB0A;
-  outline-offset: 2px;
-}
-
-/* Alto contraste */
-@media (prefers-contrast: high) {
-  .hero-circle {
-    border-width: 3px;
-    opacity: 0.8 !important;
-  }
-  
-  .hero-text {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  }
-}
-
-/* Dark mode optimizations */
-@media (prefers-color-scheme: dark) {
-  .hero-gradient {
-    background: radial-gradient(
-      ellipse at center,
-      rgba(59, 130, 246, 0.2) 0%,
-      rgba(15, 23, 42, 0.9) 50%,
-      rgba(2, 6, 23, 1) 100%
-    );
-  }
-}
-
-/* Optimización para dispositivos de baja potencia */
-@media (max-resolution: 1dppx) {
-  .hero-circle {
-    transform: translateZ(0);
-    will-change: auto;
-  }
+/* Focus mejorado para navegación por teclado */
+.hero-nav-button:focus-visible,
+.nav-button:focus-visible {
+  outline: 3px solid #F7AB0A;
+  outline-offset: 3px;
+  box-shadow: 
+    0 0 0 2px rgba(251, 191, 36, 0.2),
+    0 0 10px rgba(251, 191, 36, 0.4);
 }
