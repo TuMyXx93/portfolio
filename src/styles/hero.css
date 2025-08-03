@@ -1,0 +1,112 @@
+/* Estilos específicos para el Hero Circular */
+
+/* Optimizaciones para animaciones */
+.hero-circle {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Gradientes personalizados para el hero */
+.hero-gradient {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.15) 0%,
+    rgba(30, 41, 59, 0.8) 50%,
+    rgba(15, 23, 42, 1) 100%
+  );
+}
+
+/* Efectos de resplandor para elementos destacados */
+.glow-amber {
+  box-shadow: 
+    0 0 20px rgba(251, 191, 36, 0.3),
+    0 0 40px rgba(251, 191, 36, 0.1);
+}
+
+/* Animación personalizada para círculos */
+@keyframes circle-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+}
+
+.circle-float {
+  animation: circle-float 6s ease-in-out infinite;
+}
+
+/* Responsive optimizations */
+@media (max-width: 768px) {
+  .hero-circle {
+    transform: scale(0.8);
+  }
+  
+  .hero-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-circle {
+    transform: scale(0.6);
+  }
+}
+
+/* Reducir movimiento para usuarios con preferencias de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .hero-circle,
+  .circle-float {
+    animation: none !important;
+  }
+  
+  .animate-ping,
+  .animate-pulse {
+    animation: none !important;
+  }
+  
+  /* Mantener solo una transición sutil */
+  .hero-circle {
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* Mejoras de accesibilidad para focus */
+.hero-nav-button:focus-visible {
+  outline: 2px solid #F7AB0A;
+  outline-offset: 2px;
+}
+
+/* Alto contraste */
+@media (prefers-contrast: high) {
+  .hero-circle {
+    border-width: 3px;
+    opacity: 0.8 !important;
+  }
+  
+  .hero-text {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .hero-gradient {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(59, 130, 246, 0.2) 0%,
+      rgba(15, 23, 42, 0.9) 50%,
+      rgba(2, 6, 23, 1) 100%
+    );
+  }
+}
+
+/* Optimización para dispositivos de baja potencia */
+@media (max-resolution: 1dppx) {
+  .hero-circle {
+    transform: translateZ(0);
+    will-change: auto;
+  }
+}
