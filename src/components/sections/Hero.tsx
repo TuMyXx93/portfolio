@@ -1,6 +1,6 @@
-'use client'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+'use client';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export const Hero = () => {
   return (
@@ -42,5 +42,5 @@ export const Hero = () => {
         </a>
       </motion.div>
     </section>
-  )
-}
+  );
+};

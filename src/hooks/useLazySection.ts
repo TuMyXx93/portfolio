@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
-type IntersectionCallback = (entry: IntersectionObserverEntry) => void
+type IntersectionCallback = (entry: IntersectionObserverEntry) => void;
 
 export const useLazySection = (
   sectionId: string,
@@ -9,30 +9,30 @@ export const useLazySection = (
 ) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
-            onIntersect(entry)
+            onIntersect(entry);
             // Una vez que la sección es visible, dejamos de observar
-            observer.unobserve(entry.target)
+            observer.unobserve(entry.target);
           }
-        })
+        });
       },
       {
         threshold,
         rootMargin: '50px',
       }
-    )
+    );
 
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      observer.observe(element)
+      observer.observe(element);
     }
 
     return () => {
       if (element) {
-        observer.unobserve(element)
+        observer.unobserve(element);
       }
-    }
-  }, [sectionId, onIntersect, threshold])
-}
+    };
+  }, [sectionId, onIntersect, threshold]);
+};

@@ -19,7 +19,7 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-  
+
   & * {
     border-color: white !important;
   }
@@ -56,11 +56,11 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-    to bottom,
-    transparent,
-    rgb(var(--background-end-rgb))
-  )
-  rgb(var(--background-start-rgb));
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 @layer components {
@@ -69,7 +69,7 @@ body {
     hover:border-primary-dark hover:text-primary-dark
     dark:hover:border-primary-light dark:hover:text-primary-light;
   }
-  
+
   .section-title {
     @apply absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl;
   }

@@ -1,13 +1,17 @@
-'use client'
-import { motion } from 'framer-motion'
+'use client';
+import { motion } from 'framer-motion';
 
 interface ScrollIndicatorProps {
-  sections: string[]
-  activeSection: string
-  onSectionClick: (sectionId: string) => void
+  sections: string[];
+  activeSection: string;
+  onSectionClick: (sectionId: string) => void;
 }
 
-export const ScrollIndicator = ({ sections, activeSection, onSectionClick }: ScrollIndicatorProps) => {
+export const ScrollIndicator = ({
+  sections,
+  activeSection,
+  onSectionClick,
+}: ScrollIndicatorProps) => {
   return (
     <motion.div
       className="fixed right-10 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50"
@@ -15,7 +19,7 @@ export const ScrollIndicator = ({ sections, activeSection, onSectionClick }: Scr
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.5 }}
     >
-      {sections.map((section) => (
+      {sections.map(section => (
         <button
           key={section}
           onClick={() => onSectionClick(section)}
@@ -37,5 +41,5 @@ export const ScrollIndicator = ({ sections, activeSection, onSectionClick }: Scr
         </button>
       ))}
     </motion.div>
-  )
-}
+  );
+};

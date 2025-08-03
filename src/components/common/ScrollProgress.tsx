@@ -1,20 +1,20 @@
-'use client'
-import { useScrollPosition } from '@/hooks/useScrollPosition'
-import { useThrottle } from '@/hooks/useThrottle'
-import { motion, useScroll, useSpring } from 'framer-motion'
+'use client';
+import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { useThrottle } from '@/hooks/useThrottle';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 export const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll()
+  const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
-  })
+    restDelta: 0.001,
+  });
 
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 h-1 bg-[#F7AB0A] origin-left z-50"
       style={{ scaleX }}
     />
-  )
-}
+  );
+};

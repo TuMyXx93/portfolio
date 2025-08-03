@@ -21,10 +21,10 @@ module.exports = {
         text: {
           light: '#1a1a1a',
           dark: '#ffffff',
-        }
+        },
       },
       animation: {
-        'gradient': 'gradient 8s linear infinite',
+        gradient: 'gradient 8s linear infinite',
         'fade-in': 'fadeIn 0.5s ease-in',
         'slide-up': 'slideUp 0.5s ease-out',
         'slide-in': 'slideIn 0.5s ease-out',
@@ -33,11 +33,11 @@ module.exports = {
         gradient: {
           '0%, 100%': {
             'background-size': '200% 200%',
-            'background-position': 'left center'
+            'background-position': 'left center',
           },
           '50%': {
             'background-size': '200% 200%',
-            'background-position': 'right center'
+            'background-position': 'right center',
           },
         },
         fadeIn: {
@@ -56,7 +56,7 @@ module.exports = {
     },
   },
   plugins: [
-    function({ addUtilities }) {
+    function ({ addUtilities }) {
       addUtilities({
         '.scrollbar-none': {
           '-ms-overflow-style': 'none',
@@ -66,11 +66,11 @@ module.exports = {
           },
         },
         '.glass-effect': {
-          'background': 'rgba(255, 255, 255, 0.05)',
+          background: 'rgba(255, 255, 255, 0.05)',
           'backdrop-filter': 'blur(10px)',
           '-webkit-backdrop-filter': 'blur(10px)',
         },
-      })
+      });
     },
   ],
-}
+};

@@ -1,0 +1,42 @@
+version: 2
+updates:
+  # 📦 NPM Dependencies
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '04:00'
+      timezone: 'Etc/UTC'
+    open-pull-requests-limit: 5
+    reviewers:
+      - 'Tumi-dev'
+    assignees:
+      - 'Tumi-dev'
+    commit-message:
+      prefix: 'chore'
+      prefix-development: 'chore'
+      include: 'scope'
+    labels:
+      - 'dependencies'
+      - 'automated'
+
+  # 🔧 GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/.github/workflows'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '04:00'
+      timezone: 'Etc/UTC'
+    open-pull-requests-limit: 3
+    reviewers:
+      - 'Tumi-dev'
+    assignees:
+      - 'Tumi-dev'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'
+    labels:
+      - 'github-actions'
+      - 'automated'

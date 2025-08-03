@@ -1,30 +1,32 @@
-import React from 'react'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ScrollProgress } from '@/components/common/ScrollProgress'
-import { AccessibilityMenu } from '@/components/common/AccessibilityMenu'
+import React from 'react';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { ScrollProgress } from '@/components/common/ScrollProgress';
+import { AccessibilityMenu } from '@/components/common/AccessibilityMenu';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-})
+});
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : process.env.NODE_ENV === 'production'
-  ? 'https://tumidev.com'
-  : 'http://localhost:3000'
+    ? 'https://tumidev.com'
+    : 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: 'Tumidev | Portafolio Profesional',
-  description: 'Portafolio profesional creado con Next.js, mostrando proyectos y habilidades en desarrollo web',
+  description:
+    'Portafolio profesional creado con Next.js, mostrando proyectos y habilidades en desarrollo web',
   keywords: 'desarrollo web, frontend, backend, Next.js, React',
   authors: [{ name: 'Tumidev' }],
   openGraph: {
     title: 'Tumidev | Portafolio Profesional',
-    description: 'Portafolio profesional mostrando proyectos y habilidades en desarrollo web',
+    description:
+      'Portafolio profesional mostrando proyectos y habilidades en desarrollo web',
     url: 'https://tumidev.com',
     siteName: 'Tumidev Portfolio',
     images: [
@@ -38,7 +40,7 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     type: 'website',
   },
-}
+};
 
 function ThemeAndAccessibilityScript() {
   return (
@@ -61,13 +63,13 @@ function ThemeAndAccessibilityScript() {
         `,
       }}
     />
-  )
+  );
 }
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }): React.JSX.Element {
   return (
     <html lang="es" className="scroll-smooth">
@@ -76,11 +78,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} transition-colors duration-300`}>
         <ScrollProgress />
-        <main className="min-h-screen bg-gradient-custom">
-          {children}
-        </main>
+        <main className="min-h-screen bg-gradient-custom">{children}</main>
         <div id="accessibility-root" />
       </body>
     </html>
-  )
+  );
 }

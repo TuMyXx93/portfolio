@@ -1,4 +1,4 @@
-import { SectionProps } from '@/types'
+import { SectionProps } from '@/types';
 
 export const Section = ({ id, title, className, children }: SectionProps) => {
   return (
@@ -6,5 +6,5 @@ export const Section = ({ id, title, className, children }: SectionProps) => {
       {title && <h2 className="section-title">{title}</h2>}
       {children}
     </section>
-  )
-}
+  );
+};

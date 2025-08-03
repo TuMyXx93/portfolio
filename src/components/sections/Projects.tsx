@@ -1,14 +1,14 @@
-'use client'
-import { motion } from 'framer-motion'
-import { Project as ProjectType } from '@/types'
-import { PROJECTS } from '@/constants'
-import Image from 'next/image'
-import { useRef } from 'react'
-import { useLazySection } from '@/hooks/useLazySection'
+'use client';
+import { motion } from 'framer-motion';
+import { Project as ProjectType } from '@/types';
+import { PROJECTS } from '@/constants';
+import Image from 'next/image';
+import { useRef } from 'react';
+import { useLazySection } from '@/hooks/useLazySection';
 
 interface ProjectCardProps {
-  project: ProjectType
-  index: number
+  project: ProjectType;
+  index: number;
 }
 
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
@@ -56,7 +56,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </div>
         </div>
       </motion.div>
-      <motion.h3 
+      <motion.h3
         className="text-xl font-bold mb-2 text-[#F7AB0A]"
         whileHover={{ scale: 1.05 }}
       >
@@ -64,7 +64,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       </motion.h3>
       <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
       <div className="flex flex-wrap gap-2 mb-4">
-        {project.technologies.map((tech) => (
+        {project.technologies.map(tech => (
           <motion.span
             key={tech.name}
             className="px-2 py-1 text-sm rounded-full bg-gray-800"
@@ -76,28 +76,28 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         ))}
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
 export const Projects = () => {
-  const containerRef = useRef(null)
+  const containerRef = useRef(null);
   useLazySection('projects', () => {
     // Precargar imágenes de proyectos cuando la sección sea visible
     PROJECTS.forEach(project => {
-      const img = document.createElement('img')
-      img.src = project.image
-    })
-  })
+      const img = document.createElement('img');
+      img.src = project.image;
+    });
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
-  }
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
   return (
     <section id="projects" className="min-h-screen py-20 px-4">
@@ -115,5 +115,5 @@ export const Projects = () => {
         ))}
       </motion.div>
     </section>
-  )
-}
+  );
+};

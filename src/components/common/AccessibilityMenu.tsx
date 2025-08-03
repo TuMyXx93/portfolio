@@ -1,25 +1,28 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+'use client';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface AccessibilityMenuProps {
-  onHighContrastToggle: () => void
-  isHighContrast: boolean
+  onHighContrastToggle: () => void;
+  isHighContrast: boolean;
 }
 
-export const AccessibilityMenu = ({ onHighContrastToggle, isHighContrast }: AccessibilityMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+export const AccessibilityMenu = ({
+  onHighContrastToggle,
+  isHighContrast,
+}: AccessibilityMenuProps) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.altKey && e.key === 'a') {
-        setIsOpen(prev => !prev)
+        setIsOpen(prev => !prev);
       }
-    }
+    };
 
-    window.addEventListener('keydown', handleKeyPress)
-    return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [])
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
 
   return (
     <>
@@ -28,20 +31,20 @@ export const AccessibilityMenu = ({ onHighContrastToggle, isHighContrast }: Acce
         className="fixed bottom-4 right-4 p-3 rounded-full bg-primary-dark dark:bg-primary-light text-background-dark dark:text-background-light"
         aria-label="Abrir menú de accesibilidad"
       >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width="24" 
-          height="24" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 16v-4"/>
-          <path d="M12 8h.01"/>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
         </svg>
       </button>
 
@@ -94,5 +97,5 @@ export const AccessibilityMenu = ({ onHighContrastToggle, isHighContrast }: Acce
         )}
       </AnimatePresence>
     </>
-  )
-}
+  );
+};

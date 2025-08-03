@@ -1,26 +1,26 @@
-'use client'
-import { useCallback, useEffect, useState } from 'react'
+'use client';
+import { useCallback, useEffect, useState } from 'react';
 
 interface SkipLinksProps {
   links: Array<{
-    id: string
-    label: string
-  }>
+    id: string;
+    label: string;
+  }>;
 }
 
 export const SkipLinks = ({ links }: SkipLinksProps) => {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Tab') {
-      setIsVisible(true)
+      setIsVisible(true);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [handleKeyDown])
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <nav
@@ -35,13 +35,13 @@ export const SkipLinks = ({ links }: SkipLinksProps) => {
           href={`#${id}`}
           className="skip-link"
           onClick={() => {
-            const element = document.getElementById(id)
-            element?.focus()
+            const element = document.getElementById(id);
+            element?.focus();
           }}
         >
           {label}
         </a>
       ))}
     </nav>
-  )
-}
+  );
+};

@@ -1,16 +1,16 @@
-'use client'
-import { motion } from 'framer-motion'
+'use client';
+import { motion } from 'framer-motion';
 
 interface TimelineItem {
-  date: string
-  title: string
-  description: string
-  company?: string
-  technologies?: string[]
+  date: string;
+  title: string;
+  description: string;
+  company?: string;
+  technologies?: string[];
 }
 
 interface TimelineProps {
-  items: TimelineItem[]
+  items: TimelineItem[];
 }
 
 export const Timeline = ({ items }: TimelineProps) => {
@@ -27,7 +27,9 @@ export const Timeline = ({ items }: TimelineProps) => {
             index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
           }`}
         >
-          <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
+          <div
+            className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}
+          >
             <h3 className="text-xl font-bold text-[#F7AB0A]">{item.title}</h3>
             {item.company && (
               <p className="text-gray-400 text-sm mb-2">{item.company}</p>
@@ -35,7 +37,7 @@ export const Timeline = ({ items }: TimelineProps) => {
             <p className="text-gray-300">{item.description}</p>
             {item.technologies && (
               <div className="flex flex-wrap gap-2 mt-2 justify-end">
-                {item.technologies.map((tech) => (
+                {item.technologies.map(tech => (
                   <span
                     key={tech}
                     className="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300"
@@ -49,11 +51,13 @@ export const Timeline = ({ items }: TimelineProps) => {
           <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
             <div className="w-4 h-4 rounded-full bg-[#F7AB0A]" />
           </div>
-          <div className={`w-5/12 ${index % 2 === 0 ? 'text-left pl-8' : 'text-right pr-8'}`}>
+          <div
+            className={`w-5/12 ${index % 2 === 0 ? 'text-left pl-8' : 'text-right pr-8'}`}
+          >
             <span className="text-gray-500 font-mono">{item.date}</span>
           </div>
         </motion.div>
       ))}
     </div>
-  )
-}
+  );
+};

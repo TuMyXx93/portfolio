@@ -1,27 +1,30 @@
-'use client'
-import { motion } from 'framer-motion'
-import { useTheme } from '@/hooks/useTheme'
+'use client';
+import { motion } from 'framer-motion';
+import { useTheme } from '@/hooks/useTheme';
 
 interface HeaderProps {
   links: Array<{
-    title: string
-    href: string
-  }>
-  activeSection?: string
-  onNavigate?: (sectionId: string) => void
+    title: string;
+    href: string;
+  }>;
+  activeSection?: string;
+  onNavigate?: (sectionId: string) => void;
 }
 
 export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme } = useTheme();
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    const sectionId = href.replace('#', '')
-    onNavigate?.(sectionId)
-  }
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    const sectionId = href.replace('#', '');
+    onNavigate?.(sectionId);
+  };
 
   return (
-    <motion.header 
+    <motion.header
       className="sticky top-0 w-full flex items-center justify-between z-50 px-5 py-3 glass-effect"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -29,9 +32,9 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
       role="banner"
     >
       <div className="flex items-center gap-4">
-        <a 
-          href="#home" 
-          onClick={(e) => handleClick(e, '#home')}
+        <a
+          href="#home"
+          onClick={e => handleClick(e, '#home')}
           aria-label="Ir al inicio"
           className="text-gradient font-bold text-xl"
         >
@@ -49,15 +52,15 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
       </div>
       <nav aria-label="Navegación principal">
         <ul className="flex items-center space-x-8">
-          {links.map((link) => {
-            const sectionId = link.href.replace('#', '')
-            const isActive = activeSection === sectionId
-            
+          {links.map(link => {
+            const sectionId = link.href.replace('#', '');
+            const isActive = activeSection === sectionId;
+
             return (
               <li key={link.href}>
-                <a 
+                <a
                   href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
+                  onClick={e => handleClick(e, link.href)}
                   className={`text-gray-400 hover:text-primary-dark dark:hover:text-primary-light transition-colors ${
                     isActive ? 'text-primary-dark dark:text-primary-light' : ''
                   }`}
@@ -67,10 +70,10 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
                   {link.title}
                 </a>
               </li>
-            )
+            );
           })}
         </ul>
       </nav>
     </motion.header>
-  )
-}
+  );
+};
