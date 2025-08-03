@@ -14,11 +14,11 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
       viewport={{ once: false }}
-      className="group relative w-full max-w-sm mx-auto glass-effect rounded-xl p-4 hover:scale-105 transition-transform duration-300"
+      className="group relative w-full max-w-sm mx-auto glass-effect rounded-xl p-4 hover:scale-105 transition-transform duration-200"
     >
       <motion.div
         className="relative w-full h-48 rounded-lg overflow-hidden mb-4"
@@ -94,7 +94,8 @@ export const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
+        duration: 0.3,
       },
     },
   };
@@ -108,7 +109,7 @@ export const Projects = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="mt-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
       >
         {PROJECTS.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />

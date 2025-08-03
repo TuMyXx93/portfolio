@@ -72,10 +72,7 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
       <ProfileImage />
       
       {/* Contenido Central - Debajo de la imagen */}
-      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen">
-        {/* Espacio para la imagen centrada */}
-        <div className="h-40 md:h-48 lg:h-56"></div>
-        
+      <div className="relative z-20 flex flex-col items-center justify-start min-h-screen pt-[62vh]">
         {/* Contenido de texto */}
         <motion.div
           variants={shouldAnimate ? containerVariants : undefined}
@@ -86,10 +83,10 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
           {/* Texto Principal */}
           <motion.div
             variants={shouldAnimate ? itemVariants : undefined}
-            className="mb-12 hero-text"
+            className="space-y-1 mb-4"
           >
             <motion.h2 
-              className="text-sm uppercase text-gray-400 tracking-[8px] mb-4 font-light"
+              className="text-sm uppercase text-gray-400 tracking-[8px] font-light"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8 }}
@@ -97,7 +94,7 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
               {t('hero.subtitle')}
             </motion.h2>
             <motion.h1 
-              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-tight mb-8"
+              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 0.8 }}

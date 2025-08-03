@@ -20,19 +20,20 @@ export const Skills = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
+        duration: 0.3,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.3,
         ease: "easeOut",
       },
     },
@@ -86,21 +87,8 @@ export const Skills = () => {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="mt-32 max-w-7xl mx-auto"
+        className="mt-16 max-w-7xl mx-auto"
       >
-        {/* Título de la sección */}
-        <motion.div 
-          variants={titleVariants}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wide">
-            {t('skills.title')}
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light tracking-wide">
-            {t('skills.subtitle')}
-          </p>
-        </motion.div>
-
         {/* Grid de categorías de skills */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {Object.entries(skillsByCategory).map(([category, skills]) => (

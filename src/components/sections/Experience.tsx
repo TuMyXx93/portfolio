@@ -21,31 +21,32 @@ export const Experience = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
+        staggerChildren: 0.1,
+        delayChildren: 0.05,
+        duration: 0.3,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.3,
         ease: "easeOut",
       },
     },
   };
 
   const titleVariants = {
-    hidden: { opacity: 0, y: -20 },
+    hidden: { opacity: 0, y: -10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.4,
         ease: "easeOut",
       },
     },
@@ -58,21 +59,8 @@ export const Experience = () => {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="mt-32 max-w-7xl mx-auto"
+        className="mt-16 max-w-7xl mx-auto"
       >
-        {/* Título de la sección */}
-        <motion.div 
-          variants={titleVariants}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wide">
-            {t('experience.title')}
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light tracking-wide">
-            {t('experience.subtitle')}
-          </p>
-        </motion.div>
-
         {/* Contenido principal */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Timeline de experiencia */}
