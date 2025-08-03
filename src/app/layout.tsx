@@ -2,10 +2,14 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import '../styles/accessibility.css';
 import { ScrollProgress } from '@/components/common/ScrollProgress';
-import { AccessibilityMenu } from '@/components/common/AccessibilityMenu';
 import { PWAInstallButton } from '@/components/common/PWAInstallButton';
 import { ConnectionStatus } from '@/components/common/ConnectionStatus';
+import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
+import { I18nProvider } from '@/lib/i18n/useTranslation';
+import { AdvancedAccessibilityMenu } from '@/components/common/AdvancedAccessibilityMenu';
+import { SkipToContent, LiveRegion } from '@/components/accessibility/AccessibilityComponents';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -88,11 +92,21 @@ function ThemeAndAccessibilityScript() {
               var theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
               document.documentElement.classList.toggle('dark', theme === 'dark');
 
-              // Accessibility preferences
+              // Accessibility preferences initialization
               var accessibilityPrefs = JSON.parse(localStorage.getItem('accessibility-preferences') || '{}');
+              
+              // Apply accessibility classes
               if (accessibilityPrefs.highContrast) document.documentElement.classList.add('high-contrast');
               if (accessibilityPrefs.reducedMotion) document.documentElement.classList.add('reduced-motion');
-              if (accessibilityPrefs.fontSize) document.documentElement.classList.add('text-' + accessibilityPrefs.fontSize);
+              if (accessibilityPrefs.focusVisible) document.documentElement.classList.add('focus-visible');
+              if (accessibilityPrefs.keyboardNavigation) document.documentElement.classList.add('keyboard-navigation');
+              if (accessibilityPrefs.readingMode) document.documentElement.classList.add('reading-mode');
+              if (accessibilityPrefs.reducedComplexity) document.documentElement.classList.add('reduced-complexity');
+              if (accessibilityPrefs.enhancedFocus) document.documentElement.classList.add('enhanced-focus');
+              if (accessibilityPrefs.fontSize) document.documentElement.classList.add('font-size-' + accessibilityPrefs.fontSize);
+              if (accessibilityPrefs.colorBlindMode && accessibilityPrefs.colorBlindMode !== 'none') {
+                document.documentElement.classList.add('color-blind-' + accessibilityPrefs.colorBlindMode);
+              }
             } catch (e) {}
           })();
         `,
@@ -119,10 +133,19 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className={`${inter.className} transition-colors duration-300`}>
-        <ConnectionStatus />
-        <ScrollProgress />
-        <main className="min-h-screen bg-gradient-custom">{children}</main>
-        <PWAInstallButton />
+        <SkipToContent />
+        <I18nProvider>
+          <AccessibilityProvider>
+            <ConnectionStatus />
+            <ScrollProgress />
+            <LiveRegion />
+            <main id="main-content" tabIndex={-1} className="min-h-screen bg-gradient-custom focus:outline-none">
+              {children}
+            </main>
+            <PWAInstallButton />
+            <AdvancedAccessibilityMenu />
+          </AccessibilityProvider>
+        </I18nProvider>
         <div id="accessibility-root" />
       </body>
     </html>
