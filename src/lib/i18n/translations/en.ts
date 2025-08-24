@@ -12,8 +12,8 @@ export const en: Translation = {
     language: 'Language',
   },
   hero: {
-    title: 'Full Stack Developer',
-    subtitle: 'Creating exceptional digital experiences',
+    title: 'Welcome to my portfolio',
+    subtitle: 'WEB DEVELOPER',
     description: 'Specialized in React, Next.js and modern web development technologies',
     cta: 'View my work',
     contact: 'Contact me',

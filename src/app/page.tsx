@@ -1,56 +1,40 @@
 'use client';
-import { Hero } from '@/components/sections/Hero';
+import { CircularHero } from '@/components/hero/CircularHero';
 import { About } from '@/components/sections/About';
+import { Experience } from '@/components/sections/Experience';
+import { Skills } from '@/components/sections/Skills';
 import { Projects } from '@/components/sections/Projects';
-import { Header } from '@/components/layout/Header';
-import { SectionWrapper } from '@/components/common/SectionWrapper';
-import { ScrollIndicator } from '@/components/common/ScrollIndicator';
-import { NAVIGATION_LINKS } from '@/constants';
-import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
-import { useSmoothTransition } from '@/hooks/useSmoothTransition';
 
 export default function Home() {
-  const sectionIds = ['home', 'about', 'projects'];
-  useKeyboardNavigation(sectionIds);
-  const { activeSection, scrollToSection } = useSmoothTransition(sectionIds, {
-    onTransition: sectionId => {
-      window.history.pushState({}, '', `#${sectionId}`);
-    },
-  });
+  const handleNavigation = (section: string) => {
+    // Implementar navegación smooth scroll
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <>
-      <Header
-        links={NAVIGATION_LINKS}
-        activeSection={activeSection}
-        onNavigate={scrollToSection}
-      />
-      <ScrollIndicator
-        sections={sectionIds}
-        activeSection={activeSection}
-        onSectionClick={scrollToSection}
-      />
-      <div
-        className="snap-y snap-mandatory h-screen overflow-y-scroll scrollbar-none"
-        role="main"
-        aria-label="Contenido principal"
-      >
-        <SectionWrapper>
-          <div className="snap-start" id="home">
-            <Hero />
-          </div>
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="snap-start" id="about">
-            <About />
-          </div>
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="snap-start" id="projects">
-            <Projects />
-          </div>
-        </SectionWrapper>
-      </div>
-    </>
+    <main className="min-h-screen" id="main-content">
+      {/* Hero Section Circular */}
+      <CircularHero onNavigate={handleNavigation} />
+      
+      {/* Secciones adicionales */}
+      <section id="about" className="min-h-screen bg-slate-800">
+        <About />
+      </section>
+      
+      <section id="experience" className="min-h-screen bg-slate-900">
+        <Experience />
+      </section>
+      
+      <section id="skills" className="min-h-screen bg-slate-800">
+        <Skills />
+      </section>
+      
+      <section id="projects" className="min-h-screen bg-slate-900">
+        <Projects />
+      </section>
+    </main>
   );
 }

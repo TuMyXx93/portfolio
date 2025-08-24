@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 // import { Inter } from 'next/font/google'; // Commented out to avoid network dependency
 import './globals.css';
 import '../styles/accessibility.css';
+import '../styles/hero.css';
 import { ScrollProgress } from '@/components/common/ScrollProgress';
 import { PWAInstallButton } from '@/components/common/PWAInstallButton';
 import { ConnectionStatus } from '@/components/common/ConnectionStatus';
