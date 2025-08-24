@@ -1,6 +1,6 @@
 # 🚀 Portfolio Personal - TumiDev
 
-Un portfolio moderno y profesional construido con Next.js 14, TypeScript, Tailwind CSS y Framer Motion. Optimizado para rendimiento, accesibilidad y SEO.
+Un portfolio moderno y profesional construido con las últimas versiones de Next.js 15.5, TypeScript 5.9, Tailwind CSS 3.4 y Framer Motion 11.15. Optimizado para rendimiento, accesibilidad y SEO con tecnologías de vanguardia.
 
 ## ✨ Características
 
@@ -18,24 +18,26 @@ Un portfolio moderno y profesional construido con Next.js 14, TypeScript, Tailwi
 - **Contraste Alto**: Ratios de contraste optimizados
 
 ### ⚡ Rendimiento
-- **Next.js 14**: App Router y Server Components
-- **Optimización de Imágenes**: Carga lazy y compresión automática
-- **Code Splitting**: Carga de código bajo demanda
+- **Next.js 15.5**: App Router, Server Components y Turbopack (dev)
+- **React 18.3**: Concurrent Features y Suspense mejorado
+- **Optimización de Imágenes**: Carga lazy y compresión automática con next/image
+- **Code Splitting**: Carga de código bajo demanda automática
 - **Progressive Enhancement**: Mejora progresiva de funcionalidades
+- **Bundle Optimization**: Tree shaking y minimización avanzada
 
 ## 🛠️ Tecnologías
 
 ### Frontend
-- **Next.js 14** - Framework React con App Router
-- **TypeScript** - Tipado estático y mejor DX
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animaciones y transiciones
+- **Next.js 15.5** - Framework React con App Router y React Server Components
+- **TypeScript 5.9** - Tipado estático avanzado con las últimas características
+- **Tailwind CSS 3.4** - Utility-first CSS framework con mejoras de rendimiento
+- **Framer Motion 11.15** - Animaciones y transiciones modernas
 
 ### Herramientas de Desarrollo
-- **ESLint** - Linting de código
-- **Prettier** - Formateo de código
-- **Jest** - Testing framework
-- **Testing Library** - Utilidades de testing
+- **ESLint 8.57** - Linting de código con configuración moderna
+- **Prettier 3.1** - Formateo de código
+- **Jest 29.7** - Testing framework
+- **Testing Library 16.3** - Utilidades de testing para React 18
 
 ### CI/CD y DevOps
 - **GitHub Actions** - Integración y despliegue continuo
@@ -84,14 +86,15 @@ npm run test:watch   # Tests en modo watch
 npm run test:coverage # Tests con cobertura
 ```
 
-## 🏗️ Arquitectura del Proyecto
+## 💷️ Arquitectura del Proyecto
 
 ```
 src/
-├── app/                 # App Router (Next.js 14)
+├── app/                 # App Router (Next.js 15.5)
 │   ├── globals.css     # Estilos globales
-│   ├── layout.tsx      # Layout principal
-│   └── page.tsx        # Página de inicio
+│   ├── layout.tsx      # Layout principal (Server Component)
+│   ├── page.tsx        # Página de inicio
+│   └── api/            # Rutas de API (Route Handlers)
 ├── components/         # Componentes React
 │   ├── common/         # Componentes comunes
 │   ├── layout/         # Componentes de layout
