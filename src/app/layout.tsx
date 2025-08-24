@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google'; // Commented out to avoid network dependency
 import './globals.css';
 import '../styles/accessibility.css';
 import { ScrollProgress } from '@/components/common/ScrollProgress';
@@ -11,10 +11,10 @@ import { I18nProvider } from '@/lib/i18n/useTranslation';
 import { AdvancedAccessibilityMenu } from '@/components/common/AdvancedAccessibilityMenu';
 import { SkipToContent, LiveRegion } from '@/components/accessibility/AccessibilityComponents';
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-});
+// Use system fonts as fallback to avoid Google Fonts API dependency
+const inter = {
+  className: 'font-sans'
+};
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`

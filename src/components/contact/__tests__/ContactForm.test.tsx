@@ -6,9 +6,9 @@ import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {
-    form: ({ children, ...props }: any) => <form {...props}>{children}</form>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    form: ({ children, whileHover, whileTap, ...props }: any) => <form {...props}>{children}</form>,
+    button: ({ children, whileHover, whileTap, ...props }: any) => <button {...props}>{children}</button>,
+    div: ({ children, whileHover, whileTap, ...props }: any) => <div {...props}>{children}</div>,
   },
 }));
 
@@ -17,7 +17,7 @@ global.fetch = jest.fn();
 
 const renderWithProviders = (component: React.ReactElement) => {
   return render(
-    <I18nProvider>
+    <I18nProvider initialLocale="es">
       <AccessibilityProvider>
         {component}
       </AccessibilityProvider>
@@ -29,14 +29,21 @@ describe('ContactForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     
-    // Mock localStorage
+    // Mock localStorage with Spanish locale
     const localStorageMock = {
-      getItem: jest.fn(() => null),
+      getItem: jest.fn((key) => key === 'locale' ? 'es' : null),
       setItem: jest.fn(),
       removeItem: jest.fn(),
     };
     Object.defineProperty(window, 'localStorage', {
       value: localStorageMock,
+      writable: true,
+    });
+
+    // Mock navigator.language for Spanish
+    Object.defineProperty(navigator, 'language', {
+      writable: true,
+      value: 'es-ES',
     });
 
     // Mock matchMedia
@@ -100,14 +107,18 @@ describe('ContactForm', () => {
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(/este campo es requerido/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/este campo es requerido/i)).toHaveLength(4); // All fields required
     });
     
-    // Start typing to clear error
+    // Start typing to clear error for name field only
     fireEvent.change(nameInput, { target: { value: 'John' } });
     
     await waitFor(() => {
-      expect(screen.queryByText(/este campo es requerido/i)).not.toBeInTheDocument();
+      // Check that name error is cleared by looking for the error element with id
+      const nameError = document.querySelector('#name-error');
+      expect(nameError).not.toBeInTheDocument();
+      // Other errors should still be present
+      expect(screen.getAllByText(/este campo es requerido/i)).toHaveLength(3);
     });
   });
 
@@ -192,7 +203,7 @@ describe('ContactForm', () => {
 
     renderWithProviders(<ContactForm />);
     
-    // Fill form
+    // Fill form with correct Spanish labels
     fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: 'john@example.com' } });
     fireEvent.change(screen.getByLabelText(/asunto/i), { target: { value: 'Test Subject' } });

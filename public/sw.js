@@ -216,10 +216,52 @@ self.addEventListener('sync', (event) => {
 
 async function syncContactForm() {
   try {
-    // Implementar sincronización de formularios offline
     console.log('[SW] Syncing contact form...');
+    
+    // Get stored form data from IndexedDB or cache
+    const cache = await caches.open(DYNAMIC_CACHE_NAME);
+    const storedData = await cache.match('/contact-form-data');
+    
+    if (storedData) {
+      const formData = await storedData.json();
+      
+      // Try to submit the form data
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        console.log('[SW] Contact form synced successfully');
+        // Remove the stored data after successful sync
+        await cache.delete('/contact-form-data');
+        
+        // Notify client of successful sync
+        const clients = await self.clients.matchAll();
+        clients.forEach(client => {
+          client.postMessage({
+            type: 'CONTACT_FORM_SYNCED',
+            success: true,
+          });
+        });
+      } else {
+        throw new Error('Failed to sync contact form');
+      }
+    }
   } catch (error) {
     console.error('[SW] Sync failed:', error);
+    
+    // Notify client of sync failure
+    const clients = await self.clients.matchAll();
+    clients.forEach(client => {
+      client.postMessage({
+        type: 'CONTACT_FORM_SYNC_FAILED',
+        error: error.message,
+      });
+    });
   }
 }
 
