@@ -34,7 +34,7 @@ export const Skills = () => {
       scale: 1,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -46,26 +46,29 @@ export const Skills = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: 'easeOut' as const,
       },
     },
   };
 
   // Agrupar skills por categoría
-  const skillsByCategory = SKILLS.reduce((acc, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
-    }
-    acc[skill.category].push(skill);
-    return acc;
-  }, {} as Record<string, typeof SKILLS>);
+  const skillsByCategory = SKILLS.reduce(
+    (acc, skill) => {
+      if (!acc[skill.category]) {
+        acc[skill.category] = [];
+      }
+      acc[skill.category].push(skill);
+      return acc;
+    },
+    {} as Record<string, typeof SKILLS>
+  );
 
   const getCategoryTitle = (category: string) => {
     const titles = {
       frontend: 'Frontend',
       backend: 'Backend',
       tools: 'Herramientas',
-      soft: 'Habilidades Blandas'
+      soft: 'Habilidades Blandas',
     };
     return titles[category as keyof typeof titles] || category;
   };
@@ -75,9 +78,11 @@ export const Skills = () => {
       frontend: 'from-blue-500 to-cyan-500',
       backend: 'from-green-500 to-emerald-500',
       tools: 'from-purple-500 to-violet-500',
-      soft: 'from-orange-500 to-amber-500'
+      soft: 'from-orange-500 to-amber-500',
     };
-    return colors[category as keyof typeof colors] || 'from-gray-500 to-slate-500';
+    return (
+      colors[category as keyof typeof colors] || 'from-gray-500 to-slate-500'
+    );
   };
 
   return (
@@ -98,14 +103,16 @@ export const Skills = () => {
               className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-white/20 transition-colors"
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${getCategoryColor(category)}`}></div>
+                <div
+                  className={`w-3 h-3 rounded-full bg-gradient-to-r ${getCategoryColor(category)}`}
+                ></div>
                 <h3 className="text-xl font-light text-white tracking-wide">
                   {getCategoryTitle(category)}
                 </h3>
               </div>
 
               <div className="grid gap-4">
-                {skills.map((skill) => (
+                {skills.map(skill => (
                   <motion.div
                     key={skill.name}
                     className="flex items-center justify-between group"
@@ -121,14 +128,18 @@ export const Skills = () => {
                         {skill.name}
                       </span>
                     </div>
-                    
+
                     {/* Barra de progreso */}
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-2 bg-slate-700 rounded-full overflow-hidden">
                         <motion.div
                           className="h-full bg-gradient-to-r from-white/60 to-white/40 rounded-full"
                           initial={{ width: 0 }}
-                          animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+                          animate={
+                            isInView
+                              ? { width: `${skill.level}%` }
+                              : { width: 0 }
+                          }
                           transition={{ duration: 1, delay: 0.5 }}
                         />
                       </div>
@@ -144,20 +155,18 @@ export const Skills = () => {
         </div>
 
         {/* Información adicional */}
-        <motion.div 
-          variants={itemVariants}
-          className="mt-16 text-center"
-        >
+        <motion.div variants={itemVariants} className="mt-16 text-center">
           <div className="bg-slate-800/30 rounded-xl p-8 border border-slate-700">
             <h4 className="text-2xl font-bold text-[#F7AB0A] mb-4">
               Siempre Aprendiendo
             </h4>
             <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
-              La tecnología evoluciona constantemente, y mi compromiso es mantenerme
-              actualizado con las últimas tendencias y mejores prácticas del desarrollo web.
-              Cada proyecto es una oportunidad para aprender algo nuevo y mejorar mis habilidades.
+              La tecnología evoluciona constantemente, y mi compromiso es
+              mantenerme actualizado con las últimas tendencias y mejores
+              prácticas del desarrollo web. Cada proyecto es una oportunidad
+              para aprender algo nuevo y mejorar mis habilidades.
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <span className="px-4 py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20">
                 Aprendizaje Continuo
