@@ -50,6 +50,7 @@ npm run dev
 npm run lint
 npm run type-check
 npm run test
+npm run test:e2e
 npm run build
 ```
 
@@ -73,3 +74,4 @@ Antes de merge o despliegue:
 - `CONTRIBUTING.md`: guia de contribucion
 - `CHANGELOG.md`: historial de cambios
 - `SECURITY.md`: lineamientos de seguridad
+- `docs/tooling-alternatives.md`: evaluacion de sustituciones profesionales de herramientas
