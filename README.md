@@ -1,214 +1,57 @@
-# 🚀 Portfolio Personal - TumiDev
+# Portfolio Tumidev
 
-Un portfolio moderno y profesional construido con las últimas versiones de Next.js 15.5, TypeScript 5.9, Tailwind CSS 3.4 y Framer Motion 11.15. Optimizado para rendimiento, accesibilidad y SEO con tecnologías de vanguardia.
+Portfolio profesional desarrollado con Next.js, TypeScript, Tailwind CSS y Framer Motion.
 
-## ✨ Características
+## Objetivo
 
-### 🎨 Diseño y UX
-- **Diseño Responsivo**: Adaptable a todos los dispositivos y tamaños de pantalla
-- **Tema Claro/Oscuro**: Cambio dinámico de tema con persistencia local
-- **Animaciones Fluidas**: Transiciones y animaciones con Framer Motion
-- **Efectos Modernos**: Glass morphism y gradientes dinámicos
+Mostrar proyectos, experiencia y habilidades con enfoque en rendimiento, accesibilidad y una experiencia visual moderna.
 
-### ♿ Accesibilidad
-- **WCAG 2.1 AA**: Cumplimiento con estándares de accesibilidad
-- **Navegación por Teclado**: Soporte completo para navegación sin mouse
-- **Screen Readers**: Optimizado para lectores de pantalla
-- **Skip Links**: Enlaces de salto para navegación rápida
-- **Contraste Alto**: Ratios de contraste optimizados
+## Stack
 
-### ⚡ Rendimiento
-- **Next.js 15.5**: App Router, Server Components y Turbopack (dev)
-- **React 18.3**: Concurrent Features y Suspense mejorado
-- **Optimización de Imágenes**: Carga lazy y compresión automática con next/image
-- **Code Splitting**: Carga de código bajo demanda automática
-- **Progressive Enhancement**: Mejora progresiva de funcionalidades
-- **Bundle Optimization**: Tree shaking y minimización avanzada
+- Next.js 14 (App Router)
+- React 18
+- TypeScript
+- Tailwind CSS
+- Framer Motion
 
-## 🛠️ Tecnologías
+## Requisitos
 
-### Frontend
-- **Next.js 15.5** - Framework React con App Router y React Server Components
-- **TypeScript 5.9** - Tipado estático avanzado con las últimas características
-- **Tailwind CSS 3.4** - Utility-first CSS framework con mejoras de rendimiento
-- **Framer Motion 11.15** - Animaciones y transiciones modernas
+- Node.js >= 18.17.0
+- npm >= 9.0.0
 
-### Herramientas de Desarrollo
-- **ESLint 8.57** - Linting de código con configuración moderna
-- **Prettier 3.1** - Formateo de código
-- **Jest 29.7** - Testing framework
-- **Testing Library 16.3** - Utilidades de testing para React 18
-
-### CI/CD y DevOps
-- **GitHub Actions** - Integración y despliegue continuo
-- **Lighthouse CI** - Monitoreo de rendimiento
-- **Dependabot** - Actualizaciones automáticas de dependencias
-- **Vercel** - Plataforma de despliegue
-
-## 🚀 Inicio Rápido
-
-### Prerrequisitos
-- Node.js 18 o superior
-- npm, yarn o pnpm
-
-### Instalación
+## Instalacion y desarrollo
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/Tumi-dev/portfolio.git
-cd portfolio
-
-# Instalar dependencias
 npm install
-
-# Ejecutar en desarrollo
 npm run dev
 ```
 
-### Scripts Disponibles
+## Scripts principales
 
 ```bash
-# Desarrollo
-npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
-npm run start        # Servidor de producción
-
-# Calidad de Código
-npm run lint         # Ejecutar ESLint
-npm run lint:fix     # Corregir errores de ESLint
-npm run type-check   # Verificar tipos TypeScript
-npm run format       # Formatear código con Prettier
-npm run format:check # Verificar formato
-
-# Testing
-npm test             # Ejecutar tests
-npm run test:watch   # Tests en modo watch
-npm run test:coverage # Tests con cobertura
+npm run lint
+npm run type-check
+npm run test
+npm run build
 ```
 
-## 💷️ Arquitectura del Proyecto
+## Flujo de ramas
 
-```
-src/
-├── app/                 # App Router (Next.js 15.5)
-│   ├── globals.css     # Estilos globales
-│   ├── layout.tsx      # Layout principal (Server Component)
-│   ├── page.tsx        # Página de inicio
-│   └── api/            # Rutas de API (Route Handlers)
-├── components/         # Componentes React
-│   ├── common/         # Componentes comunes
-│   ├── layout/         # Componentes de layout
-│   └── sections/       # Secciones de la página
-├── hooks/              # Custom hooks
-├── lib/                # Utilidades y configuraciones
-├── styles/             # Estilos adicionales
-└── types/              # Definiciones de tipos TypeScript
-```
+- `dev`: rama de desarrollo
+- `main`: rama estable para produccion
+- Todo cambio se implementa en `dev` y luego se integra a `main` tras validaciones.
 
-## 🔄 CI/CD Pipeline
+## Checklist de salida a produccion
 
-### GitHub Actions Workflows
+Antes de merge o despliegue:
 
-#### 🔍 CI/CD Principal (`ci-cd.yml`)
-- **Quality Checks**: Linting, type checking, formatting
-- **Testing**: Unit tests con Jest
-- **Build**: Compilación y verificación
-- **Security**: Audit de dependencias
-- **Performance**: Lighthouse CI
+1. Ejecutar `npm run lint`
+2. Ejecutar `npm run type-check`
+3. Ejecutar `npm run build`
+4. Confirmar variables de entorno en plataforma de despliegue
 
-#### 🚀 Deployment (`deploy.yml`)
-- **Auto-deployment**: Despliegue automático a Vercel
-- **Environment**: Configuración de variables de entorno
-- **Notifications**: Notificaciones de estado
+## Documentacion adicional
 
-#### 🔄 Auto-Update (`auto-update.yml`)
-- **Dependencies**: Actualización automática de dependencias
-- **Testing**: Verificación de compatibilidad
-- **Merge**: Merge automático si los tests pasan
-
-### 🤖 Dependabot
-- **Schedule**: Actualizaciones semanales los lunes
-- **Auto-merge**: Merge automático para actualizaciones menores
-- **Security**: Actualizaciones de seguridad inmediatas
-
-## 📈 Monitoreo y Calidad
-
-### Lighthouse CI
-- **Performance**: > 90
-- **Accessibility**: > 95
-- **Best Practices**: > 90
-- **SEO**: > 95
-
-### Code Quality
-- **TypeScript**: Strict mode habilitado
-- **ESLint**: Configuración estricta de Next.js
-- **Prettier**: Formateo consistente
-- **Test Coverage**: > 80%
-
-## 🌐 Despliegue
-
-### Vercel (Recomendado)
-```bash
-# Conectar con Vercel CLI
-vercel
-
-# O usar integración de GitHub
-# Push a main -> despliegue automático
-```
-
-### Otros Proveedores
-- **Netlify**: Compatible con build estático
-- **Cloudflare Pages**: Soporte para SSG/SSR
-- **AWS Amplify**: Integración con AWS
-
-## 🔧 Configuración de Entorno
-
-### Variables de Entorno
-```bash
-# .env.local
-NEXT_PUBLIC_SITE_URL=https://tu-dominio.com
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
-```
-
-### Configuraciones Importantes
-- **next.config.js**: Configuración de Next.js
-- **tailwind.config.js**: Configuración de Tailwind
-- **tsconfig.json**: Configuración de TypeScript
-- **.eslintrc.json**: Reglas de ESLint
-
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una rama feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-### Guías de Contribución
-- Seguir las convenciones de TypeScript
-- Escribir tests para nuevas funcionalidades
-- Mantener la cobertura de tests > 80%
-- Seguir las convenciones de commit semántico
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
-
-## 🙏 Agradecimientos
-
-- [Next.js](https://nextjs.org/) - El framework React
-- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
-- [Framer Motion](https://www.framer.com/motion/) - Librería de animaciones
-- [Vercel](https://vercel.com/) - Plataforma de despliegue
-
-## 📞 Contacto
-
-**Tumi Developer**
-- Portfolio: [tu-portfolio.com](https://tu-portfolio.com)
-- Email: tu-email@example.com
-- LinkedIn: [tu-linkedin](https://linkedin.com/in/tu-perfil)
-- GitHub: [@Tumi-dev](https://github.com/Tumi-dev)
-
----
-
-⭐ Si te gusta este proyecto, ¡dale una estrella en GitHub!
+- `CONTRIBUTING.md`: guia de contribucion
+- `CHANGELOG.md`: historial de cambios
+- `SECURITY.md`: lineamientos de seguridad

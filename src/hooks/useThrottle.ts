@@ -1,14 +1,15 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 export const useThrottle = (callback: Function, limit: number) => {
-  let waiting = false;
+  const waitingRef = useRef(false);
+
   return useCallback(
     (...args: any[]) => {
-      if (!waiting) {
+      if (!waitingRef.current) {
         callback(...args);
-        waiting = true;
+        waitingRef.current = true;
         setTimeout(() => {
-          waiting = false;
+          waitingRef.current = false;
         }, limit);
       }
     },
