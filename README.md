@@ -8,11 +8,29 @@ Mostrar proyectos, experiencia y habilidades con enfoque en rendimiento, accesib
 
 ## Stack
 
-- Next.js 14 (App Router)
-- React 18
-- TypeScript
-- Tailwind CSS
-- Framer Motion
+- Next.js 16 (App Router + Turbopack)
+- React 19
+- TypeScript 5.9.3
+- Tailwind CSS 4
+- Framer Motion 12
+- Jest 30
+
+## Estado de upgrade (completado)
+
+El upgrade por etapas ya fue ejecutado y validado a cabalidad:
+
+1. **Etapa 1 (completada):** upgrades seguros (patch/minor) sin cambios de arquitectura.
+2. **Etapa 2 (completada):** migracion de tooling mayor sin tocar runtime principal (ESLint CLI flat config, Jest 30, ajustes de configuracion).
+3. **Etapa 3 (completada):** migraciones mayores de plataforma (Next 16 + React 19 + Tailwind 4 + Framer Motion 12) con validacion extendida.
+
+## Validacion ejecutada
+
+- `npm run lint`
+- `npm run type-check`
+- `npm run test`
+- `npm run build`
+
+Resultado: todas las validaciones en verde.
 
 ## Requisitos
 
