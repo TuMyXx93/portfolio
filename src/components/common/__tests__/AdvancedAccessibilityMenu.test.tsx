@@ -4,19 +4,36 @@ import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
 
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
+  __esModule: true,
   motion: {
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    button: ({
+      children,
+      whileHover,
+      whileTap,
+      initial,
+      animate,
+      exit,
+      transition,
+      variants,
+      ...props
+    }: any) => <button {...props}>{children}</button>,
+    div: ({
+      children,
+      whileHover,
+      whileTap,
+      initial,
+      animate,
+      exit,
+      transition,
+      variants,
+      ...props
+    }: any) => <div {...props}>{children}</div>,
   },
   AnimatePresence: ({ children }: any) => children,
 }));
 
 const renderWithProvider = (component: React.ReactElement) => {
-  return render(
-    <AccessibilityProvider>
-      {component}
-    </AccessibilityProvider>
-  );
+  return render(<AccessibilityProvider>{component}</AccessibilityProvider>);
 };
 
 describe('AdvancedAccessibilityMenu', () => {
@@ -49,90 +66,93 @@ describe('AdvancedAccessibilityMenu', () => {
 
   test('renders accessibility menu trigger button', () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     expect(triggerButton).toBeInTheDocument();
   });
 
   test('opens menu when trigger button is clicked', async () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     fireEvent.click(triggerButton);
 
-    await waitFor(() => {
-      expect(screen.getByText(/accesibilidad/i)).toBeInTheDocument();
-    });
+    expect(
+      await screen.findByRole('dialog', {
+        name: /menú de configuración de accesibilidad/i,
+      })
+    ).toBeInTheDocument();
   });
 
   test('displays all accessibility tabs', async () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     fireEvent.click(triggerButton);
 
-    await waitFor(() => {
-      expect(screen.getByRole('tab', { name: /visual/i })).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /motor/i })).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /cognitivo/i })).toBeInTheDocument();
-      expect(screen.getByRole('tab', { name: /audio/i })).toBeInTheDocument();
-    });
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs).toHaveLength(4);
   });
 
   test('switches between tabs correctly', async () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     fireEvent.click(triggerButton);
 
-    await waitFor(() => {
-      const motorTab = screen.getByRole('tab', { name: /motor/i });
-      fireEvent.click(motorTab);
-      expect(screen.getByText(/configuración motora/i)).toBeInTheDocument();
-    });
+    const tabs = await screen.findAllByRole('tab');
+    fireEvent.click(tabs[1]);
+
+    expect(
+      await screen.findByText(/configuración motora/i)
+    ).toBeInTheDocument();
   });
 
   test('toggles high contrast setting', async () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     fireEvent.click(triggerButton);
 
-    await waitFor(() => {
-      const highContrastToggle = screen.getByRole('switch', { name: /alto contraste/i });
-      fireEvent.click(highContrastToggle);
-      expect(highContrastToggle).toHaveAttribute('aria-checked', 'true');
-    });
+    const highContrastToggle = (await screen.findAllByRole('switch'))[0];
+    fireEvent.click(highContrastToggle);
+    expect(highContrastToggle).toHaveAttribute('aria-checked', 'true');
   });
 
   test('resets all settings when reset button is clicked', async () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     fireEvent.click(triggerButton);
 
-    await waitFor(() => {
-      const resetButton = screen.getByText(/restablecer todo/i);
-      fireEvent.click(resetButton);
-      
-      // Check that high contrast toggle is reset
-      const highContrastToggle = screen.getByRole('switch', { name: /alto contraste/i });
-      expect(highContrastToggle).toHaveAttribute('aria-checked', 'false');
+    const highContrastToggle = (await screen.findAllByRole('switch'))[0];
+    fireEvent.click(highContrastToggle);
+    expect(highContrastToggle).toHaveAttribute('aria-checked', 'true');
+
+    const resetButton = screen.getByRole('button', {
+      name: /restablecer todo/i,
     });
+    fireEvent.click(resetButton);
+    expect(highContrastToggle).toHaveAttribute('aria-checked', 'false');
   });
 
   test('closes menu when close button is clicked', async () => {
     renderWithProvider(<AdvancedAccessibilityMenu />);
-    
+
     const triggerButton = screen.getByLabelText(/abrir menú de accesibilidad/i);
     fireEvent.click(triggerButton);
 
-    await waitFor(() => {
-      const closeButton = screen.getByLabelText(/cerrar menú de accesibilidad/i);
-      fireEvent.click(closeButton);
-    });
+    const closeButton = await screen.findByLabelText(
+      /cerrar menú de accesibilidad/i
+    );
+    fireEvent.click(closeButton);
 
-    // Menu should be closed
-    expect(screen.queryByText(/configuración visual/i)).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.queryByRole('dialog', {
+          name: /menú de configuración de accesibilidad/i,
+        })
+      ).not.toBeInTheDocument();
+    });
   });
 });

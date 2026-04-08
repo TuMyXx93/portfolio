@@ -35,7 +35,7 @@ export const Experience = () => {
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -47,13 +47,17 @@ export const Experience = () => {
       y: 0,
       transition: {
         duration: 0.4,
-        ease: "easeOut",
+        ease: 'easeOut' as const,
       },
     },
   };
 
   return (
-    <Section id="experience" title={t('experience.title')} className="py-20 px-4">
+    <Section
+      id="experience"
+      title={t('experience.title')}
+      className="py-20 px-4"
+    >
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -80,19 +84,27 @@ export const Experience = () => {
               <ul className="space-y-3 text-gray-300 font-light">
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
-                  <span className="tracking-wide">Más de X años de experiencia en desarrollo web</span>
+                  <span className="tracking-wide">
+                    Más de X años de experiencia en desarrollo web
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
-                  <span className="tracking-wide">Especialista en tecnologías modernas</span>
+                  <span className="tracking-wide">
+                    Especialista en tecnologías modernas
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
-                  <span className="tracking-wide">Liderazgo de equipos de desarrollo</span>
+                  <span className="tracking-wide">
+                    Liderazgo de equipos de desarrollo
+                  </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
-                  <span className="tracking-wide">Arquitectura de aplicaciones escalables</span>
+                  <span className="tracking-wide">
+                    Arquitectura de aplicaciones escalables
+                  </span>
                 </li>
               </ul>
             </div>
@@ -102,10 +114,11 @@ export const Experience = () => {
                 Enfoque Profesional
               </h4>
               <p className="text-gray-300 leading-relaxed">
-                Mi enfoque se centra en crear soluciones innovadoras que combinen
-                las mejores prácticas de desarrollo con tecnologías de vanguardia.
-                Siempre busco oportunidades para aprender y aplicar nuevas metodologías
-                que mejoren la eficiencia y calidad del código.
+                Mi enfoque se centra en crear soluciones innovadoras que
+                combinen las mejores prácticas de desarrollo con tecnologías de
+                vanguardia. Siempre busco oportunidades para aprender y aplicar
+                nuevas metodologías que mejoren la eficiencia y calidad del
+                código.
               </p>
             </div>
 
