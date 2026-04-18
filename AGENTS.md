@@ -6,9 +6,9 @@ This file is the source of truth for AI-assisted work in this repository.
 
 Portfolio web app focused on UX, accessibility, performance, and maintainability.
 
-- Framework: Next.js + React + TypeScript
-- Styling: Tailwind CSS + PostCSS + Framer Motion
-- Testing: Jest + Testing Library
+- Framework: Next.js 16 + React 19 + TypeScript 5.9
+- Styling: Tailwind CSS 4 + PostCSS + Framer Motion 12
+- Testing: Jest 30 + Testing Library + Playwright (smoke)
 - Deployment: Vercel
 
 ## Branch Policy
@@ -29,6 +29,7 @@ Rules:
 - `npm run type-check`
 - `npm run test`
 - `npm run build`
+- `npm run test:e2e`
 
 ## Architecture Rules
 
@@ -48,6 +49,8 @@ Before code modifications, run `/version-gate`.
 - PASS WITH WARNINGS: proceed with caution and report risks.
 - PASS: implement directly.
 
+Before opening a PR to `main`, run `/verify-web`.
+
 ## Agent System
 
 Assets live in `.opencode/`.
@@ -60,10 +63,17 @@ Assets live in `.opencode/`.
 - `performance-seo-agent`: Core Web Vitals, metadata, Lighthouse
 - `tech-writer-agent`: docs, changelog, contributor docs
 
+Each agent must return:
+
+- Scope touched
+- Decisions made
+- Risks and follow-up actions
+
 ### Commands
 
-- `/verify-web`: lint + type-check + test + build
+- `/verify-web`: lint + type-check + test + build + e2e smoke
 - `/version-gate`: branch and quality pre-check
+- `/audit-orchestrator`: consistency audit for AGENTS, agents, skills, and commands
 - `/version-bump <patch|minor|major>`: release/version workflow
 
 ### Skills
@@ -83,6 +93,7 @@ Assets live in `.opencode/`.
 4. Tests/quality regressions -> `qa-integration-agent`
 5. CI/build/workflows -> `devops-agent`
 6. Docs/changelogs -> `tech-writer-agent`
+7. Before merge to `main`, run `/verify-web` and attach results to PR context.
 
 ## MCP and Memory
 
