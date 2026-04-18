@@ -4,20 +4,15 @@ import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 import { useState } from 'react';
 
-interface NavigationProps {
-  onNavigate: (section: string) => void;
-}
-
 const navigationItems = [
   { key: 'about', label: 'nav.about', icon: '👤' },
   { key: 'experience', label: 'nav.experience', icon: '💼' },
   { key: 'skills', label: 'nav.skills', icon: '🚀' },
   { key: 'projects', label: 'nav.projects', icon: '💻' },
+  { key: 'contact', label: 'nav.contact', icon: '✉️' },
 ];
 
-export const HorizontalNavigation: React.FC<NavigationProps> = ({
-  onNavigate,
-}) => {
+export const HorizontalNavigation = () => {
   const { t } = useTranslation();
   const { state, announceToScreenReader } = useAdvancedAccessibility();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -26,7 +21,10 @@ export const HorizontalNavigation: React.FC<NavigationProps> = ({
   const shouldAnimate = !state.reducedMotion && !state.reducedAnimations;
 
   const handleNavigation = (section: string, label: string) => {
-    onNavigate(section);
+    const target = document.getElementById(section);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     announceToScreenReader(`Navegando a ${label}`);
   };
 

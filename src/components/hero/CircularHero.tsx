@@ -7,11 +7,7 @@ import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 import Image from 'next/image';
 
-interface CircularHeroProps {
-  onNavigate: (section: string) => void;
-}
-
-export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
+export const CircularHero = () => {
   const { t } = useTranslation();
   const { state } = useAdvancedAccessibility();
 
@@ -109,7 +105,7 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
 
           {/* Navegación Horizontal */}
           <motion.div variants={shouldAnimate ? itemVariants : undefined}>
-            <HorizontalNavigation onNavigate={onNavigate} />
+            <HorizontalNavigation />
           </motion.div>
         </motion.div>
       </div>
