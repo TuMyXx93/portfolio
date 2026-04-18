@@ -27,12 +27,13 @@ jobs:
       - name: 🆙 Update patch and minor versions
         run: npm update
 
-      - name: 🧪 Test after updates
+      - name: 🧪 Validate after updates
         run: |
           npm ci
-          npm run type-check
-          npm run build
           npm run lint
+          npm run type-check
+          npm run test
+          npm run build
 
       - name: 📝 Create Pull Request
         uses: peter-evans/create-pull-request@v8
@@ -43,11 +44,13 @@ jobs:
           body: |
             ## 🔄 Automated Dependency Updates
 
-            This PR contains automated updates to dependencies:
+             This PR contains automated updates to dependencies:
 
-            - ✅ Patch and minor version updates
-            - ✅ Build tests passed
-            - ✅ Lint checks passed
+             - ✅ Patch and minor version updates
+             - ✅ Unit tests passed
+             - ✅ Build validation passed
+             - ✅ Lint checks passed
+             - ℹ️ E2E smoke validation runs in standard PR CI (`/verify-web` policy)
 
             **Review and merge if all checks pass.**
 
