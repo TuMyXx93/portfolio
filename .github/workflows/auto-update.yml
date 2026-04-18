@@ -44,13 +44,13 @@ jobs:
           body: |
             ## 🔄 Automated Dependency Updates
 
-             This PR contains automated updates to dependencies:
+            This PR contains automated updates to dependencies:
 
-             - ✅ Patch and minor version updates
-             - ✅ Unit tests passed
-             - ✅ Build validation passed
-             - ✅ Lint checks passed
-             - ℹ️ E2E smoke validation runs in standard PR CI (`/verify-web` policy)
+            - ✅ Patch and minor version updates
+            - ✅ Unit tests passed
+            - ✅ Build validation passed
+            - ✅ Lint checks passed
+            - ℹ️ E2E smoke validation runs in standard PR CI (`/verify-web` policy)
 
             **Review and merge if all checks pass.**
 

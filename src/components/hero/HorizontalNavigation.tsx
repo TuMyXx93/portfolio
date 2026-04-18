@@ -23,9 +23,14 @@ export const HorizontalNavigation = () => {
   const handleNavigation = (section: string, label: string) => {
     const target = document.getElementById(section);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({
+        behavior: shouldAnimate ? 'smooth' : 'auto',
+        block: 'start',
+      });
     }
-    announceToScreenReader(`Navegando a ${label}`);
+    announceToScreenReader(
+      t('accessibility.announcements.navigationChanged', { page: label })
+    );
   };
 
   const containerVariants = {
