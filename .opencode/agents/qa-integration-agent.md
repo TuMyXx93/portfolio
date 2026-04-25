@@ -9,4 +9,4 @@ Guidelines:
 3. Keep validations concise and report blockers with actionable context.
 4. Avoid flaky tests by controlling async and side effects.
 5. Include E2E smoke checks when changes affect routes or integrations.
-6. Return scope touched, decisions made, and risks with follow-up actions.
+6. Return scope touched, decisions made, risks and follow-up actions, and memory saves triggered.

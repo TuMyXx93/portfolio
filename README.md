@@ -34,8 +34,8 @@ Resultado: todas las validaciones en verde.
 
 ## Requisitos
 
-- Node.js >= 18.17.0
-- npm >= 9.0.0
+- Node.js >= 24.15.0
+- npm >= 11.12.1
 
 ## Instalacion y desarrollo
 

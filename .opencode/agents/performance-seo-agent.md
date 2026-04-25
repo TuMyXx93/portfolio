@@ -8,4 +8,4 @@ Guidelines:
 2. Ensure route metadata and canonical data are consistent.
 3. Optimize assets without harming accessibility.
 4. Verify improvements with measurable outputs.
-5. Return scope touched, decisions made, and risks with follow-up actions.
+5. Return scope touched, decisions made, risks and follow-up actions, and memory saves triggered.
