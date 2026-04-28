@@ -1,35 +1,52 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePWA } from '@/hooks/usePWA';
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export const ConnectionStatus = () => {
   const { isOnline } = usePWA();
   const [showStatus, setShowStatus] = useState(false);
-  const [lastOnlineStatus, setLastOnlineStatus] = useState(true);
+  const lastOnlineStatusRef = useRef(true);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const hideStatus = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setShowStatus(false);
+  }, []);
 
   useEffect(() => {
-    // Solo mostrar cuando cambia el estado
-    if (isOnline !== lastOnlineStatus) {
-      setShowStatus(true);
-      setLastOnlineStatus(isOnline);
+    if (isOnline !== lastOnlineStatusRef.current) {
+      lastOnlineStatusRef.current = isOnline;
 
-      // Ocultar después de 3 segundos si está online
+      requestAnimationFrame(() => {
+        setShowStatus(true);
+      });
+
       if (isOnline) {
-        const timer = setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           setShowStatus(false);
         }, 3000);
-        return () => clearTimeout(timer);
       }
     }
-  }, [isOnline, lastOnlineStatus]);
+  }, [isOnline]);
 
-  // Mantener visible si está offline
   useEffect(() => {
     if (!isOnline) {
-      setShowStatus(true);
+      requestAnimationFrame(() => {
+        setShowStatus(true);
+      });
     }
   }, [isOnline]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <AnimatePresence>
@@ -43,8 +60,8 @@ export const ConnectionStatus = () => {
         >
           <div
             className={`w-full py-3 px-4 text-center text-white font-medium ${
-              isOnline 
-                ? 'bg-green-500 shadow-green-500/20' 
+              isOnline
+                ? 'bg-green-500 shadow-green-500/20'
                 : 'bg-red-500 shadow-red-500/20'
             } shadow-lg backdrop-blur-sm`}
           >
@@ -63,7 +80,11 @@ export const ConnectionStatus = () => {
                 <>
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
                   >
                     📶
                   </motion.div>

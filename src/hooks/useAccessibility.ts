@@ -6,28 +6,28 @@ interface AccessibilityPreferences {
   reducedMotion: boolean;
 }
 
-export const useAccessibility = () => {
-  const [preferences, setPreferences] = useState<AccessibilityPreferences>({
+const getInitialPreferences = (): AccessibilityPreferences => {
+  if (typeof window === 'undefined') {
+    return { highContrast: false, fontSize: 'normal', reducedMotion: false };
+  }
+  const savedPreferences = localStorage.getItem('accessibility-preferences');
+  if (savedPreferences) {
+    return JSON.parse(savedPreferences);
+  }
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+  return {
     highContrast: false,
     fontSize: 'normal',
-    reducedMotion: false,
-  });
+    reducedMotion: prefersReducedMotion,
+  };
+};
 
-  useEffect(() => {
-    // Cargar preferencias guardadas
-    const savedPreferences = localStorage.getItem('accessibility-preferences');
-    if (savedPreferences) {
-      setPreferences(JSON.parse(savedPreferences));
-    }
-
-    // Detectar preferencias del sistema
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    if (prefersReducedMotion) {
-      setPreferences(prev => ({ ...prev, reducedMotion: true }));
-    }
-  }, []);
+export const useAccessibility = () => {
+  const [preferences, setPreferences] = useState<AccessibilityPreferences>(
+    getInitialPreferences
+  );
 
   const updatePreferences = (
     newPreferences: Partial<AccessibilityPreferences>

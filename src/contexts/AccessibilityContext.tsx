@@ -43,7 +43,9 @@ interface AccessibilityState {
 
 type AccessibilityAction =
   | { type: 'TOGGLE_HIGH_CONTRAST' }
+  | { type: 'SET_HIGH_CONTRAST'; payload: boolean }
   | { type: 'TOGGLE_REDUCED_MOTION' }
+  | { type: 'SET_REDUCED_MOTION'; payload: boolean }
   | { type: 'SET_FONT_SIZE'; payload: AccessibilityState['fontSize'] }
   | {
       type: 'SET_COLOR_BLIND_MODE';
@@ -105,8 +107,12 @@ function accessibilityReducer(
   switch (action.type) {
     case 'TOGGLE_HIGH_CONTRAST':
       return { ...state, highContrast: !state.highContrast };
+    case 'SET_HIGH_CONTRAST':
+      return { ...state, highContrast: action.payload };
     case 'TOGGLE_REDUCED_MOTION':
       return { ...state, reducedMotion: !state.reducedMotion };
+    case 'SET_REDUCED_MOTION':
+      return { ...state, reducedMotion: action.payload };
     case 'SET_FONT_SIZE':
       return { ...state, fontSize: action.payload };
     case 'SET_COLOR_BLIND_MODE':
@@ -165,35 +171,34 @@ const AccessibilityContext = createContext<
 export function AccessibilityProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(accessibilityReducer, initialState);
 
-  // Cargar preferencias guardadas
+  // Cargar preferencias guardadas y detectar preferencias del sistema
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedPreferences = localStorage.getItem(
-        'accessibility-preferences-advanced'
-      );
-      if (savedPreferences) {
-        try {
-          const preferences = JSON.parse(savedPreferences);
-          dispatch({ type: 'LOAD_PREFERENCES', payload: preferences });
-        } catch (error) {
-          console.error('Error loading accessibility preferences:', error);
-        }
-      }
+    if (typeof window === 'undefined') return;
 
-      // Detectar preferencias del sistema
-      const prefersReducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
-      const prefersHighContrast = window.matchMedia(
-        '(prefers-contrast: high)'
-      ).matches;
+    const savedPreferences = localStorage.getItem(
+      'accessibility-preferences-advanced'
+    );
 
-      if (prefersReducedMotion) {
-        dispatch({ type: 'TOGGLE_REDUCED_MOTION' });
+    // Detectar preferencias del sistema
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    const prefersHighContrast = window.matchMedia(
+      '(prefers-contrast: high)'
+    ).matches;
+
+    if (savedPreferences) {
+      try {
+        const preferences = JSON.parse(savedPreferences);
+        dispatch({ type: 'LOAD_PREFERENCES', payload: preferences });
+      } catch {
+        dispatch({ type: 'SET_REDUCED_MOTION', payload: prefersReducedMotion });
+        dispatch({ type: 'SET_HIGH_CONTRAST', payload: prefersHighContrast });
       }
-      if (prefersHighContrast) {
-        dispatch({ type: 'TOGGLE_HIGH_CONTRAST' });
-      }
+    } else {
+      // Solo aplicar preferencias del sistema si no hay preferencias guardadas
+      dispatch({ type: 'SET_REDUCED_MOTION', payload: prefersReducedMotion });
+      dispatch({ type: 'SET_HIGH_CONTRAST', payload: prefersHighContrast });
     }
   }, []);
 

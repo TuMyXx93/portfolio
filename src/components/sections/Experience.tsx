@@ -85,7 +85,7 @@ export const Experience = () => {
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
                   <span className="tracking-wide">
-                    Más de X años de experiencia en desarrollo web
+                    Desarrollo web full stack
                   </span>
                 </li>
                 <li className="flex items-center gap-3">

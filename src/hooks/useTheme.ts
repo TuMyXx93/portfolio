@@ -3,21 +3,15 @@ import { useState, useEffect } from 'react';
 type Theme = 'light' | 'dark';
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  useEffect(() => {
-    // Check for saved theme preference or system preference
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return 'dark';
     const savedTheme = localStorage.getItem('theme') as Theme;
+    if (savedTheme) return savedTheme;
     const prefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme(prefersDark ? 'dark' : 'light');
-    }
-  }, []);
+    return prefersDark ? 'dark' : 'light';
+  });
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';

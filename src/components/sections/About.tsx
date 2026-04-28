@@ -51,11 +51,10 @@ export const About = () => {
               Desarrollador Web Full Stack
             </h3>
             <p className="text-gray-300">
-              Con más de X años de experiencia en el desarrollo web, me
-              especializo en crear soluciones innovadoras y eficientes. Mi
-              pasión por la tecnología y el aprendizaje continuo me impulsa a
-              mantenerme actualizado con las últimas tendencias y mejores
-              prácticas.
+              Desarrollador Web Full Stack con pasión por crear soluciones
+              inovadoras y eficientes. Mi experiencia en desarrollo web abarca
+              desde aplicaciones front-end interactivas hasta APIs y sistemas de
+              backend escalables.
             </p>
             <div className="flex gap-4">
               <motion.a
