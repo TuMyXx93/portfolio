@@ -64,13 +64,13 @@ export const Skills = () => {
   );
 
   const getCategoryTitle = (category: string) => {
-    const titles = {
-      frontend: 'Frontend',
-      backend: 'Backend',
-      tools: 'Herramientas',
-      soft: 'Habilidades Blandas',
+    const titles: Record<string, string> = {
+      frontend: t('skills.frontend'),
+      backend: t('skills.backend'),
+      tools: t('skills.tools'),
+      soft: t('skills.soft'),
     };
-    return titles[category as keyof typeof titles] || category;
+    return titles[category] || category;
   };
 
   const getCategoryColor = (category: string) => {
@@ -119,7 +119,7 @@ export const Skills = () => {
                     whileHover={{ x: 5 }}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 flex items-center justify-center bg-slate-700 rounded-lg group-hover:bg-amber-500/20 transition-colors">
+                      <div className="w-8 h-8 flex items-center justify-center bg-white/10 rounded-lg group-hover:bg-amber-500/20 transition-colors">
                         <span className="text-xs font-bold text-amber-400">
                           {skill.name.charAt(0)}
                         </span>
@@ -131,7 +131,7 @@ export const Skills = () => {
 
                     {/* Barra de progreso */}
                     <div className="flex items-center gap-2">
-                      <div className="w-16 h-2 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="w-16 h-2 bg-white/10 rounded-full overflow-hidden">
                         <motion.div
                           className="h-full bg-gradient-to-r from-white/60 to-white/40 rounded-full"
                           initial={{ width: 0 }}
@@ -156,29 +156,26 @@ export const Skills = () => {
 
         {/* Información adicional */}
         <motion.div variants={itemVariants} className="mt-16 text-center">
-          <div className="bg-slate-800/30 rounded-xl p-8 border border-slate-700">
+          <div className="glass-effect rounded-xl p-8 border border-white/10">
             <h4 className="text-2xl font-bold text-[#F7AB0A] mb-4">
-              Siempre Aprendiendo
+              {t('skills.alwaysLearning')}
             </h4>
             <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
-              La tecnología evoluciona constantemente, y mi compromiso es
-              mantenerme actualizado con las últimas tendencias y mejores
-              prácticas del desarrollo web. Cada proyecto es una oportunidad
-              para aprender algo nuevo y mejorar mis habilidades.
+              {t('skills.learningText')}
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <span className="px-4 py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20">
-                Aprendizaje Continuo
+                {t('skills.tag.continuousLearning')}
               </span>
               <span className="px-4 py-2 bg-blue-500/10 text-blue-400 rounded-full text-sm border border-blue-500/20">
-                Mejores Prácticas
+                {t('skills.tag.bestPractices')}
               </span>
               <span className="px-4 py-2 bg-green-500/10 text-green-400 rounded-full text-sm border border-green-500/20">
-                Código Limpio
+                {t('skills.tag.cleanCode')}
               </span>
               <span className="px-4 py-2 bg-purple-500/10 text-purple-400 rounded-full text-sm border border-purple-500/20">
-                Trabajo en Equipo
+                {t('skills.tag.teamwork')}
               </span>
             </div>
           </div>

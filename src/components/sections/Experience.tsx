@@ -70,55 +70,51 @@ export const Experience = () => {
           {/* Timeline de experiencia */}
           <motion.div variants={itemVariants} className="space-y-6">
             <h3 className="text-2xl font-light text-white mb-8 tracking-wide">
-              Experiencia Profesional
+              {t('experience.professionalExperience')}
             </h3>
             <Timeline items={EXPERIENCE_ITEMS} />
           </motion.div>
 
           {/* Información adicional */}
           <motion.div variants={itemVariants} className="space-y-8">
-            <div className="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
+            <div className="glass-effect rounded-lg p-6 border border-white/10">
               <h4 className="text-xl font-light text-white mb-4 tracking-wide">
-                Destacados Profesionales
+                {t('experience.highlights')}
               </h4>
               <ul className="space-y-3 text-gray-300 font-light">
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
                   <span className="tracking-wide">
-                    Desarrollo web full stack
+                    {t('experience.bullet1')}
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
                   <span className="tracking-wide">
-                    Especialista en tecnologías modernas
+                    {t('experience.bullet2')}
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
                   <span className="tracking-wide">
-                    Liderazgo de equipos de desarrollo
+                    {t('experience.bullet3')}
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-white/40 rounded-full"></span>
                   <span className="tracking-wide">
-                    Arquitectura de aplicaciones escalables
+                    {t('experience.bullet4')}
                   </span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
+            <div className="glass-effect rounded-lg p-6 border border-white/10">
               <h4 className="text-xl font-semibold text-[#F7AB0A] mb-4">
-                Enfoque Profesional
+                {t('experience.approach')}
               </h4>
               <p className="text-gray-300 leading-relaxed">
-                Mi enfoque se centra en crear soluciones innovadoras que
-                combinen las mejores prácticas de desarrollo con tecnologías de
-                vanguardia. Siempre busco oportunidades para aprender y aplicar
-                nuevas metodologías que mejoren la eficiencia y calidad del
-                código.
+                {t('experience.approachText')}
               </p>
             </div>
 
@@ -130,7 +126,7 @@ export const Experience = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Contáctame
+                {t('experience.contactMe')}
               </motion.a>
               <motion.a
                 href="/cv.pdf"
@@ -140,7 +136,7 @@ export const Experience = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Descargar CV
+                {t('experience.downloadCV')}
               </motion.a>
             </div>
           </motion.div>

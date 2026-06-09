@@ -14,7 +14,8 @@ export const es: Translation = {
   hero: {
     title: 'Bienvenido a mi portafolio',
     subtitle: 'DESARROLLADOR WEB',
-    description: 'Especializado en React, Next.js y tecnologías modernas de desarrollo web',
+    description:
+      'Especializado en React, Next.js y tecnologías modernas de desarrollo web',
     cta: 'Ver mi trabajo',
     contact: 'Contactar',
     location: 'Perú',
@@ -22,7 +23,13 @@ export const es: Translation = {
   },
   about: {
     title: 'Sobre mí',
-    description: 'Soy un desarrollador apasionado por crear soluciones innovadoras y experiencias de usuario excepcionales.',
+    description:
+      'Soy un desarrollador apasionado por crear soluciones innovadoras y experiencias de usuario excepcionales.',
+    role: 'Desarrollador Web Full Stack',
+    bio: 'Desarrollador Web Full Stack con pasión por crear soluciones innovadoras y eficientes. Mi experiencia en desarrollo web abarca desde aplicaciones front-end interactivas hasta APIs y sistemas de backend escalables.',
+    experienceTitle: 'Experiencia Profesional',
+    contactButton: 'Contactar',
+    projectsButton: 'Ver Proyectos',
     experience: 'años de experiencia',
     projects: 'proyectos completados',
     clients: 'clientes satisfechos',
@@ -35,7 +42,17 @@ export const es: Translation = {
     backend: 'Backend',
     database: 'Base de Datos',
     tools: 'Herramientas',
+    soft: 'Habilidades Blandas',
     other: 'Otros',
+    alwaysLearning: 'Siempre Aprendiendo',
+    learningText:
+      'La tecnología evoluciona constantemente, y mi compromiso es mantenerme actualizado con las últimas tendencias y mejores prácticas del desarrollo web. Cada proyecto es una oportunidad para aprender algo nuevo y mejorar mis habilidades.',
+    tag: {
+      continuousLearning: 'Aprendizaje Continuo',
+      bestPractices: 'Mejores Prácticas',
+      cleanCode: 'Código Limpio',
+      teamwork: 'Trabajo en Equipo',
+    },
   },
   projects: {
     title: 'Proyectos',
@@ -53,6 +70,17 @@ export const es: Translation = {
   experience: {
     title: 'Experiencia',
     subtitle: 'Mi trayectoria profesional',
+    professionalExperience: 'Experiencia Profesional',
+    highlights: 'Destacados Profesionales',
+    approach: 'Enfoque Profesional',
+    approachText:
+      'Mi enfoque se centra en crear soluciones innovadoras que combinen las mejores prácticas de desarrollo con tecnologías de vanguardia. Siempre busco oportunidades para aprender y aplicar nuevas metodologías que mejoren la eficiencia y calidad del código.',
+    bullet1: 'Desarrollo web full stack',
+    bullet2: 'Especialista en tecnologías modernas',
+    bullet3: 'Liderazgo de equipos de desarrollo',
+    bullet4: 'Arquitectura de aplicaciones escalables',
+    contactMe: 'Contáctame',
+    downloadCV: 'Descargar CV',
     present: 'Presente',
     responsibilities: 'Responsabilidades',
     achievements: 'Logros',
@@ -61,7 +89,8 @@ export const es: Translation = {
   contact: {
     title: 'Contacto',
     subtitle: '¡Trabajemos juntos!',
-    description: 'Estoy disponible para nuevos proyectos y oportunidades de colaboración.',
+    description:
+      'Estoy disponible para nuevos proyectos y oportunidades de colaboración.',
     form: {
       name: 'Nombre',
       email: 'Correo electrónico',
@@ -144,19 +173,23 @@ export const es: Translation = {
   seo: {
     home: {
       title: 'TumiDev | Desarrollador Full Stack',
-      description: 'Portfolio profesional de TumiDev - Desarrollador Full Stack especializado en React, Next.js y tecnologías modernas',
+      description:
+        'Portfolio profesional de TumiDev - Desarrollador Full Stack especializado en React, Next.js y tecnologías modernas',
     },
     about: {
       title: 'Sobre mí | TumiDev',
-      description: 'Conoce más sobre mi experiencia y trayectoria como desarrollador full stack',
+      description:
+        'Conoce más sobre mi experiencia y trayectoria como desarrollador full stack',
     },
     projects: {
       title: 'Proyectos | TumiDev',
-      description: 'Explora mis proyectos más recientes y destacados en desarrollo web',
+      description:
+        'Explora mis proyectos más recientes y destacados en desarrollo web',
     },
     contact: {
       title: 'Contacto | TumiDev',
-      description: 'Ponte en contacto conmigo para tu próximo proyecto o colaboración',
+      description:
+        'Ponte en contacto conmigo para tu próximo proyecto o colaboración',
     },
   },
   accessibility: {
