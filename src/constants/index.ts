@@ -17,7 +17,6 @@ export const PROJECTS: Project[] = [
     demo: 'https://tumidev.com',
     featured: true,
   },
-  // Añade más proyectos aquí
 ];
 
 export const SKILLS: Skill[] = [
@@ -39,7 +38,6 @@ export const SKILLS: Skill[] = [
     level: 80,
     category: 'frontend',
   },
-  // Añade más habilidades aquí
 ];
 
 export const NAVIGATION_LINKS = [
@@ -54,25 +52,17 @@ export const EXPERIENCE_ITEMS = [
   {
     date: '2023 - Presente',
     title: 'Desarrollador Full Stack Senior',
-    company: 'Tech Solutions Inc.',
+    company: 'Freelance',
     description:
-      'Liderando el desarrollo de aplicaciones web escalables y mantenibles usando tecnologías modernas.',
-    technologies: ['Next.js', 'TypeScript', 'Node.js', 'AWS'],
+      'Desarrollo de aplicaciones web full stack y consultoría técnica para clientes diversos.',
+    technologies: ['Next.js', 'TypeScript', 'Node.js', 'React'],
   },
   {
     date: '2021 - 2023',
     title: 'Desarrollador Frontend',
-    company: 'Digital Innovation Labs',
+    company: 'Proyecto independiente',
     description:
-      'Desarrollo de interfaces de usuario interactivas y optimización de rendimiento.',
-    technologies: ['React', 'Redux', 'Tailwind CSS', 'Jest'],
-  },
-  {
-    date: '2019 - 2021',
-    title: 'Desarrollador Web',
-    company: 'Creative Web Agency',
-    description:
-      'Creación de sitios web responsivos y aplicaciones web personalizadas.',
-    technologies: ['JavaScript', 'HTML5', 'CSS3', 'PHP'],
+      'Desarrollo de interfaces de usuario interactivas y optimización de rendimiento web.',
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
   },
 ];

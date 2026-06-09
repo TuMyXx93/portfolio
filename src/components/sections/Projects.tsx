@@ -5,6 +5,7 @@ import { PROJECTS } from '@/constants';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
+import { Section } from '@/components/common/Section';
 
 interface ProjectCardProps {
   project: ProjectType;
@@ -101,8 +102,7 @@ export const Projects = () => {
   };
 
   return (
-    <section id="projects" className="min-h-screen py-20 px-4">
-      <h2 className="section-title">Proyectos</h2>
+    <Section id="projects" title="Proyectos" className="py-20 px-4">
       <motion.div
         ref={containerRef}
         variants={containerVariants}
@@ -115,6 +115,6 @@ export const Projects = () => {
           <ProjectCard key={project.id} project={project} index={index} />
         ))}
       </motion.div>
-    </section>
+    </Section>
   );
 };

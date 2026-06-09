@@ -14,7 +14,8 @@ export const en: Translation = {
   hero: {
     title: 'Welcome to my portfolio',
     subtitle: 'WEB DEVELOPER',
-    description: 'Specialized in React, Next.js and modern web development technologies',
+    description:
+      'Specialized in React, Next.js and modern web development technologies',
     cta: 'View my work',
     contact: 'Contact me',
     location: 'Peru',
@@ -22,7 +23,13 @@ export const en: Translation = {
   },
   about: {
     title: 'About me',
-    description: 'I am a developer passionate about creating innovative solutions and exceptional user experiences.',
+    description:
+      'I am a developer passionate about creating innovative solutions and exceptional user experiences.',
+    role: 'Full Stack Web Developer',
+    bio: 'Full Stack Web Developer with a passion for creating innovative and efficient solutions. My experience in web development ranges from interactive front-end applications to scalable backend APIs and systems.',
+    experienceTitle: 'Professional Experience',
+    contactButton: 'Contact',
+    projectsButton: 'View Projects',
     experience: 'years of experience',
     projects: 'completed projects',
     clients: 'satisfied clients',
@@ -35,7 +42,17 @@ export const en: Translation = {
     backend: 'Backend',
     database: 'Database',
     tools: 'Tools',
+    soft: 'Soft Skills',
     other: 'Others',
+    alwaysLearning: 'Always Learning',
+    learningText:
+      'Technology evolves constantly, and my commitment is to stay updated with the latest trends and best practices in web development. Every project is an opportunity to learn something new and improve my skills.',
+    tag: {
+      continuousLearning: 'Continuous Learning',
+      bestPractices: 'Best Practices',
+      cleanCode: 'Clean Code',
+      teamwork: 'Teamwork',
+    },
   },
   projects: {
     title: 'Projects',
@@ -53,6 +70,17 @@ export const en: Translation = {
   experience: {
     title: 'Experience',
     subtitle: 'My professional journey',
+    professionalExperience: 'Professional Experience',
+    highlights: 'Professional Highlights',
+    approach: 'Professional Approach',
+    approachText:
+      'My approach focuses on creating innovative solutions that combine the best development practices with cutting-edge technologies. I always seek opportunities to learn and apply new methodologies that improve efficiency and code quality.',
+    bullet1: 'Full stack web development',
+    bullet2: 'Specialist in modern technologies',
+    bullet3: 'Development team leadership',
+    bullet4: 'Scalable application architecture',
+    contactMe: 'Contact me',
+    downloadCV: 'Download CV',
     present: 'Present',
     responsibilities: 'Responsibilities',
     achievements: 'Achievements',
@@ -61,7 +89,8 @@ export const en: Translation = {
   contact: {
     title: 'Contact',
     subtitle: "Let's work together!",
-    description: 'I am available for new projects and collaboration opportunities.',
+    description:
+      'I am available for new projects and collaboration opportunities.',
     form: {
       name: 'Name',
       email: 'Email',
@@ -144,11 +173,13 @@ export const en: Translation = {
   seo: {
     home: {
       title: 'TumiDev | Full Stack Developer',
-      description: 'Professional portfolio of TumiDev - Full Stack Developer specialized in React, Next.js and modern technologies',
+      description:
+        'Professional portfolio of TumiDev - Full Stack Developer specialized in React, Next.js and modern technologies',
     },
     about: {
       title: 'About me | TumiDev',
-      description: 'Learn more about my experience and journey as a full stack developer',
+      description:
+        'Learn more about my experience and journey as a full stack developer',
     },
     projects: {
       title: 'Projects | TumiDev',
@@ -156,7 +187,8 @@ export const en: Translation = {
     },
     contact: {
       title: 'Contact | TumiDev',
-      description: 'Get in touch with me for your next project or collaboration',
+      description:
+        'Get in touch with me for your next project or collaboration',
     },
   },
   accessibility: {

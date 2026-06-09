@@ -7,11 +7,7 @@ import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 import Image from 'next/image';
 
-interface CircularHeroProps {
-  onNavigate: (section: string) => void;
-}
-
-export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
+export const CircularHero = () => {
   const { t } = useTranslation();
   const { state } = useAdvancedAccessibility();
 
@@ -39,7 +35,7 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-hero">
       {/* Logo en la esquina superior con entrada animada */}
       <motion.div
         initial={{ opacity: 0, x: -50, scale: 0.8 }}
@@ -109,7 +105,7 @@ export const CircularHero: React.FC<CircularHeroProps> = ({ onNavigate }) => {
 
           {/* Navegación Horizontal */}
           <motion.div variants={shouldAnimate ? itemVariants : undefined}>
-            <HorizontalNavigation onNavigate={onNavigate} />
+            <HorizontalNavigation />
           </motion.div>
         </motion.div>
       </div>

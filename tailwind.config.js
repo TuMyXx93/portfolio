@@ -22,6 +22,15 @@ module.exports = {
           light: '#1a1a1a',
           dark: '#ffffff',
         },
+        // Enterprise Progressive Color System
+        deepOcean: '#0a1628',
+        midnightBlue: '#111d32',
+        twilightNavy: '#1a2744',
+        amber: {
+          primary: '#f7ab0a',
+          light: '#f7cd2e',
+          dark: '#92400e',
+        },
       },
       animation: {
         gradient: 'gradient 8s linear infinite',
@@ -64,11 +73,6 @@ module.exports = {
           '&::-webkit-scrollbar': {
             display: 'none',
           },
-        },
-        '.glass-effect': {
-          background: 'rgba(255, 255, 255, 0.05)',
-          'backdrop-filter': 'blur(10px)',
-          '-webkit-backdrop-filter': 'blur(10px)',
         },
       });
     },

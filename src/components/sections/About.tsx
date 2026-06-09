@@ -5,10 +5,12 @@ import { motion, useInView } from 'framer-motion';
 import { EXPERIENCE_ITEMS } from '@/constants';
 import { useRef } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 export const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const { t } = useTranslation();
 
   useLazySection('about', () => {
     // Podemos usar esto para inicializar datos específicos de la sección si es necesario
@@ -37,7 +39,7 @@ export const About = () => {
   };
 
   return (
-    <Section id="about" title="Sobre Mí" className="py-20 px-4">
+    <Section id="about" title={t('about.title')} className="py-20 px-4">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -48,15 +50,9 @@ export const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-2xl font-bold text-[#F7AB0A]">
-              Desarrollador Web Full Stack
+              {t('about.role')}
             </h3>
-            <p className="text-gray-300">
-              Con más de X años de experiencia en el desarrollo web, me
-              especializo en crear soluciones innovadoras y eficientes. Mi
-              pasión por la tecnología y el aprendizaje continuo me impulsa a
-              mantenerme actualizado con las últimas tendencias y mejores
-              prácticas.
-            </p>
+            <p className="text-gray-300">{t('about.bio')}</p>
             <div className="flex gap-4">
               <motion.a
                 href="#contact"
@@ -64,7 +60,7 @@ export const About = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Contactar
+                {t('about.contactButton')}
               </motion.a>
               <motion.a
                 href="#projects"
@@ -72,13 +68,13 @@ export const About = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Ver Proyectos
+                {t('about.projectsButton')}
               </motion.a>
             </div>
           </motion.div>
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-2xl font-bold text-[#F7AB0A]">
-              Experiencia Profesional
+              {t('about.experienceTitle')}
             </h3>
             <Timeline items={EXPERIENCE_ITEMS} />
           </motion.div>

@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version-file: '.node-version'
           cache: npm
 
       - name: Install dependencies
@@ -41,7 +41,23 @@ jobs:
         run: npm run build
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: E2E smoke
         run: npm run test:e2e
+
+      - name: Setup Engram Cloud
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')
+        run: |
+          engram cloud enroll portfolio || true
+        env:
+          ENGRAM_CLOUD_TOKEN: ${{ secrets.ENGRAM_CLOUD_TOKEN }}
+          ENGRAM_CLOUD_SERVER: ${{ secrets.ENGRAM_CLOUD_SERVER }}
+
+      - name: Sync Engram Memories
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')
+        run: |
+          engram sync --cloud --project portfolio || true
+        env:
+          ENGRAM_CLOUD_TOKEN: ${{ secrets.ENGRAM_CLOUD_TOKEN }}
+          ENGRAM_CLOUD_SERVER: ${{ secrets.ENGRAM_CLOUD_SERVER }}

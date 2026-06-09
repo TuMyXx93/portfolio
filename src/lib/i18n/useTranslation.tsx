@@ -1,5 +1,11 @@
 'use client';
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { Locale, defaultLocale, locales, Translation } from './config';
 import { translations } from './translations';
 
@@ -7,7 +13,10 @@ interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (key: string, interpolations?: Record<string, string>) => string;
-  formatMessage: (key: string, interpolations?: Record<string, string>) => string;
+  formatMessage: (
+    key: string,
+    interpolations?: Record<string, string>
+  ) => string;
   isLoading: boolean;
 }
 
@@ -19,22 +28,20 @@ interface I18nProviderProps {
 }
 
 export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
-  const [locale, setLocale] = useState<Locale>(initialLocale || defaultLocale);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Load locale from localStorage or browser preference
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === 'undefined') {
+      return initialLocale || defaultLocale;
+    }
     const savedLocale = localStorage.getItem('locale') as Locale;
     const browserLocale = navigator.language.split('-')[0] as Locale;
-    
-    const preferredLocale = 
-      savedLocale && locales.includes(savedLocale) ? savedLocale :
-      locales.includes(browserLocale) ? browserLocale :
-      defaultLocale;
-
-    setLocale(preferredLocale);
-    setIsLoading(false);
-  }, []);
+    return (
+      (savedLocale && locales.includes(savedLocale) ? savedLocale : null) ||
+      (locales.includes(browserLocale) ? browserLocale : null) ||
+      initialLocale ||
+      defaultLocale
+    );
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Save locale to localStorage and update document
@@ -45,7 +52,7 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
   const getNestedTranslation = (obj: Translation, path: string): string => {
     const keys = path.split('.');
     let current: any = obj;
-    
+
     for (const key of keys) {
       if (current && typeof current === 'object' && key in current) {
         current = current[key];
@@ -53,15 +60,15 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
         return path; // Return key if not found
       }
     }
-    
+
     return typeof current === 'string' ? current : path;
   };
 
   const t = (key: string, interpolations?: Record<string, string>): string => {
     const translation = getNestedTranslation(translations[locale], key);
-    
+
     if (!interpolations) return translation;
-    
+
     // Replace interpolation patterns {{key}} with values
     return translation.replace(/\{\{(\w+)\}\}/g, (match, key) => {
       return interpolations[key] || match;
@@ -84,11 +91,7 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
     isLoading,
   };
 
-  return (
-    <I18nContext.Provider value={value}>
-      {children}
-    </I18nContext.Provider>
-  );
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
 export function useTranslation(): I18nContextType {
@@ -99,54 +102,40 @@ export function useTranslation(): I18nContextType {
   return context;
 }
 
-// Higher-order component for class components
-export function withTranslation<P extends object>(
-  Component: React.ComponentType<P & { t: I18nContextType['t'] }>
-) {
-  return function WrappedComponent(props: P) {
-    const { t } = useTranslation();
-    return <Component {...props} t={t} />;
-  };
-}
-
-// Hook for accessing specific translation keys
-export function useTranslationKey(key: string) {
-  const { t } = useTranslation();
-  return t(key);
-}
-
-// Hook for accessing multiple translation keys
-export function useTranslationKeys(keys: string[]) {
-  const { t } = useTranslation();
-  return keys.reduce((acc, key) => {
-    acc[key] = t(key);
-    return acc;
-  }, {} as Record<string, string>);
-}
-
 // Hook for locale-specific formatting
 export function useLocaleFormatting() {
   const { locale } = useTranslation();
-  
+
   const formatDate = (date: Date, options?: Intl.DateTimeFormatOptions) => {
-    return new Intl.DateTimeFormat(locale === 'es' ? 'es-ES' : 'en-US', options).format(date);
+    return new Intl.DateTimeFormat(
+      locale === 'es' ? 'es-ES' : 'en-US',
+      options
+    ).format(date);
   };
-  
+
   const formatNumber = (number: number, options?: Intl.NumberFormatOptions) => {
-    return new Intl.NumberFormat(locale === 'es' ? 'es-ES' : 'en-US', options).format(number);
+    return new Intl.NumberFormat(
+      locale === 'es' ? 'es-ES' : 'en-US',
+      options
+    ).format(number);
   };
-  
+
   const formatCurrency = (amount: number, currency: string = 'USD') => {
     return new Intl.NumberFormat(locale === 'es' ? 'es-ES' : 'en-US', {
       style: 'currency',
       currency,
     }).format(amount);
   };
-  
-  const formatRelativeTime = (value: number, unit: Intl.RelativeTimeFormatUnit) => {
-    return new Intl.RelativeTimeFormat(locale === 'es' ? 'es-ES' : 'en-US').format(value, unit);
+
+  const formatRelativeTime = (
+    value: number,
+    unit: Intl.RelativeTimeFormatUnit
+  ) => {
+    return new Intl.RelativeTimeFormat(
+      locale === 'es' ? 'es-ES' : 'en-US'
+    ).format(value, unit);
   };
-  
+
   return {
     formatDate,
     formatNumber,

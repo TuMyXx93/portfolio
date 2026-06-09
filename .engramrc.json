@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Gentleman-Programming/engram/main/.engramrc.schema.json",
+  "project": "portfolio",
+  "projectDisplayName": "Portfolio Web App",
+  "version": "1.0.0",
+  "description": "Next.js 16 + React 19 + TypeScript portfolio with Engram memory integration",
+  "rules": {
+    "requireSessionSummary": true,
+    "autoPassiveCapture": true,
+    "autoSyncOnCommit": false
+  },
+  "paths": {
+    "docs": "docs/",
+    "memory": ".engram/"
+  },
+  "ignoredPaths": ["node_modules", ".next", "build", "dist", "coverage"],
+  "hooks": {
+    "preCommit": {
+      "enabled": false,
+      "description": "Run engram doctor before commit (disabled to avoid blocking, use manually)"
+    },
+    "prePush": {
+      "enabled": false,
+      "description": "Run engram sync before push (sync happens via CI instead)"
+    }
+  },
+  "cloud": {
+    "syncEnabled": true,
+    "syncInterval": "1h",
+    "excludeTypes": ["tool_use", "file_read", "search"]
+  },
+  "metadata": {
+    "technologies": [
+      "nextjs",
+      "react",
+      "typescript",
+      "tailwindcss",
+      "framer-motion",
+      "jest",
+      "playwright"
+    ],
+    "team": "individual",
+    "repository": "https://github.com/HackTuCode/portfolio",
+    "integrationDate": "2026-04-30"
+  }
+}
