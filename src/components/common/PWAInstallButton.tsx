@@ -2,9 +2,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePWA } from '@/hooks/usePWA';
 import { useState } from 'react';
+import { Button } from '@/components/common/Button';
 
 export const PWAInstallButton = () => {
-  const { isInstallable, isInstalled, isOnline, updateAvailable, installApp, updateApp, shareApp } = usePWA();
+  const {
+    isInstallable,
+    isInstalled,
+    isOnline,
+    updateAvailable,
+    installApp,
+    updateApp,
+    shareApp,
+  } = usePWA();
   const [showTooltip, setShowTooltip] = useState(false);
 
   // No mostrar si ya está instalado y no hay actualizaciones
@@ -43,72 +52,110 @@ export const PWAInstallButton = () => {
           <div className="flex flex-col gap-2">
             {/* Update Available Button */}
             {updateAvailable && (
-              <motion.button
-                onClick={handleUpdate}
-                onMouseEnter={() => setShowTooltip(true)}
-                onMouseLeave={() => setShowTooltip(false)}
-                className="relative bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Actualizar aplicación"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
+              <div className="relative">
+                <Button
+                  variant="icon"
+                  shape="circle"
+                  size="sm"
+                  onClick={handleUpdate}
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                  ariaLabel="Actualizar aplicación"
+                  className="bg-orange-500 hover:bg-orange-600 !p-3"
                 >
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                    fill="currentColor"
-                  />
-                </svg>
-                
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </Button>
                 {/* Notification Badge */}
                 <motion.div
                   className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}
                 />
-              </motion.button>
+
+                {/* Tooltip reposicionado para móvil */}
+                <AnimatePresence>
+                  {showTooltip && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute right-0 bottom-full mb-2 hidden sm:block"
+                    >
+                      <div className="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
+                        Nueva versión disponible
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             )}
 
             {/* Install Button */}
             {isInstallable && (
-              <motion.button
-                onClick={handleInstall}
-                onMouseEnter={() => setShowTooltip(true)}
-                onMouseLeave={() => setShowTooltip(false)}
-                className="relative bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-full shadow-lg transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Instalar aplicación"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6"
+              <div className="relative">
+                <Button
+                  variant="icon"
+                  shape="circle"
+                  size="sm"
+                  onClick={handleInstall}
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                  ariaLabel="Instalar aplicación"
+                  className="bg-amber-500 hover:bg-amber-600 !p-3"
                 >
-                  <path
-                    d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </motion.button>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </Button>
+
+                {/* Tooltip reposicionado */}
+                <AnimatePresence>
+                  {showTooltip && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute right-0 bottom-full mb-2 hidden sm:block"
+                    >
+                      <div className="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
+                        Instalar como app
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             )}
 
             {/* Share Button */}
-            <motion.button
+            <Button
+              variant="icon"
+              shape="circle"
+              size="sm"
               onClick={handleShare}
-              className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Compartir portfolio"
+              ariaLabel="Compartir portfolio"
+              className="bg-green-500 hover:bg-green-600 !p-3"
             >
               <svg
                 width="24"
@@ -123,36 +170,18 @@ export const PWAInstallButton = () => {
                   fill="currentColor"
                 />
               </svg>
-            </motion.button>
+            </Button>
 
             {/* Offline Indicator */}
             {!isOnline && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="bg-red-500 text-white px-3 py-2 rounded-full text-sm shadow-lg"
+                className="bg-red-500 text-white px-3 py-2 rounded-full text-sm shadow-lg text-center"
               >
                 📶 Sin conexión
               </motion.div>
             )}
-
-            {/* Tooltip */}
-            <AnimatePresence>
-              {showTooltip && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2"
-                >
-                  <div className="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
-                    {updateAvailable && 'Nueva versión disponible'}
-                    {isInstallable && !updateAvailable && 'Instalar como app'}
-                    <div className="absolute top-1/2 -right-1 transform -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45" />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         </motion.div>
       )}

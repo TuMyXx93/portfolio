@@ -39,18 +39,6 @@ export const Skills = () => {
     },
   };
 
-  const titleVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut' as const,
-      },
-    },
-  };
-
   // Agrupar skills por categoría
   const skillsByCategory = SKILLS.reduce(
     (acc, skill) => {
@@ -86,37 +74,40 @@ export const Skills = () => {
   };
 
   return (
-    <Section id="skills" title={t('skills.title')} className="py-20 px-4">
+    <Section
+      id="skills"
+      title={t('skills.title')}
+      className="py-16 md:py-20 lg:py-24 px-4"
+    >
       <motion.div
         ref={ref}
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="mt-16 max-w-7xl mx-auto"
+        className="mt-12 md:mt-16 max-w-7xl mx-auto"
       >
-        {/* Grid de categorías de skills */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Grid de categorías de skills - 1 col móvil, 2 col tablet, 4 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
           {Object.entries(skillsByCategory).map(([category, skills]) => (
             <motion.div
               key={category}
               variants={itemVariants}
-              className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-white/20 transition-colors"
+              className="bg-white/5 backdrop-blur-lg rounded-xl p-4 md:p-6 border border-white/10 hover:border-white/20 transition-colors"
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div
                   className={`w-3 h-3 rounded-full bg-gradient-to-r ${getCategoryColor(category)}`}
                 ></div>
-                <h3 className="text-xl font-light text-white tracking-wide">
+                <h3 className="text-lg md:text-xl font-light text-white tracking-wide">
                   {getCategoryTitle(category)}
                 </h3>
               </div>
 
-              <div className="grid gap-4">
+              <div className="grid gap-3 md:gap-4">
                 {skills.map(skill => (
-                  <motion.div
+                  <div
                     key={skill.name}
-                    className="flex items-center justify-between group"
-                    whileHover={{ x: 5 }}
+                    className="flex items-center justify-between group [@media(hover:hover)]:hover:translate-x-1 transition-transform duration-200"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 flex items-center justify-center bg-white/10 rounded-lg group-hover:bg-amber-500/20 transition-colors">
@@ -124,14 +115,14 @@ export const Skills = () => {
                           {skill.name.charAt(0)}
                         </span>
                       </div>
-                      <span className="text-gray-300 group-hover:text-white transition-colors font-light tracking-wide">
+                      <span className="text-gray-300 group-hover:text-white transition-colors font-light tracking-wide text-sm md:text-base">
                         {skill.name}
                       </span>
                     </div>
 
                     {/* Barra de progreso */}
                     <div className="flex items-center gap-2">
-                      <div className="w-16 h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div className="w-12 md:w-16 h-2 bg-white/10 rounded-full overflow-hidden">
                         <motion.div
                           className="h-full bg-gradient-to-r from-white/60 to-white/40 rounded-full"
                           initial={{ width: 0 }}
@@ -147,7 +138,7 @@ export const Skills = () => {
                         {skill.level}%
                       </span>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </motion.div>
@@ -155,26 +146,29 @@ export const Skills = () => {
         </div>
 
         {/* Información adicional */}
-        <motion.div variants={itemVariants} className="mt-16 text-center">
-          <div className="glass-effect rounded-xl p-8 border border-white/10">
-            <h4 className="text-2xl font-bold text-[#F7AB0A] mb-4">
+        <motion.div
+          variants={itemVariants}
+          className="mt-12 md:mt-16 text-center"
+        >
+          <div className="glass-effect rounded-xl p-6 md:p-8 border border-white/10">
+            <h4 className="text-xl md:text-2xl font-bold text-[#F7AB0A] mb-4">
               {t('skills.alwaysLearning')}
             </h4>
-            <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-3xl mx-auto max-ch-70">
               {t('skills.learningText')}
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <span className="px-4 py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-6 md:mt-8">
+              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20">
                 {t('skills.tag.continuousLearning')}
               </span>
-              <span className="px-4 py-2 bg-blue-500/10 text-blue-400 rounded-full text-sm border border-blue-500/20">
+              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-blue-500/10 text-blue-400 rounded-full text-sm border border-blue-500/20">
                 {t('skills.tag.bestPractices')}
               </span>
-              <span className="px-4 py-2 bg-green-500/10 text-green-400 rounded-full text-sm border border-green-500/20">
+              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-green-500/10 text-green-400 rounded-full text-sm border border-green-500/20">
                 {t('skills.tag.cleanCode')}
               </span>
-              <span className="px-4 py-2 bg-purple-500/10 text-purple-400 rounded-full text-sm border border-purple-500/20">
+              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-purple-500/10 text-purple-400 rounded-full text-sm border border-purple-500/20">
                 {t('skills.tag.teamwork')}
               </span>
             </div>

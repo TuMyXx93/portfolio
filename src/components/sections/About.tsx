@@ -6,6 +6,7 @@ import { EXPERIENCE_ITEMS } from '@/constants';
 import { useRef } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
 import { useTranslation } from '@/lib/i18n/useTranslation';
+import { Button } from '@/components/common/Button';
 
 export const About = () => {
   const ref = useRef(null);
@@ -39,41 +40,52 @@ export const About = () => {
   };
 
   return (
-    <Section id="about" title={t('about.title')} className="py-20 px-4">
+    <Section
+      id="about"
+      title={t('about.title')}
+      className="py-16 md:py-20 lg:py-24 px-4"
+    >
       <motion.div
         ref={ref}
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="mt-16 max-w-7xl mx-auto"
+        className="mt-12 md:mt-16 max-w-7xl mx-auto"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#F7AB0A]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+          <motion.div
+            variants={itemVariants}
+            className="space-y-4 md:space-y-6"
+          >
+            <h3 className="text-xl md:text-2xl font-bold text-[#F7AB0A]">
               {t('about.role')}
             </h3>
-            <p className="text-gray-300">{t('about.bio')}</p>
-            <div className="flex gap-4">
-              <motion.a
+            <p className="text-gray-300 text-sm md:text-base leading-relaxed max-ch-70">
+              {t('about.bio')}
+            </p>
+            <div className="flex flex-wrap gap-3 md:gap-4">
+              <Button
+                variant="ghost"
+                size="md"
+                shape="pill"
                 href="#contact"
-                className="hero-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                ariaLabel={t('about.contactButton') || 'Ir a contacto'}
               >
                 {t('about.contactButton')}
-              </motion.a>
-              <motion.a
+              </Button>
+              <Button
+                variant="ghost"
+                size="md"
+                shape="pill"
                 href="#projects"
-                className="hero-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                ariaLabel={t('about.projectsButton') || 'Ir a proyectos'}
               >
                 {t('about.projectsButton')}
-              </motion.a>
+              </Button>
             </div>
           </motion.div>
           <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#F7AB0A]">
+            <h3 className="text-xl md:text-2xl font-bold text-[#F7AB0A]">
               {t('about.experienceTitle')}
             </h3>
             <Timeline items={EXPERIENCE_ITEMS} />

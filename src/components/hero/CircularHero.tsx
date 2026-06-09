@@ -35,13 +35,13 @@ export const CircularHero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-hero">
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
       {/* Logo en la esquina superior con entrada animada */}
       <motion.div
         initial={{ opacity: 0, x: -50, scale: 0.8 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 1.2, ease: 'easeOut' as const }}
-        className="absolute top-8 left-8 z-30"
+        className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-30"
       >
         <motion.div
           whileHover={
@@ -59,7 +59,7 @@ export const CircularHero = () => {
             alt="Tumidev Logo"
             width={150}
             height={50}
-            className="object-contain filter drop-shadow-lg"
+            className="object-contain filter drop-shadow-lg w-auto h-8 sm:h-10 md:h-12"
             priority
           />
         </motion.div>
@@ -71,8 +71,8 @@ export const CircularHero = () => {
       {/* Imagen de Perfil - Centrada en los círculos */}
       <ProfileImage />
 
-      {/* Contenido Central - Debajo de la imagen */}
-      <div className="relative z-20 flex flex-col items-center justify-start min-h-screen pt-[62vh]">
+      {/* Contenido Central - Debajo de la imagen con padding responsivo */}
+      <div className="relative z-20 flex flex-col items-center justify-start min-h-[100dvh] pt-[50vh] sm:pt-[55vh] md:pt-[62vh] landscape:pt-[40vh] landscape:sm:pt-[55vh]">
         {/* Contenido de texto */}
         <motion.div
           variants={shouldAnimate ? containerVariants : undefined}
@@ -83,10 +83,10 @@ export const CircularHero = () => {
           {/* Texto Principal */}
           <motion.div
             variants={shouldAnimate ? itemVariants : undefined}
-            className="space-y-1 mb-4"
+            className="space-y-1 sm:space-y-2 mb-4"
           >
             <motion.h2
-              className="text-sm uppercase text-gray-400 tracking-[8px] font-light"
+              className="text-xs sm:text-sm uppercase text-gray-400 tracking-[4px] sm:tracking-[8px] font-light"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8 }}
@@ -94,7 +94,7 @@ export const CircularHero = () => {
               {t('hero.subtitle')}
             </motion.h2>
             <motion.h1
-              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 0.8 }}

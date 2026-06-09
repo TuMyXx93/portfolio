@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
+import { Button } from '@/components/common/Button';
 
 interface FormData {
   name: string;
@@ -25,17 +26,19 @@ interface ContactFormProps {
 export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
   const { t } = useTranslation();
   const { announceToScreenReader } = useAdvancedAccessibility();
-  
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: '',
   });
-  
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'success' | 'error'
+  >('idle');
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -68,7 +71,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
@@ -77,12 +80,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const newErrors = validateForm();
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      announceToScreenReader('Formulario contiene errores. Por favor, revisa los campos marcados.');
+      announceToScreenReader(
+        'Formulario contiene errores. Por favor, revisa los campos marcados.'
+      );
       return;
     }
 
@@ -116,13 +121,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
 
   const inputClassName = (fieldName: keyof FormErrors) => `
     w-full px-4 py-3 rounded-lg border-2 transition-colors
-    ${errors[fieldName] 
-      ? 'border-red-500 focus:border-red-600' 
-      : 'border-gray-300 dark:border-gray-600 focus:border-blue-500'
+    ${
+      errors[fieldName]
+        ? 'border-red-500 focus:border-red-600'
+        : 'border-gray-300 dark:border-gray-600 focus:border-amber-500'
     }
     bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-    focus:outline-none focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800
+    focus:outline-none focus:ring-4 focus:ring-amber-200 dark:focus:ring-amber-800
     disabled:opacity-50 disabled:cursor-not-allowed
+    text-base min-h-[44px]
   `;
 
   return (
@@ -134,59 +141,70 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
       transition={{ duration: 0.5 }}
       noValidate
     >
-      {/* Name Field */}
-      <div>
-        <label
-          htmlFor="contact-name"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-        >
-          {t('contact.form.name')} *
-        </label>
-        <input
-          id="contact-name"
-          type="text"
-          value={formData.name}
-          onChange={(e) => handleInputChange('name', e.target.value)}
-          className={inputClassName('name')}
-          disabled={isSubmitting}
-          aria-describedby={errors.name ? 'name-error' : undefined}
-          aria-invalid={!!errors.name}
-          autoComplete="name"
-        />
-        {errors.name && (
-          <p id="name-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
-            {errors.name}
-          </p>
-        )}
+      {/* Name + Email en grid 2 columnas en md+ */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Name Field */}
+        <div>
+          <label
+            htmlFor="contact-name"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
+            {t('contact.form.name')} *
+          </label>
+          <input
+            id="contact-name"
+            type="text"
+            value={formData.name}
+            onChange={e => handleInputChange('name', e.target.value)}
+            className={inputClassName('name')}
+            disabled={isSubmitting}
+            aria-describedby={errors.name ? 'name-error' : undefined}
+            aria-invalid={!!errors.name}
+            autoComplete="name"
+          />
+          {errors.name && (
+            <p
+              id="name-error"
+              className="mt-2 text-sm text-red-600 dark:text-red-400"
+              role="alert"
+            >
+              {errors.name}
+            </p>
+          )}
+        </div>
+
+        {/* Email Field */}
+        <div>
+          <label
+            htmlFor="contact-email"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
+            {t('contact.form.email')} *
+          </label>
+          <input
+            id="contact-email"
+            type="email"
+            value={formData.email}
+            onChange={e => handleInputChange('email', e.target.value)}
+            className={inputClassName('email')}
+            disabled={isSubmitting}
+            aria-describedby={errors.email ? 'email-error' : undefined}
+            aria-invalid={!!errors.email}
+            autoComplete="email"
+          />
+          {errors.email && (
+            <p
+              id="email-error"
+              className="mt-2 text-sm text-red-600 dark:text-red-400"
+              role="alert"
+            >
+              {errors.email}
+            </p>
+          )}
+        </div>
       </div>
 
-      {/* Email Field */}
-      <div>
-        <label
-          htmlFor="contact-email"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-        >
-          {t('contact.form.email')} *
-        </label>
-        <input
-          id="contact-email"
-          type="email"
-          value={formData.email}
-          onChange={(e) => handleInputChange('email', e.target.value)}
-          className={inputClassName('email')}
-          disabled={isSubmitting}
-          aria-describedby={errors.email ? 'email-error' : undefined}
-          aria-invalid={!!errors.email}
-          autoComplete="email"
-        />
-        {errors.email && (
-          <p id="email-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
-            {errors.email}
-          </p>
-        )}
-      </div>
-
-      {/* Subject Field */}
+      {/* Subject Field - full width */}
       <div>
         <label
           htmlFor="contact-subject"
@@ -198,20 +216,24 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
           id="contact-subject"
           type="text"
           value={formData.subject}
-          onChange={(e) => handleInputChange('subject', e.target.value)}
+          onChange={e => handleInputChange('subject', e.target.value)}
           className={inputClassName('subject')}
           disabled={isSubmitting}
           aria-describedby={errors.subject ? 'subject-error' : undefined}
           aria-invalid={!!errors.subject}
         />
         {errors.subject && (
-          <p id="subject-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p
+            id="subject-error"
+            className="mt-2 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.subject}
           </p>
         )}
       </div>
 
-      {/* Message Field */}
+      {/* Message Field - full width */}
       <div>
         <label
           htmlFor="contact-message"
@@ -221,9 +243,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
         </label>
         <textarea
           id="contact-message"
-          rows={6}
+          rows={5}
           value={formData.message}
-          onChange={(e) => handleInputChange('message', e.target.value)}
+          onChange={e => handleInputChange('message', e.target.value)}
           className={`${inputClassName('message')} resize-vertical`}
           disabled={isSubmitting}
           aria-describedby={errors.message ? 'message-error' : undefined}
@@ -231,45 +253,28 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
           placeholder={t('contact.form.message')}
         />
         {errors.message && (
-          <p id="message-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
+          <p
+            id="message-error"
+            className="mt-2 text-sm text-red-600 dark:text-red-400"
+            role="alert"
+          >
             {errors.message}
           </p>
         )}
       </div>
 
-      {/* Submit Button */}
-      <motion.button
+      {/* Submit Button - ámbar unificado */}
+      <Button
+        variant="submit"
+        size="full"
+        shape="rounded"
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 disabled:cursor-not-allowed"
-        whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-        whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-        aria-describedby="submit-status"
+        loading={isSubmitting}
+        ariaLabel={t('contact.form.send') || 'Enviar mensaje'}
       >
-        {isSubmitting ? (
-          <div className="flex items-center justify-center space-x-2">
-            <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-                fill="none"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            <span>{t('contact.form.sending')}</span>
-          </div>
-        ) : (
-          t('contact.form.send')
-        )}
-      </motion.button>
+        {isSubmitting ? t('contact.form.sending') : t('contact.form.send')}
+      </Button>
 
       {/* Status Messages */}
       {submitStatus !== 'idle' && (
@@ -304,7 +309,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
               </svg>
             )}
             <span>
-              {submitStatus === 'success' ? t('contact.form.success') : t('contact.form.error')}
+              {submitStatus === 'success'
+                ? t('contact.form.success')
+                : t('contact.form.error')}
             </span>
           </div>
         </motion.div>

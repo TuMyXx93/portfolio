@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
 import { Section } from '@/components/common/Section';
+import { Button } from '@/components/common/Button';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface ProjectCardProps {
   project: ProjectType;
@@ -19,11 +21,11 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
       viewport={{ once: false }}
-      className="group relative w-full max-w-sm mx-auto glass-effect rounded-xl p-4 hover:scale-105 transition-transform duration-200"
+      className="group relative w-full mx-auto glass-effect rounded-xl p-4 hover:scale-105 transition-transform duration-200"
     >
       <motion.div
-        className="relative w-full h-48 rounded-lg overflow-hidden mb-4"
-        whileHover={{ scale: 1.05 }}
+        className="relative w-full aspect-video rounded-lg overflow-hidden mb-4"
+        whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.2 }}
       >
         <Image
@@ -31,49 +33,56 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           alt={project.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <div className="space-x-4">
+        {/* Overlay - visible en hover (pointer) o siempre en touch */}
+        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div className="flex flex-wrap items-center justify-center gap-3 p-2">
             {project.github && (
-              <a
+              <Button
+                variant="overlay"
+                size="sm"
+                shape="pill"
                 href={project.github}
                 target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-[#F7AB0A] text-black rounded-full text-sm font-medium hover:bg-[#F7AB0A]/80 transition-colors"
+                ariaLabel={`Ver código fuente de ${project.title} en GitHub`}
               >
                 GitHub
-              </a>
+              </Button>
             )}
             {project.demo && (
-              <a
+              <Button
+                variant="overlayWhite"
+                size="sm"
+                shape="pill"
                 href={project.demo}
                 target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-white text-black rounded-full text-sm font-medium hover:bg-white/80 transition-colors"
+                ariaLabel={`Ver demo de ${project.title}`}
               >
                 Demo
-              </a>
+              </Button>
             )}
           </div>
         </div>
       </motion.div>
       <motion.h3
-        className="text-xl font-bold mb-2 text-[#F7AB0A]"
-        whileHover={{ scale: 1.05 }}
+        className="text-lg md:text-xl font-bold mb-2 text-[#F7AB0A]"
+        whileHover={{ scale: 1.02 }}
       >
         {project.title}
       </motion.h3>
-      <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
+      <p className="text-gray-400 mb-4 line-clamp-3 text-sm md:text-base">
+        {project.description}
+      </p>
       <div className="flex flex-wrap gap-2 mb-4">
         {project.technologies.map(tech => (
-          <motion.span
+          <span
             key={tech.name}
-            className="px-2 py-1 text-sm rounded-full bg-gray-800"
+            className="px-2 py-1 text-xs md:text-sm rounded-full bg-gray-800 transition-transform duration-200 hover:scale-110 cursor-default"
             style={{ color: tech.color }}
-            whileHover={{ scale: 1.1 }}
           >
             {tech.name}
-          </motion.span>
+          </span>
         ))}
       </div>
     </motion.div>
@@ -82,6 +91,8 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
 export const Projects = () => {
   const containerRef = useRef(null);
+  const { t } = useTranslation();
+
   useLazySection('projects', () => {
     // Precargar imágenes de proyectos cuando la sección sea visible
     PROJECTS.forEach(project => {
@@ -102,14 +113,18 @@ export const Projects = () => {
   };
 
   return (
-    <Section id="projects" title="Proyectos" className="py-20 px-4">
+    <Section
+      id="projects"
+      title={t('projects.title') || 'Proyectos'}
+      className="py-16 md:py-20 lg:py-24 px-4"
+    >
       <motion.div
         ref={containerRef}
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto"
       >
         {PROJECTS.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />

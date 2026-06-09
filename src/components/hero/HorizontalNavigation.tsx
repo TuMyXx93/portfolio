@@ -61,7 +61,7 @@ export const HorizontalNavigation = () => {
       variants={shouldAnimate ? containerVariants : undefined}
       initial={shouldAnimate ? 'hidden' : undefined}
       animate={shouldAnimate ? 'visible' : { opacity: 1, y: 0 }}
-      className="flex flex-wrap justify-center gap-4 md:gap-6"
+      className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-6"
       role="navigation"
       aria-label="Navegación principal"
     >
@@ -77,11 +77,12 @@ export const HorizontalNavigation = () => {
             onMouseEnter={() => setHoveredItem(item.key)}
             onMouseLeave={() => setHoveredItem(null)}
             className={`
-              group relative px-6 py-3 rounded-full border border-amber-400/30 text-amber-400 
+              group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full border border-amber-400/30 text-amber-400 
               hover:bg-amber-400 hover:text-slate-900 
               focus:bg-amber-400 focus:text-slate-900 focus:outline-none 
               focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900
-              transition-all duration-300 text-sm md:text-base font-medium overflow-hidden
+              transition-all duration-300 text-xs sm:text-sm md:text-base font-medium overflow-hidden
+              min-h-[40px] sm:min-h-[44px]
               ${state.enhancedFocus ? 'ring-2 ring-offset-2 ring-offset-slate-900' : ''}
               ${isHovered ? 'shadow-lg shadow-amber-400/20' : ''}
             `}
@@ -107,8 +108,8 @@ export const HorizontalNavigation = () => {
             )}
 
             {/* Contenido del botón */}
-            <span className="relative z-10 flex items-center gap-2">
-              <span className="text-lg">{item.icon}</span>
+            <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
+              <span className="text-base sm:text-lg">{item.icon}</span>
               <span>{label}</span>
             </span>
 

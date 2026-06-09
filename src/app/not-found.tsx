@@ -1,18 +1,25 @@
-import Link from 'next/link'
+import { Button } from '@/components/common/Button';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4 text-white">404 - Página no encontrada</h2>
-        <p className="text-gray-400 mb-8">Lo sentimos, la página que buscas no existe.</p>
-        <Link
+    <div className="min-h-screen flex items-center justify-center bg-gradient-custom px-4 sm:px-6">
+      <div className="text-center max-w-md mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+          404 - Página no encontrada
+        </h2>
+        <p className="text-gray-400 mb-8 text-sm md:text-base max-ch-65 mx-auto">
+          Lo sentimos, la página que buscas no existe.
+        </p>
+        <Button
+          variant="primary"
+          size="md"
+          shape="rounded"
           href="/"
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          ariaLabel="Volver al inicio"
         >
           Volver al inicio
-        </Link>
+        </Button>
       </div>
     </div>
-  )
+  );
 }

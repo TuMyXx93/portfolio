@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Utilidades adicionales sin duplicar glass-effect */
 @layer utilities {
-  .text-gradient {
+  /* text-gradient se mantiene por compatibilidad, pero preferir usar la versión de globals.css */
+  .text-gradient-legacy {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F7AB0A] to-[#F7CD2E];
   }
 
@@ -13,9 +15,5 @@
 
   .flex-center {
     @apply flex justify-center items-center;
-  }
-
-  .glass-effect {
-    @apply bg-opacity-10 backdrop-blur-lg bg-white/10;
   }
 }

@@ -45,8 +45,8 @@ export const ProfileImage = () => {
           }}
         />
 
-        {/* Imagen de perfil centrada exactamente en el medio */}
-        <div className="relative w-32 h-32 md:w-40 md:h-40">
+        {/* Imagen de perfil con escalado progresivo responsivo */}
+        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-60 2xl:h-60">
           <div className="absolute inset-0 rounded-full overflow-hidden shadow-2xl border-4 border-white/10">
             <Image
               src="/images/profile.png"
@@ -54,7 +54,7 @@ export const ProfileImage = () => {
               fill
               className="object-cover rounded-full transition-transform duration-300 hover:scale-105"
               priority
-              sizes="(max-width: 768px) 128px, 160px"
+              sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, (max-width: 1024px) 144px, (max-width: 1280px) 176px, (max-width: 1536px) 208px, 240px"
             />
           </div>
 
