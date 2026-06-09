@@ -10,11 +10,14 @@ import { ConnectionStatus } from '@/components/common/ConnectionStatus';
 import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
 import { I18nProvider } from '@/lib/i18n/useTranslation';
 import { AdvancedAccessibilityMenu } from '@/components/common/AdvancedAccessibilityMenu';
-import { SkipToContent, LiveRegion } from '@/components/accessibility/AccessibilityComponents';
+import {
+  SkipToContent,
+  LiveRegion,
+} from '@/components/accessibility/AccessibilityComponents';
 
 // Use system fonts as fallback to avoid Google Fonts API dependency
 const inter = {
-  className: 'font-sans'
+  className: 'font-sans',
 };
 
 const defaultUrl = process.env.VERCEL_URL
@@ -28,7 +31,16 @@ export const metadata: Metadata = {
   title: 'TumiDev | Portfolio Profesional',
   description:
     'Portfolio profesional de TumiDev - Desarrollador Full Stack especializado en React, Next.js, TypeScript y tecnologías modernas de desarrollo web',
-  keywords: ['desarrollo web', 'frontend', 'backend', 'Next.js', 'React', 'TypeScript', 'full stack', 'TumiDev'],
+  keywords: [
+    'desarrollo web',
+    'frontend',
+    'backend',
+    'Next.js',
+    'React',
+    'TypeScript',
+    'full stack',
+    'TumiDev',
+  ],
   authors: [{ name: 'TumiDev', url: 'https://tumidev.com' }],
   creator: 'TumiDev',
   publisher: 'TumiDev',
@@ -43,9 +55,7 @@ export const metadata: Metadata = {
       { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
-    apple: [
-      { url: '/icons/apple-touch-icon.png', sizes: '180x180' },
-    ],
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
     shortcut: '/favicon.ico',
   },
   appleWebApp: {
@@ -89,13 +99,12 @@ function ThemeAndAccessibilityScript() {
         __html: `
           (function() {
             try {
-              // Theme initialization
-              var theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-              document.documentElement.classList.toggle('dark', theme === 'dark');
-
-              // Accessibility preferences initialization
+              // Accessibility preferences initialization only.
+              // The project is dark-mode-only (enterprise design system),
+              // so we do NOT toggle the 'dark' class here to avoid hydration
+              // mismatches between server-rendered and client-rendered HTML.
               var accessibilityPrefs = JSON.parse(localStorage.getItem('accessibility-preferences') || '{}');
-              
+
               // Apply accessibility classes
               if (accessibilityPrefs.highContrast) document.documentElement.classList.add('high-contrast');
               if (accessibilityPrefs.reducedMotion) document.documentElement.classList.add('reduced-motion');
@@ -122,7 +131,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <ThemeAndAccessibilityScript />
         <meta name="theme-color" content="#3b82f6" />
@@ -133,14 +142,21 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
-      <body className={`${inter.className} transition-colors duration-300`}>
+      <body
+        className={`${inter.className} transition-colors duration-300`}
+        suppressHydrationWarning
+      >
         <SkipToContent />
         <I18nProvider>
           <AccessibilityProvider>
             <ConnectionStatus />
             <ScrollProgress />
             <LiveRegion />
-            <main id="main-content" tabIndex={-1} className="min-h-screen bg-gradient-custom focus:outline-none">
+            <main
+              id="main-content"
+              tabIndex={-1}
+              className="min-h-screen bg-gradient-custom focus:outline-none"
+            >
               {children}
             </main>
             <PWAInstallButton />
