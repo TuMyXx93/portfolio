@@ -2,28 +2,13 @@
 import { motion } from 'framer-motion';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 
-// Usamos factores escalables en lugar de tamaños fijos
-// El círculo más grande (factor 10) = 1000px en desktop, ~300px en móvil pequeño
 const circles = [
-  { scaleFactor: 2, delay: 0, duration: 2.5, opacity: 0.15, strokeWidth: 1 },
-  { scaleFactor: 4, delay: 0.2, duration: 3, opacity: 0.12, strokeWidth: 1 },
-  {
-    scaleFactor: 6,
-    delay: 0.4,
-    duration: 3.5,
-    opacity: 0.08,
-    strokeWidth: 2,
-    highlight: true,
-  },
-  {
-    scaleFactor: 8,
-    delay: 0.6,
-    duration: 4,
-    opacity: 0.06,
-    strokeWidth: 1,
-    pulse: true,
-  },
-  { scaleFactor: 10, delay: 0.8, duration: 4.5, opacity: 0.04, strokeWidth: 1 },
+  { delay: 0, duration: 4, opacity: 0.15, strokeWidth: 2, highlight: true },
+  { delay: 0.8, duration: 4, opacity: 0.12, strokeWidth: 1 },
+  { delay: 1.6, duration: 4, opacity: 0.08, strokeWidth: 1 },
+  { delay: 2.4, duration: 4, opacity: 0.06, strokeWidth: 1 },
+  { delay: 3.2, duration: 4, opacity: 0.04, strokeWidth: 1 },
+  { delay: 4.0, duration: 4, opacity: 0.02, strokeWidth: 1 }, // 6th circle for radar effect
 ];
 
 export const ConcentricCircles = () => {
@@ -40,36 +25,26 @@ export const ConcentricCircles = () => {
           className={`
             absolute rounded-full hero-circle
             ${circle.highlight ? 'border-amber-300 glow-amber' : 'border-amber-400'}
-            ${circle.pulse && shouldAnimate ? 'animate-pulse' : ''}
           `}
           style={{
-            // Usamos vmin para escalar proporcionalmente al viewport
-            width: `min(${circle.scaleFactor * 100}px, ${circle.scaleFactor * 8}vmin)`,
-            height: `min(${circle.scaleFactor * 100}px, ${circle.scaleFactor * 8}vmin)`,
-            opacity: circle.opacity,
+            // El radar se expande hasta llenar un diámetro de 90vmin / 1000px
+            width: 'min(1000px, 90vmin)',
+            height: 'min(1000px, 90vmin)',
             borderWidth: circle.strokeWidth,
           }}
           initial={{
             scale: 0,
-            opacity: 0,
-            rotate: 0,
+            opacity: 1,
           }}
           animate={{
-            scale: 1,
-            opacity: circle.opacity,
-            rotate: shouldAnimate ? [0, 360] : 0,
+            scale: shouldAnimate ? [0, 1] : 1,
+            opacity: shouldAnimate ? [circle.opacity, 0] : circle.opacity,
           }}
           transition={{
             delay: circle.delay,
             duration: circle.duration,
-            ease: 'easeOut' as const,
-            rotate: shouldAnimate
-              ? {
-                  duration: 15 + index * 5,
-                  repeat: Infinity,
-                  ease: 'linear' as const,
-                }
-              : undefined,
+            ease: 'easeOut',
+            repeat: Infinity,
           }}
         />
       ))}

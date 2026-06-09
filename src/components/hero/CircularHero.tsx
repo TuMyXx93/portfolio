@@ -5,6 +5,7 @@ import { ProfileImage } from './ProfileImage';
 import { HorizontalNavigation } from './HorizontalNavigation';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
+import { TypewriterEffect } from '@/components/common/TypewriterEffect';
 import Image from 'next/image';
 
 export const CircularHero = () => {
@@ -57,9 +58,9 @@ export const CircularHero = () => {
           <Image
             src="/images/logo.png"
             alt="Tumidev Logo"
-            width={150}
-            height={50}
-            className="object-contain filter drop-shadow-lg w-auto h-8 sm:h-10 md:h-12"
+            width={300}
+            height={100}
+            className="object-contain filter drop-shadow-lg w-auto h-16 sm:h-20 md:h-24"
             priority
           />
         </motion.div>
@@ -71,39 +72,37 @@ export const CircularHero = () => {
       {/* Imagen de Perfil - Centrada en los círculos */}
       <ProfileImage />
 
-      {/* Contenido Central - Debajo de la imagen con padding responsivo */}
-      <div className="relative z-20 flex flex-col items-center justify-start min-h-[100dvh] pt-[50vh] sm:pt-[55vh] md:pt-[62vh] landscape:pt-[40vh] landscape:sm:pt-[55vh]">
-        {/* Contenido de texto */}
+      {/* Contenido Central - Texto arriba, navegación abajo */}
+      <div className="relative z-20 flex flex-col items-center justify-between min-h-[100dvh] py-[15vh] landscape:py-[10vh]">
+        {/* TOP: Texto Principal con Typing Effect */}
+        <motion.div
+          variants={shouldAnimate ? containerVariants : undefined}
+          initial={shouldAnimate ? 'hidden' : undefined}
+          animate={shouldAnimate ? 'visible' : { opacity: 1 }}
+          className="text-center hero-content max-w-4xl mx-auto px-4 mt-8"
+        >
+          <motion.div
+            variants={shouldAnimate ? itemVariants : undefined}
+            className="space-y-1 sm:space-y-2"
+          >
+            <motion.h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none"
+            >
+              <TypewriterEffect />
+            </motion.h1>
+          </motion.div>
+        </motion.div>
+
+        {/* CENTER GAP for ProfileImage */}
+        <div className="flex-grow pointer-events-none" />
+
+        {/* BOTTOM: Navegación Horizontal */}
         <motion.div
           variants={shouldAnimate ? containerVariants : undefined}
           initial={shouldAnimate ? 'hidden' : undefined}
           animate={shouldAnimate ? 'visible' : { opacity: 1 }}
           className="text-center hero-content max-w-4xl mx-auto px-4"
         >
-          {/* Texto Principal */}
-          <motion.div
-            variants={shouldAnimate ? itemVariants : undefined}
-            className="space-y-1 sm:space-y-2 mb-4"
-          >
-            <motion.h2
-              className="text-xs sm:text-sm uppercase text-gray-400 tracking-[4px] sm:tracking-[8px] font-light"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-            >
-              {t('hero.subtitle')}
-            </motion.h2>
-            <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4, duration: 0.8 }}
-            >
-              {t('hero.title')}
-            </motion.h1>
-          </motion.div>
-
-          {/* Navegación Horizontal */}
           <motion.div variants={shouldAnimate ? itemVariants : undefined}>
             <HorizontalNavigation />
           </motion.div>
