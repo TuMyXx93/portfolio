@@ -32,5 +32,5 @@ test('contact API rejects invalid payload', async ({ request }) => {
 
   expect(response.status()).toBe(400);
   const body = await response.json();
-  expect(body.error).toContain('All fields are required');
+  expect(body.error).toContain('Validation failed');
 });

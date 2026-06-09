@@ -35,7 +35,7 @@ export const CircularHero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-hero">
       {/* Logo en la esquina superior con entrada animada */}
       <motion.div
         initial={{ opacity: 0, x: -50, scale: 0.8 }}

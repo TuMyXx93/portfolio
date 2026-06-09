@@ -8,11 +8,7 @@ export const Contact = () => {
   const { t } = useTranslation();
 
   return (
-    <Section
-      id="contact"
-      title={t('contact.title')}
-      className="py-20 px-4 bg-slate-900"
-    >
+    <Section id="contact" title={t('contact.title')} className="py-20 px-4">
       <div className="mt-12 max-w-3xl mx-auto">
         <p className="text-center text-gray-300 mb-8">
           {t('contact.description')}

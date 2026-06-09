@@ -1,16 +1,44 @@
 @config "../../tailwind.config.js";
 @import 'tailwindcss';
 
+/* ====================================
+   SISTEMA DE COLORES ENTERPRISE 2026
+   Dark Mode Progressive Gradient
+   ==================================== */
+
 :root {
-  --foreground-rgb: 26, 26, 26;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 240, 240, 240;
+  /* Sistema de azules enterprise - 3 tonos */
+  --color-deep-ocean: #0a1628;
+  --color-midnight-blue: #111d32;
+  --color-twilight-navy: #1a2744;
+
+  /* Sistema de amarillos (existente) */
+  --color-amber-primary: #f7ab0a;
+  --color-amber-light: #f7cd2e;
+  --color-amber-dark: #92400e;
+
+  /* Gradientes del sistema */
+  --gradient-hero: linear-gradient(180deg, #0a1628 0%, #0d1c30 100%);
+  --gradient-section: linear-gradient(180deg, #111d32 0%, #141f38 100%);
+  --gradient-card: linear-gradient(135deg, #1a2744 0%, #111d32 100%);
+
+  /* Profundidad para secciones */
+  --depth-hero: #0a1628;
+  --depth-section: #111d32;
+  --depth-card: #1a2744;
+  --depth-footer: #0a1628;
+
+  /* Foreground RGB para compatibility */
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 22, 40;
+  --background-end-rgb: 17, 29, 50;
 }
 
+/* Dark mode - mismo tema consistente (sin alternancia) */
 .dark {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --background-start-rgb: 10, 22, 40;
+  --background-end-rgb: 17, 29, 50;
 }
 
 /* Alto contraste */
@@ -55,22 +83,25 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
 }
+
+/* ====================================
+   COMPONENTES COMPATIBLES CON SISTEMA
+   ==================================== */
 
 @layer components {
   .hero-button {
-    @apply px-6 py-2 border border-[#242424] rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all 
+    @apply px-6 py-2 border border-[#242424] rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all
     hover:border-primary-dark hover:text-primary-dark
     dark:hover:border-primary-light dark:hover:text-primary-light;
   }
 
   .section-title {
-    @apply mb-16 uppercase tracking-[20px] text-gray-500 text-2xl text-center;
+    @apply mb-16 uppercase tracking-[20px] text-gray-400 text-2xl text-center;
   }
 
   /* Hero responsivo */
@@ -96,31 +127,66 @@ body {
   .circle-container {
     @apply absolute inset-0 flex items-center justify-center;
   }
+
+  /* Sistema de profundidad para secciones */
+  .section-hero {
+    background: var(--gradient-hero);
+  }
+
+  .section-content {
+    background: var(--gradient-section);
+  }
+
+  .section-card {
+    background: var(--gradient-card);
+  }
+
+  /* Glass effect compatible con nuevo sistema */
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-lg dark:bg-white/5
+    transition-all duration-300;
+    background-color: rgba(26, 39, 68, 0.6);
+  }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-primary-dark
-    dark:from-primary-dark dark:to-primary-light;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F7AB0A] to-[#F7CD2E];
   }
 
+  /* Sistema de gradientes consistente */
   .bg-gradient-custom {
-    @apply bg-gradient-to-b from-background-light to-background-light/80
-    dark:from-background-dark dark:to-background-dark/80;
+    background: linear-gradient(
+      180deg,
+      var(--color-deep-ocean) 0%,
+      var(--color-midnight-blue) 50%,
+      var(--color-twilight-navy) 100%
+    );
+  }
+
+  .bg-gradient-hero {
+    background: linear-gradient(
+      180deg,
+      var(--color-deep-ocean) 0%,
+      #0d1c30 100%
+    );
+  }
+
+  .bg-gradient-section {
+    background: linear-gradient(
+      180deg,
+      var(--color-midnight-blue) 0%,
+      #141f38 100%
+    );
   }
 
   .flex-center {
     @apply flex justify-center items-center;
   }
 
-  .glass-effect {
-    @apply bg-white/5 backdrop-blur-lg dark:bg-black/5
-    transition-all duration-300;
-  }
-
   /* Skip link para navegación por teclado */
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4
     focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-dark focus:text-white
     focus:rounded focus:outline-none;
   }
