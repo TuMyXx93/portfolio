@@ -9,7 +9,6 @@ import { PWAInstallButton } from '@/components/common/PWAInstallButton';
 import { ConnectionStatus } from '@/components/common/ConnectionStatus';
 import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
 import { I18nProvider } from '@/lib/i18n/useTranslation';
-import { AdvancedAccessibilityMenu } from '@/components/common/AdvancedAccessibilityMenu';
 import {
   SkipToContent,
   LiveRegion,
@@ -160,7 +159,6 @@ export default function RootLayout({
               {children}
             </main>
             <PWAInstallButton />
-            <AdvancedAccessibilityMenu />
           </AccessibilityProvider>
         </I18nProvider>
         <div id="accessibility-root" />
