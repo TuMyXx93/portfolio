@@ -98,14 +98,15 @@ See `.opencode/skills/` for detailed rules.
 
 **context7**: Dependency/framework documentation resolver. Use to fetch up-to-date library docs before implementing.
 
-**engram**: Persistent memory system for AI coding agents. 16 tools available:
+**engram**: Persistent memory system for AI coding agents. 19 tools available (Engram v1.16.1, aligned with upstream):
 
-| Category          | Tools                                                                                              |
-| ----------------- | -------------------------------------------------------------------------------------------------- |
-| Save & Update     | `mem_save`, `mem_update`, `mem_delete`, `mem_suggest_topic_key`                                    |
-| Search & Retrieve | `mem_search`, `mem_context`, `mem_timeline`, `mem_get_observation`                                 |
-| Session Lifecycle | `mem_session_start`, `mem_session_end`, `mem_session_summary`                                      |
-| Utilities         | `mem_save_prompt`, `mem_stats`, `mem_capture_passive`, `mem_merge_projects`, `mem_current_project` |
+| Category           | Tools                                                                                                            |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Save & Update      | `mem_save`, `mem_update`, `mem_delete`, `mem_suggest_topic_key`                                                  |
+| Search & Retrieve  | `mem_search`, `mem_context`, `mem_timeline`, `mem_get_observation`                                               |
+| Session Lifecycle  | `mem_session_start`, `mem_session_end`, `mem_session_summary`                                                    |
+| Conflict Surfacing | `mem_judge`, `mem_compare`                                                                                       |
+| Utilities          | `mem_save_prompt`, `mem_stats`, `mem_capture_passive`, `mem_merge_projects`, `mem_current_project`, `mem_doctor` |
 
 ### Engram Cloud (opt-in replication)
 
@@ -132,6 +133,19 @@ engram projects list|consolidate|prune       # project hygiene
 ```
 
 **Status reason codes**: `blocked_unenrolled`, `auth_required`, `cloud_config_error`, `policy_forbidden`, `paused`, `transport_failed`
+
+### Legacy Sync Mutation Repair
+
+If `engram doctor` reports `sync_mutation_required_fields` blocked, session upsert payloads in `sync_mutations` are missing required fields (typically `directory` from older engram versions). Two repair paths:
+
+1. **Local-only (no cloud enrollment)**: run `py tools/repair-missing-session-directory.py --apply --project <name>`. The Python script is a Windows-portable equivalent of upstream `tools/repair-missing-session-directory.sh --fix-exported` (upstream shell script requires `sqlite3` CLI not available on Windows). Dry-run is the default.
+2. **Post-enrollment**: `engram cloud upgrade repair --project <name> --apply` (canonical flow per upstream docs).
+
+A complete pre-repair backup of `~/.engram/engram.db` (+ `-wal`, `-shm`) is mandatory before any `--apply`. Use timestamped `.bak` files.
+
+### Beta Conflict Surfacing (opt-in)
+
+Upstream `feat/memory-conflict-surfacing-cloud-sync` branch exposes `--semantic` LLM-judge scans via `engram conflicts scan --semantic --apply`. Optional and isolated via `docker-compose.beta.yml`; not enabled in this project.
 
 ### Memory Protocol
 
