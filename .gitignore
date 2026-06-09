@@ -83,6 +83,10 @@ $RECYCLE.BIN/
 tmp/
 temp/
 
+# Engram - Persistent Memory
+.engram/
+*.engram
+
 # Cache directories
 .cache/
 .parcel-cache/
