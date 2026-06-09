@@ -2,6 +2,8 @@
 import { motion } from 'framer-motion';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 
+// Radar/sonar effect: all circles expand from center to 90vmin / 1000px
+// using staggered delays for a smooth, modern animation.
 const circles = [
   { delay: 0, duration: 4, opacity: 0.15, strokeWidth: 2, highlight: true },
   { delay: 0.8, duration: 4, opacity: 0.12, strokeWidth: 1 },

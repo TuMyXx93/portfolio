@@ -85,10 +85,27 @@ export const CircularHero = () => {
             variants={shouldAnimate ? itemVariants : undefined}
             className="space-y-1 sm:space-y-2"
           >
-            <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none"
+            <motion.h2
+              className="text-xs sm:text-sm uppercase text-gray-400 tracking-[4px] sm:tracking-[8px] font-light"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
             >
-              <TypewriterEffect />
+              {t('hero.subtitle')}
+            </motion.h2>
+            <motion.h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+            >
+              <TypewriterEffect
+                phrases={[
+                  t('hero.typewriter1'),
+                  t('hero.typewriter2'),
+                  t('hero.typewriter3'),
+                ]}
+              />
             </motion.h1>
           </motion.div>
         </motion.div>

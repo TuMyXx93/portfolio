@@ -127,7 +127,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
         : 'border-gray-300 dark:border-gray-600 hover:border-amber-400 dark:hover:border-amber-600 focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800'
     }
     bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-    outline-none focus:outline-none focus:ring-4
+    focus:outline-none focus:ring-4
     disabled:opacity-50 disabled:cursor-not-allowed
     text-base min-h-[44px]
   `;

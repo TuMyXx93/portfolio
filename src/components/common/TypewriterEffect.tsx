@@ -1,54 +1,90 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 
-export const TypewriterEffect = () => {
-  const phrases = [
-    'Bienvenido a mi portafolio',
-    'Soy Ingeniero Informático',
-    'Mi nombre es Wilson Tumiña'
-  ];
-  
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
-  const [text, setText] = useState('');
-  
+interface TypewriterEffectProps {
+  phrases: string[];
+  typingSpeed?: number;
+  pauseDuration?: number;
+  fadeDuration?: number;
+}
+
+export const TypewriterEffect = ({
+  phrases,
+  typingSpeed = 90,
+  pauseDuration = 500,
+  fadeDuration = 400,
+}: TypewriterEffectProps) => {
+  const { state } = useAdvancedAccessibility();
+  const shouldAnimate =
+    !state.reducedMotion && !state.reducedAnimations && phrases.length > 0;
+
+  const [display, setDisplay] = useState('');
+  const [isVisible, setIsVisible] = useState(true);
+
+  const phraseIndexRef = useRef(0);
+  const charIndexRef = useRef(0);
+  const isTypingRef = useRef(true);
+
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    const targetPhrase = phrases[currentPhraseIndex];
-    
-    if (isTyping) {
-      if (text.length < targetPhrase.length) {
-        // Typing: 90ms por letra
-        timeout = setTimeout(() => {
-          setText(targetPhrase.slice(0, text.length + 1));
-        }, 90);
+    if (!shouldAnimate) return;
+
+    const tick = () => {
+      const phrase = phrases[phraseIndexRef.current] ?? '';
+      if (isTypingRef.current) {
+        if (charIndexRef.current < phrase.length) {
+          charIndexRef.current += 1;
+          setDisplay(phrase.slice(0, charIndexRef.current));
+        } else {
+          isTypingRef.current = false;
+          setIsVisible(false);
+        }
       } else {
-        // Pausa de 500ms al finalizar de escribir, luego inicia el fade out
-        timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, 500);
+        phraseIndexRef.current = (phraseIndexRef.current + 1) % phrases.length;
+        charIndexRef.current = 0;
+        isTypingRef.current = true;
+        setDisplay('');
+        setIsVisible(true);
       }
-    } else {
-      // Fade out dura 400ms, esperamos ese tiempo y cambiamos de frase
-      timeout = setTimeout(() => {
-        setText('');
-        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
-        setIsTyping(true);
-      }, 400); 
-    }
-    
-    return () => clearTimeout(timeout);
-  }, [text, isTyping, currentPhraseIndex]); // phrases is constant, so omitting it from dep array or defining inside is fine
+    };
+
+    const currentPhrase = phrases[phraseIndexRef.current] ?? '';
+    const delay = isTypingRef.current
+      ? charIndexRef.current < currentPhrase.length
+        ? typingSpeed
+        : pauseDuration
+      : fadeDuration;
+
+    const timeoutId = setTimeout(tick, delay);
+    return () => clearTimeout(timeoutId);
+  }, [
+    display,
+    isVisible,
+    shouldAnimate,
+    phrases,
+    typingSpeed,
+    pauseDuration,
+    fadeDuration,
+  ]);
+
+  // Reduced motion: show first phrase statically without animation
+  if (!shouldAnimate) {
+    return (
+      <span className="inline-flex items-center min-h-[1.2em]">
+        {phrases[0] ?? ''}
+      </span>
+    );
+  }
 
   return (
     <motion.span
       initial={{ opacity: 1 }}
-      animate={{ opacity: isTyping ? 1 : 0 }}
-      transition={{ duration: 0.4 }} // 400ms fade out
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: fadeDuration / 1000 }}
       className="inline-flex items-center min-h-[1.2em]"
     >
-      {text}
+      {display}
       <motion.span
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}

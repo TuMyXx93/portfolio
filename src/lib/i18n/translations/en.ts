@@ -14,6 +14,9 @@ export const en: Translation = {
   hero: {
     title: 'Welcome to my portfolio',
     subtitle: 'WEB DEVELOPER',
+    typewriter1: 'Welcome to my portfolio',
+    typewriter2: 'I am a Software Engineer',
+    typewriter3: 'My name is Wilson Tumiña',
     description:
       'Specialized in React, Next.js and modern web development technologies',
     cta: 'View my work',
