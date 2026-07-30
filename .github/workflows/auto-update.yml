@@ -15,25 +15,30 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version-file: '.node-version'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: 🔍 Check for outdated packages
-        run: npm outdated || true
+        run: pnpm outdated || true
 
       - name: 🆙 Update patch and minor versions
-        run: npm update
+        run: pnpm update
 
       - name: 🧪 Validate after updates
         run: |
-          npm ci
-          npm run lint
-          npm run type-check
-          npm run test
-          npm run build
+          pnpm install --frozen-lockfile
+          pnpm run lint
+          pnpm run type-check
+          pnpm run test
+          pnpm run build
 
       - name: 📝 Create Pull Request
         uses: peter-evans/create-pull-request@v8

@@ -4,7 +4,7 @@ This file is the source of truth for AI-assisted work. Keep it concise — detai
 
 ## Project Overview
 
-Portfolio web app: Next.js 16 + React 19 + TypeScript 5.9 + Tailwind CSS 4 + Framer Motion 12 + Jest 30 + Playwright (smoke). Deployment: Vercel.
+Portfolio web app: Next.js 16 + React 19 + TypeScript 5.9 + Tailwind CSS 4 + Framer Motion 12 + Jest 30 + Playwright (smoke). Package Manager: pnpm 11. Deployment: Vercel.
 
 ## Branch Policy
 

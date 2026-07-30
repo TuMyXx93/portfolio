@@ -1,106 +1,86 @@
 # Portfolio Tumidev
 
-Portfolio profesional con enfoque en rendimiento, accesibilidad WCAG 2.1 y experiencia visual moderna.
+![Next.js](https://img.shields.io/badge/Next.js-16.2.12-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2.8-blue?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.3-38bdf8?style=flat-square&logo=tailwind-css)
+![pnpm](https://img.shields.io/badge/pnpm-11.18.0-orange?style=flat-square&logo=pnpm)
+![WCAG](https://img.shields.io/badge/WCAG_2.1-AA%2FAAA-green?style=flat-square)
 
-## Stack
+Portfolio profesional Enterprise diseñado con arquitectura limpia, alto rendimiento, accesibilidad estricta WCAG 2.1 y soporte para internacionalización (es/en).
 
-| Tecnología    | Versión                         |
-| ------------- | ------------------------------- |
-| Next.js       | 16.2.3 (App Router + Turbopack) |
-| React         | 19.2.4                          |
-| TypeScript    | 5.9.3 (strict mode)             |
-| Tailwind CSS  | 4.2.2                           |
-| Framer Motion | 12.38.0                         |
-| Jest          | 30.3.0                          |
-| Playwright    | 1.59.1                          |
+---
 
-## Quick Start
+## ⚡ Quick Start
 
 ```bash
+# 1. Clonar repositorio
 git clone https://github.com/tumidev/portfolio.git
 cd portfolio
-npm install
-npm run dev
+
+# 2. Instalar dependencias con pnpm v11
+pnpm install
+
+# 3. Iniciar servidor de desarrollo
+pnpm run dev
 ```
 
-## Scripts
+El servidor local estará disponible en `http://localhost:3000`.
 
-```bash
-npm run dev          # Development server
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # ESLint validation
-npm run type-check   # TypeScript validation
-npm test             # Jest tests (61 tests)
-npm run test:watch   # Jest watch mode
-npm run test:coverage # Test coverage report
-npm run test:e2e     # Playwright e2e (3 browsers)
-npm run format       # Prettier formatting
-```
+---
 
-## Requisitos
+## 🛠️ Stack Tecnológico Enterprise
 
-- Node.js `>=24.15.0 <25`
-- npm `>=11`
+| Categoría | Tecnología / Librería | Versión | Propósito |
+|---|---|---|---|
+| **Core Framework** | Next.js | `16.2.12` | App Router, SSR, Turbopack, Server Actions |
+| **UI Library** | React | `19.2.8` | Componentes concurrentes y Hooks |
+| **Lenguaje** | TypeScript | `5.9.3` | Tipado estricto (Strict Mode) |
+| **Estilos & UI** | Tailwind CSS | `4.3.3` | Motor de CSS con variables semánticas |
+| **Animaciones** | Framer Motion | `12.43.0` | Transiciones suaves y micro-interacciones |
+| **Package Manager**| pnpm | `11.18.0` | Gestor de paquetes aislado e hiperrápido |
+| **Unit Testing** | Jest + React Testing Library | `30.4.2` | Pruebas unitarias de hooks y componentes |
+| **E2E Testing** | Playwright | `1.62.1` | Pruebas de humo multinavegador (Chromium, Firefox, WebKit) |
 
-## Arquitectura
+---
 
-```
-src/
-├── app/                 # Routes (App Router), sitemap, robots, API endpoints
-├── components/
-│   ├── accessibility-tabs/  # VisualTab, MotorTab, CognitiveTab, AudioTab
-│   ├── common/          # Shared components
-│   └── sections/        # Page sections (Hero, About, Experience, etc.)
-├── contexts/            # React contexts (Accessibility, I18n)
-├── hooks/               # Custom hooks with tests
-│   └── __tests__/       # 9 hook test files
-├── lib/
-│   └── i18n/            # Internationalization
-└── types/               # TypeScript contracts
-```
+## 📚 Centro de Documentación (Diátaxis Framework)
 
-## Seguridad
+Toda la documentación técnica del proyecto está estructurada bajo el estándar **Diátaxis**:
 
-- **Input sanitization**: Zod + DOMPurify en `/api/contact`
-- **Rate limiting**: IP-based (5 requests/window)
-- **Headers**: CSP + HSTS configurados
-- **Logger estructurado**: Sin PII en logs
+| Categoría Diátaxis | Documento | Descripción |
+|---|---|---|
+| **Tutoriales** | [Guía de Contribución](file:///C:/Users/HACKTU/code/portfolio/CONTRIBUTING.md) | Flujo Git, ramas `dev`/`main`, estándares de PR y Husky |
+| **How-To Guides** | [Runbook de Desarrollo Local](file:///C:/Users/HACKTU/code/portfolio/docs/guides/LOCAL_DEVELOPMENT_RUNBOOK.md) | Configuración en Windows, WSL2, Docker y resolución de puertos |
+| **How-To Guides** | [Runbook de Despliegue & CI/CD](file:///C:/Users/HACKTU/code/portfolio/docs/guides/DEPLOYMENT_RUNBOOK.md) | Pipeline en GitHub Actions, Vercel CLI y Lighthouse CI |
+| **Referencia** | [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md) | Contrato OpenAPI 3.1 para `/api/contact` |
+| **Referencia** | [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md) | Especificación de CSP, HSTS, Sanitización y Rate Limiting |
+| **Explicación** | [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md) | Diagrama C4, arquitectura de capas y flujo de datos |
+| **Explicación** | [Registros ADR](file:///C:/Users/HACKTU/code/portfolio/docs/adr/) | Arquitectura Decision Records (ADR 0001 - 0004) |
+| **Explicación** | [Investigación de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md) | Auditoría de ratios de contraste WCAG 2.1 |
+| **Historial** | [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md) | Registro histórico de refactorizaciones y auditorías |
+| **Historial** | [Changelog](file:///C:/Users/HACKTU/code/portfolio/CHANGELOG.md) | Registro de versiones y notas de entrega |
 
-## Accesibilidad
+Para explorar la estructura completa, visita el [Centro de Documentación principal (`docs/README.md`)](file:///C:/Users/HACKTU/code/portfolio/docs/README.md).
 
-- Menú de accesibilidad con 4 tabs (Visual, Motor, Cognitivo, Audio)
-- Soporte WCAG 2.1
-- Navegación por teclado
-- Screen reader announcements
+---
 
-## Deployment
+## 🔒 Seguridad & Calidad Enterprise
 
-Variables de entorno requeridas:
+* **Validación en Capas:** Zod schemas en API + sanitización HTML con DOMPurify.
+* **Cabeceras HTTP HTTP:** CSP estricto, HSTS, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`.
+* **Zero PII Logging:** Ningún dato personal es almacenado en logs ni expuesto en respuestas de error.
+* **Gates de Calidad (`/version-gate`):**
+  ```bash
+  pnpm run lint        # Validation ESLint 9
+  pnpm run type-check   # Check TypeScript
+  pnpm test            # 60 Unit Tests Jest
+  pnpm run build       # Build de producción Next.js
+  pnpm run test:e2e    # 9 Smoke Tests Playwright
+  ```
 
-```env
-VERCEL_URL=<production-url>  # Para OG image
-```
+---
 
-## Documentación
+## 📄 Licencia
 
-| Archivo                     | Descripción                                          |
-| --------------------------- | ---------------------------------------------------- |
-| `CONTRIBUTING.md`           | Guía de contribución                                 |
-| `CHANGELOG.md`              | Historial de cambios                                 |
-| `SECURITY.md`               | Política de seguridad                                |
-| `docs/HISTORIAL_MEJORAS.md` | Registro técnico del proceso de auditoría enterprise |
-
-## Validación local
-
-Antes de commit, el hook Husky ejecuta:
-
-```bash
-npm run type-check && npm run lint && npm test
-```
-
-Antes de push, ejecuta:
-
-```bash
-npm run build
-```
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](file:///C:/Users/HACKTU/code/portfolio/LICENSE) para más detalles.
