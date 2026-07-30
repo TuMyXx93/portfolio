@@ -86,6 +86,7 @@ export const CircularHero = () => {
             className="space-y-1 sm:space-y-2"
           >
             <motion.h2
+              suppressHydrationWarning
               className="text-xs sm:text-sm uppercase text-gray-400 tracking-[4px] sm:tracking-[8px] font-light"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

@@ -110,7 +110,7 @@ export const HorizontalNavigation = () => {
             {/* Contenido del botón */}
             <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
               <span className="text-base sm:text-lg">{item.icon}</span>
-              <span>{label}</span>
+              <span suppressHydrationWarning>{label}</span>
             </span>
 
             {/* Borde animado */}

@@ -28,20 +28,23 @@ interface I18nProviderProps {
 }
 
 export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
-  const [locale, setLocale] = useState<Locale>(() => {
-    if (typeof window === 'undefined') {
-      return initialLocale || defaultLocale;
-    }
+  const [locale, setLocale] = useState<Locale>(initialLocale || defaultLocale);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Sync browser or stored locale after initial mount to prevent hydration mismatch
     const savedLocale = localStorage.getItem('locale') as Locale;
     const browserLocale = navigator.language.split('-')[0] as Locale;
-    return (
+    const detected =
       (savedLocale && locales.includes(savedLocale) ? savedLocale : null) ||
-      (locales.includes(browserLocale) ? browserLocale : null) ||
-      initialLocale ||
-      defaultLocale
-    );
-  });
-  const [isLoading, setIsLoading] = useState(false);
+      (locales.includes(browserLocale) ? browserLocale : null);
+
+    if (detected && locales.includes(detected) && detected !== locale) {
+      queueMicrotask(() => {
+        setLocale(detected);
+      });
+    }
+  }, [locale]);
 
   useEffect(() => {
     // Save locale to localStorage and update document
