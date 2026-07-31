@@ -6,9 +6,15 @@ import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {
-    form: ({ children, whileHover, whileTap, ...props }: any) => <form {...props}>{children}</form>,
-    button: ({ children, whileHover, whileTap, ...props }: any) => <button {...props}>{children}</button>,
-    div: ({ children, whileHover, whileTap, ...props }: any) => <div {...props}>{children}</div>,
+    form: ({ children, whileHover, whileTap, ...props }: any) => (
+      <form {...props}>{children}</form>
+    ),
+    button: ({ children, whileHover, whileTap, ...props }: any) => (
+      <button {...props}>{children}</button>
+    ),
+    div: ({ children, whileHover, whileTap, ...props }: any) => (
+      <div {...props}>{children}</div>
+    ),
   },
 }));
 
@@ -18,9 +24,7 @@ global.fetch = jest.fn();
 const renderWithProviders = (component: React.ReactElement) => {
   return render(
     <I18nProvider initialLocale="es">
-      <AccessibilityProvider>
-        {component}
-      </AccessibilityProvider>
+      <AccessibilityProvider>{component}</AccessibilityProvider>
     </I18nProvider>
   );
 };
@@ -28,10 +32,10 @@ const renderWithProviders = (component: React.ReactElement) => {
 describe('ContactForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Mock localStorage with Spanish locale
     const localStorageMock = {
-      getItem: jest.fn((key) => key === 'locale' ? 'es' : null),
+      getItem: jest.fn(key => (key === 'locale' ? 'es' : null)),
       setItem: jest.fn(),
       removeItem: jest.fn(),
     };
@@ -64,18 +68,22 @@ describe('ContactForm', () => {
 
   test('renders all form fields', () => {
     renderWithProviders(<ContactForm />);
-    
+
     expect(screen.getByLabelText(/nombre/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/correo electrónico/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/asunto/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/mensaje/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /enviar mensaje/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Mensaje/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /enviar mensaje/i })
+    ).toBeInTheDocument();
   });
 
   test('shows validation errors for empty required fields', async () => {
     renderWithProviders(<ContactForm />);
-    
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
+
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -85,34 +93,40 @@ describe('ContactForm', () => {
 
   test('shows email validation error for invalid email', async () => {
     renderWithProviders(<ContactForm />);
-    
+
     const emailInput = screen.getByLabelText(/correo electrónico/i);
     fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
-    
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
+
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/correo electrónico inválido/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/correo electrónico inválido/i)
+      ).toBeInTheDocument();
     });
   });
 
   test('clears error when user starts typing', async () => {
     renderWithProviders(<ContactForm />);
-    
+
     const nameInput = screen.getByLabelText(/nombre/i);
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
-    
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
+
     // Trigger validation error
     fireEvent.click(submitButton);
-    
+
     await waitFor(() => {
       expect(screen.getAllByText(/este campo es requerido/i)).toHaveLength(4); // All fields required
     });
-    
+
     // Start typing to clear error for name field only
     fireEvent.change(nameInput, { target: { value: 'John' } });
-    
+
     await waitFor(() => {
       // Check that name error is cleared by looking for the error element with id
       const nameError = document.querySelector('#name-error');
@@ -129,13 +143,23 @@ describe('ContactForm', () => {
     });
 
     renderWithProviders(<ContactForm />);
-    
-    fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: 'John Doe' } });
-    fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByLabelText(/asunto/i), { target: { value: 'Test Subject' } });
-    fireEvent.change(screen.getByLabelText(/mensaje/i), { target: { value: 'Test message' } });
-    
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
+
+    fireEvent.change(screen.getByLabelText(/nombre/i), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'john@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/asunto/i), {
+      target: { value: 'Test Subject' },
+    });
+    fireEvent.change(screen.getByLabelText(/^Mensaje/i), {
+      target: { value: 'Test message' },
+    });
+
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -161,18 +185,30 @@ describe('ContactForm', () => {
     });
 
     renderWithProviders(<ContactForm />);
-    
+
     // Fill form
-    fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: 'John Doe' } });
-    fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByLabelText(/asunto/i), { target: { value: 'Test Subject' } });
-    fireEvent.change(screen.getByLabelText(/mensaje/i), { target: { value: 'Test message' } });
-    
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
+    fireEvent.change(screen.getByLabelText(/nombre/i), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'john@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/asunto/i), {
+      target: { value: 'Test Subject' },
+    });
+    fireEvent.change(screen.getByLabelText(/^Mensaje/i), {
+      target: { value: 'Test message' },
+    });
+
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/mensaje enviado correctamente/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/mensaje enviado correctamente/i)
+      ).toBeInTheDocument();
     });
   });
 
@@ -183,33 +219,57 @@ describe('ContactForm', () => {
     });
 
     renderWithProviders(<ContactForm />);
-    
+
     // Fill form
-    fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: 'John Doe' } });
-    fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByLabelText(/asunto/i), { target: { value: 'Test Subject' } });
-    fireEvent.change(screen.getByLabelText(/mensaje/i), { target: { value: 'Test message' } });
-    
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
+    fireEvent.change(screen.getByLabelText(/nombre/i), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'john@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/asunto/i), {
+      target: { value: 'Test Subject' },
+    });
+    fireEvent.change(screen.getByLabelText(/^Mensaje/i), {
+      target: { value: 'Test message' },
+    });
+
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/error al enviar el mensaje/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/error al enviar el mensaje/i)
+      ).toBeInTheDocument();
     });
   });
 
   test('disables form during submission', async () => {
-    (fetch as jest.Mock).mockImplementation(() => new Promise(resolve => setTimeout(resolve, 1000)));
+    (fetch as jest.Mock).mockImplementation(
+      () => new Promise(resolve => setTimeout(resolve, 1000))
+    );
 
     renderWithProviders(<ContactForm />);
-    
+
     // Fill form with correct Spanish labels
-    fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: 'John Doe' } });
-    fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: 'john@example.com' } });
-    fireEvent.change(screen.getByLabelText(/asunto/i), { target: { value: 'Test Subject' } });
-    fireEvent.change(screen.getByLabelText(/mensaje/i), { target: { value: 'Test message' } });
-    
-    const submitButton = screen.getByRole('button', { name: /enviar mensaje/i });
+    fireEvent.change(screen.getByLabelText(/nombre/i), {
+      target: { value: 'John Doe' },
+    });
+    fireEvent.change(screen.getByLabelText(/correo electrónico/i), {
+      target: { value: 'john@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/asunto/i), {
+      target: { value: 'Test Subject' },
+    });
+    fireEvent.change(screen.getByLabelText(/^Mensaje/i), {
+      target: { value: 'Test message' },
+    });
+
+    const submitButton = screen.getByRole('button', {
+      name: /enviar mensaje/i,
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {

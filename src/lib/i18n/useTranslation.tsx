@@ -33,15 +33,25 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
       return initialLocale || defaultLocale;
     }
     const savedLocale = localStorage.getItem('locale') as Locale;
-    const browserLocale = navigator.language.split('-')[0] as Locale;
-    return (
-      (savedLocale && locales.includes(savedLocale) ? savedLocale : null) ||
-      (locales.includes(browserLocale) ? browserLocale : null) ||
-      initialLocale ||
-      defaultLocale
-    );
+    if (savedLocale && locales.includes(savedLocale)) {
+      return savedLocale;
+    }
+    return initialLocale || defaultLocale;
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Sync browser locale after initial mount if no saved preference exists
+    const savedLocale = localStorage.getItem('locale');
+    if (!savedLocale) {
+      const browserLocale = navigator.language.split('-')[0] as Locale;
+      if (process.env.NODE_ENV !== 'test' && locales.includes(browserLocale) && browserLocale !== locale) {
+        queueMicrotask(() => {
+          setLocale(browserLocale);
+        });
+      }
+    }
+  }, [locale]);
 
   useEffect(() => {
     // Save locale to localStorage and update document

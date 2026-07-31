@@ -14,7 +14,7 @@ export const ScrollIndicator = ({
 }: ScrollIndicatorProps) => {
   return (
     <motion.div
-      className="fixed right-10 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50"
+      className="hidden md:flex fixed right-6 lg:right-10 top-1/2 -translate-y-1/2 flex-col gap-4 z-40"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.5 }}
@@ -23,7 +23,7 @@ export const ScrollIndicator = ({
         <button
           key={section}
           onClick={() => onSectionClick(section)}
-          className="group relative p-2"
+          className="group relative p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
           aria-label={`Ir a la sección ${section}`}
         >
           <motion.div
@@ -35,7 +35,7 @@ export const ScrollIndicator = ({
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
           />
-          <span className="absolute left-0 transform -translate-x-full -translate-y-1/2 top-1/2 mr-2 px-2 py-1 bg-gray-800 rounded text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+          <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-gray-800 rounded text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
             {section.charAt(0).toUpperCase() + section.slice(1)}
           </span>
         </button>

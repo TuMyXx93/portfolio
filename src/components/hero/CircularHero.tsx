@@ -5,6 +5,7 @@ import { ProfileImage } from './ProfileImage';
 import { HorizontalNavigation } from './HorizontalNavigation';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
+import { TypewriterEffect } from '@/components/common/TypewriterEffect';
 import Image from 'next/image';
 
 export const CircularHero = () => {
@@ -35,13 +36,13 @@ export const CircularHero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-hero">
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
       {/* Logo en la esquina superior con entrada animada */}
       <motion.div
         initial={{ opacity: 0, x: -50, scale: 0.8 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 1.2, ease: 'easeOut' as const }}
-        className="absolute top-8 left-8 z-30"
+        className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-30"
       >
         <motion.div
           whileHover={
@@ -57,9 +58,9 @@ export const CircularHero = () => {
           <Image
             src="/images/logo.png"
             alt="Tumidev Logo"
-            width={150}
-            height={50}
-            className="object-contain filter drop-shadow-lg"
+            width={300}
+            height={100}
+            className="object-contain filter drop-shadow-lg w-auto h-16 sm:h-20 md:h-24"
             priority
           />
         </motion.div>
@@ -71,22 +72,22 @@ export const CircularHero = () => {
       {/* Imagen de Perfil - Centrada en los círculos */}
       <ProfileImage />
 
-      {/* Contenido Central - Debajo de la imagen */}
-      <div className="relative z-20 flex flex-col items-center justify-start min-h-screen pt-[62vh]">
-        {/* Contenido de texto */}
+      {/* Contenido Central - Texto arriba, navegación abajo */}
+      <div className="relative z-20 flex flex-col items-center justify-between min-h-[100dvh] py-[15vh] landscape:py-[10vh]">
+        {/* TOP: Texto Principal con Typing Effect */}
         <motion.div
           variants={shouldAnimate ? containerVariants : undefined}
           initial={shouldAnimate ? 'hidden' : undefined}
           animate={shouldAnimate ? 'visible' : { opacity: 1 }}
-          className="text-center hero-content max-w-4xl mx-auto px-4"
+          className="text-center hero-content max-w-4xl mx-auto px-4 mt-8"
         >
-          {/* Texto Principal */}
           <motion.div
             variants={shouldAnimate ? itemVariants : undefined}
-            className="space-y-1 mb-4"
+            className="space-y-1 sm:space-y-2"
           >
             <motion.h2
-              className="text-sm uppercase text-gray-400 tracking-[8px] font-light"
+              suppressHydrationWarning
+              className="text-xs sm:text-sm uppercase text-gray-400 tracking-[4px] sm:tracking-[8px] font-light"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8 }}
@@ -94,16 +95,32 @@ export const CircularHero = () => {
               {t('hero.subtitle')}
             </motion.h2>
             <motion.h1
-              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-none -mt-1"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.4, duration: 0.8 }}
             >
-              {t('hero.title')}
+              <TypewriterEffect
+                phrases={[
+                  t('hero.typewriter1'),
+                  t('hero.typewriter2'),
+                  t('hero.typewriter3'),
+                ]}
+              />
             </motion.h1>
           </motion.div>
+        </motion.div>
 
-          {/* Navegación Horizontal */}
+        {/* CENTER GAP for ProfileImage */}
+        <div className="flex-grow pointer-events-none" />
+
+        {/* BOTTOM: Navegación Horizontal */}
+        <motion.div
+          variants={shouldAnimate ? containerVariants : undefined}
+          initial={shouldAnimate ? 'hidden' : undefined}
+          animate={shouldAnimate ? 'visible' : { opacity: 1 }}
+          className="text-center hero-content max-w-4xl mx-auto px-4"
+        >
           <motion.div variants={shouldAnimate ? itemVariants : undefined}>
             <HorizontalNavigation />
           </motion.div>

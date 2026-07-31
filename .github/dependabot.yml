@@ -1,7 +1,7 @@
 version: 2
 updates:
-  # 📦 NPM Dependencies
-  - package-ecosystem: 'npm'
+  # 📦 PNPM Dependencies
+  - package-ecosystem: 'pnpm'
     directory: '/'
     schedule:
       interval: 'weekly'

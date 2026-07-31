@@ -40,9 +40,9 @@ export function usePWA(): PWAState & PWAActions {
       setIsOnline(navigator.onLine);
     };
 
-    // Registrar Service Worker
+    // Registrar Service Worker (únicamente en entorno de producción)
     const registerServiceWorker = async () => {
-      if ('serviceWorker' in navigator) {
+      if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
         try {
           const registration = await navigator.serviceWorker.register('/sw.js', {
             scope: '/',

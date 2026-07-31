@@ -14,6 +14,9 @@ export const es: Translation = {
   hero: {
     title: 'Bienvenido a mi portafolio',
     subtitle: 'DESARROLLADOR WEB',
+    typewriter1: 'Bienvenido a mi portafolio',
+    typewriter2: 'Soy Ingeniero Informático',
+    typewriter3: 'Mi nombre es Wilson Tumiña',
     description:
       'Especializado en React, Next.js y tecnologías modernas de desarrollo web',
     cta: 'Ver mi trabajo',

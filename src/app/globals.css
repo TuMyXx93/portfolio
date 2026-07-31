@@ -32,6 +32,25 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 10, 22, 40;
   --background-end-rgb: 17, 29, 50;
+
+  /* TIPOGRAFIA FLUIDA - escala fluida entre breakpoints */
+  --text-fluid-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-fluid-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --text-fluid-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-fluid-lg: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
+  --text-fluid-xl: clamp(1.375rem, 1rem + 1.25vw, 1.75rem);
+  --text-fluid-2xl: clamp(1.75rem, 1.25rem + 1.875vw, 2.25rem);
+  --text-fluid-3xl: clamp(2.25rem, 1.5rem + 2.5vw, 3rem);
+  --text-fluid-4xl: clamp(2.5rem, 1.5rem + 5vw, 4rem);
+  --text-fluid-5xl: clamp(3rem, 1.5rem + 7.5vw, 5rem);
+  --text-fluid-6xl: clamp(3.75rem, 2rem + 8.75vw, 6rem);
+
+  /* SPACING FLUIDO */
+  --space-fluid-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+  --space-fluid-md: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  --space-fluid-lg: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  --space-fluid-xl: clamp(2rem, 1rem + 5vw, 5rem);
+  --space-fluid-2xl: clamp(3rem, 1.5rem + 7.5vw, 8rem);
 }
 
 /* Dark mode - mismo tema consistente (sin alternancia) */
@@ -87,69 +106,61 @@ body {
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
   );
+  overflow-x: hidden;
 }
 
 /* ====================================
-   COMPONENTES COMPATIBLES CON SISTEMA
+   TIPOGRAFIA FLUIDA UTILITIES
    ==================================== */
 
-@layer components {
-  .hero-button {
-    @apply px-6 py-2 border border-[#242424] rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all
-    hover:border-primary-dark hover:text-primary-dark
-    dark:hover:border-primary-light dark:hover:text-primary-light;
-  }
-
-  .section-title {
-    @apply mb-16 uppercase tracking-[20px] text-gray-400 text-2xl text-center;
-  }
-
-  /* Hero responsivo */
-  .hero-content {
-    @apply w-full max-w-none px-4 sm:px-6 md:px-8 lg:px-12;
-  }
-
-  .hero-text {
-    @apply space-y-4 sm:space-y-6 md:space-y-8;
-  }
-
-  /* Mejoras de accesibilidad para botones y enlaces */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-dark dark:focus:ring-primary-light focus:ring-offset-2;
-  }
-
-  /* Navegación horizontal responsiva */
-  .horizontal-nav {
-    @apply flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8;
-  }
-
-  /* Circles responsive */
-  .circle-container {
-    @apply absolute inset-0 flex items-center justify-center;
-  }
-
-  /* Sistema de profundidad para secciones */
-  .section-hero {
-    background: var(--gradient-hero);
-  }
-
-  .section-content {
-    background: var(--gradient-section);
-  }
-
-  .section-card {
-    background: var(--gradient-card);
-  }
-
-  /* Glass effect compatible con nuevo sistema */
-  .glass-effect {
-    @apply bg-white/5 backdrop-blur-lg dark:bg-white/5
-    transition-all duration-300;
-    background-color: rgba(26, 39, 68, 0.6);
-  }
-}
-
 @layer utilities {
+  .text-fluid-xs {
+    font-size: var(--text-fluid-xs);
+  }
+  .text-fluid-sm {
+    font-size: var(--text-fluid-sm);
+  }
+  .text-fluid-base {
+    font-size: var(--text-fluid-base);
+  }
+  .text-fluid-lg {
+    font-size: var(--text-fluid-lg);
+  }
+  .text-fluid-xl {
+    font-size: var(--text-fluid-xl);
+  }
+  .text-fluid-2xl {
+    font-size: var(--text-fluid-2xl);
+  }
+  .text-fluid-3xl {
+    font-size: var(--text-fluid-3xl);
+  }
+  .text-fluid-4xl {
+    font-size: var(--text-fluid-4xl);
+  }
+  .text-fluid-5xl {
+    font-size: var(--text-fluid-5xl);
+  }
+  .text-fluid-6xl {
+    font-size: var(--text-fluid-6xl);
+  }
+
+  .space-fluid-sm {
+    padding: var(--space-fluid-sm);
+  }
+  .space-fluid-md {
+    padding: var(--space-fluid-md);
+  }
+  .space-fluid-lg {
+    padding: var(--space-fluid-lg);
+  }
+  .space-fluid-xl {
+    padding: var(--space-fluid-xl);
+  }
+  .space-fluid-2xl {
+    padding: var(--space-fluid-2xl);
+  }
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F7AB0A] to-[#F7CD2E];
   }
@@ -189,5 +200,180 @@ body {
     @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4
     focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-dark focus:text-white
     focus:rounded focus:outline-none;
+  }
+
+  /* Touch detection helpers */
+  .touch-show {
+    @media (hover: none) and (pointer: coarse) {
+      opacity: 1 !important;
+    }
+  }
+
+  .touch-hide {
+    @media (hover: none) and (pointer: coarse) {
+      display: none !important;
+    }
+  }
+
+  .no-touch-hover:hover {
+    @media (hover: hover) {
+      transform: scale(1.05);
+    }
+  }
+
+  /* Container query support (Tailwind v4 native) */
+  .container-query {
+    container-type: inline-size;
+  }
+
+  /* Max width readability for text */
+  .max-ch-65 {
+    max-width: 65ch;
+  }
+
+  .max-ch-70 {
+    max-width: 70ch;
+  }
+
+  /* Smooth scroll with reduced motion respect */
+  .scroll-smooth-safe {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-smooth-safe {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ====================================
+   COMPONENTES COMPATIBLES CON SISTEMA
+   ==================================== */
+
+@layer components {
+  .hero-button {
+    @apply px-6 py-2 border border-[#242424] rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all
+    hover:border-primary-dark hover:text-primary-dark
+    dark:hover:border-primary-light dark:hover:text-primary-light;
+  }
+
+  .section-title {
+    @apply mb-8 md:mb-12 lg:mb-16 uppercase tracking-[0.15em] md:tracking-[0.2em] text-gray-400 text-2xl text-center;
+  }
+
+  /* Hero responsivo */
+  .hero-content {
+    @apply w-full max-w-none px-4 sm:px-6 md:px-8 lg:px-12;
+  }
+
+  .hero-text {
+    @apply space-y-4 sm:space-y-6 md:space-y-8;
+  }
+
+  /* Mejoras de accesibilidad para botones y enlaces */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-dark dark:focus:ring-primary-light focus:ring-offset-2;
+  }
+
+  /* Navegación horizontal responsiva */
+  .horizontal-nav {
+    @apply flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8;
+  }
+
+  /* Circles responsive */
+  .circle-container {
+    @apply absolute inset-0 flex items-center justify-center;
+  }
+
+  /* Sistema de profundidad para secciones */
+  .section-hero {
+    background: var(--gradient-hero);
+  }
+
+  .section-content {
+    background: var(--gradient-section);
+  }
+
+  .section-card {
+    background: var(--gradient-card);
+  }
+
+  /* Glass effect - fuente única de verdad */
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-lg dark:bg-white/5
+    transition-all duration-300;
+    background-color: rgba(26, 39, 68, 0.6);
+  }
+
+  /* Responsive section base */
+  .section-base {
+    @apply relative min-h-screen w-full;
+    padding-top: var(--space-fluid-xl);
+    padding-bottom: var(--space-fluid-xl);
+  }
+
+  /* Container limitado para ultra-wide */
+  .container-enterprise {
+    @apply w-full max-w-screen-2xl mx-auto;
+    padding-left: clamp(1rem, 2vw, 4rem);
+    padding-right: clamp(1rem, 2vw, 4rem);
+  }
+}
+
+/* ====================================
+   TOUCH DETECTION Y ORIENTACIÓN
+   ==================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  .touch-hover-show {
+    opacity: 1 !important;
+  }
+
+  .touch-hover-hide {
+    display: none !important;
+  }
+
+  /* Asegurar que los elementos con hover-only sean visibles */
+  .group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+}
+
+/* Landscape móvil: pantallas bajas */
+@media (max-height: 500px) and (orientation: landscape) {
+  .section-hero {
+    min-height: auto !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .hero-content-landscape {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .landscape-hide {
+    display: none !important;
+  }
+}
+
+/* Pantallas muy grandes (TV, ultrawide) */
+@media (min-width: 1920px) {
+  .container-enterprise {
+    max-width: 1600px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container-enterprise {
+    max-width: 1800px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
   }
 }
