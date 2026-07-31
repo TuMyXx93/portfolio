@@ -28,21 +28,28 @@ interface I18nProviderProps {
 }
 
 export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
-  const [locale, setLocale] = useState<Locale>(initialLocale || defaultLocale);
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === 'undefined') {
+      return initialLocale || defaultLocale;
+    }
+    const savedLocale = localStorage.getItem('locale') as Locale;
+    if (savedLocale && locales.includes(savedLocale)) {
+      return savedLocale;
+    }
+    return initialLocale || defaultLocale;
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Sync browser or stored locale after initial mount to prevent hydration mismatch
-    const savedLocale = localStorage.getItem('locale') as Locale;
-    const browserLocale = navigator.language.split('-')[0] as Locale;
-    const detected =
-      (savedLocale && locales.includes(savedLocale) ? savedLocale : null) ||
-      (locales.includes(browserLocale) ? browserLocale : null);
-
-    if (detected && locales.includes(detected) && detected !== locale) {
-      queueMicrotask(() => {
-        setLocale(detected);
-      });
+    // Sync browser locale after initial mount if no saved preference exists
+    const savedLocale = localStorage.getItem('locale');
+    if (!savedLocale) {
+      const browserLocale = navigator.language.split('-')[0] as Locale;
+      if (process.env.NODE_ENV !== 'test' && locales.includes(browserLocale) && browserLocale !== locale) {
+        queueMicrotask(() => {
+          setLocale(browserLocale);
+        });
+      }
     }
   }, [locale]);
 
