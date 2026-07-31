@@ -7,6 +7,8 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/spec/
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-30
+
 ### Added
 
 - **Migración a pnpm v11.18.0**: sustituido `npm` por `pnpm` con configuración `.npmrc` enterprise (aislamiento de `node_modules`, lockfile v9.0).
