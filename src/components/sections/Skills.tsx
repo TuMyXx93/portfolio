@@ -92,13 +92,13 @@ export const Skills = () => {
             <motion.div
               key={category}
               variants={itemVariants}
-              className="bg-white/5 backdrop-blur-lg rounded-xl p-4 md:p-6 border border-white/10 hover:border-white/20 transition-colors"
+              className="bg-white/[0.03] backdrop-blur-xl rounded-2xl p-5 md:p-6 border border-white/10 hover:border-amber-400/30 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(247,171,10,0.08)] hover:-translate-y-1"
             >
               <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div
-                  className={`w-3 h-3 rounded-full bg-gradient-to-r ${getCategoryColor(category)}`}
+                  className={`w-3.5 h-3.5 rounded-full bg-gradient-to-r ${getCategoryColor(category)} shadow-sm`}
                 ></div>
-                <h3 className="text-lg md:text-xl font-light text-white tracking-wide">
+                <h3 className="text-lg md:text-xl font-medium text-white tracking-wide">
                   {getCategoryTitle(category)}
                 </h3>
               </div>
@@ -110,31 +110,31 @@ export const Skills = () => {
                     className="flex items-center justify-between group [@media(hover:hover)]:hover:translate-x-1 transition-transform duration-200"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 flex items-center justify-center bg-white/10 rounded-lg group-hover:bg-amber-500/20 transition-colors">
+                      <div className="w-8 h-8 flex items-center justify-center bg-white/10 rounded-lg group-hover:bg-amber-500/20 group-hover:border-amber-400/40 border border-transparent transition-all duration-200">
                         <span className="text-xs font-bold text-amber-400">
                           {skill.name.charAt(0)}
                         </span>
                       </div>
-                      <span className="text-gray-300 group-hover:text-white transition-colors font-light tracking-wide text-sm md:text-base">
+                      <span className="text-gray-200 group-hover:text-white transition-colors font-normal tracking-wide text-sm md:text-base">
                         {skill.name}
                       </span>
                     </div>
 
                     {/* Barra de progreso */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-12 md:w-16 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-14 md:w-20 h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
                         <motion.div
-                          className="h-full bg-gradient-to-r from-white/60 to-white/40 rounded-full"
+                          className={`h-full bg-gradient-to-r ${getCategoryColor(category)} rounded-full shadow-[0_0_8px_rgba(247,171,10,0.3)]`}
                           initial={{ width: 0 }}
                           animate={
                             isInView
                               ? { width: `${skill.level}%` }
                               : { width: 0 }
                           }
-                          transition={{ duration: 1, delay: 0.5 }}
+                          transition={{ duration: 1, delay: 0.3 }}
                         />
                       </div>
-                      <span className="text-xs text-gray-400 min-w-[2rem] text-right font-light">
+                      <span className="text-xs text-gray-300 font-mono min-w-[2.2rem] text-right font-medium">
                         {skill.level}%
                       </span>
                     </div>
@@ -150,25 +150,25 @@ export const Skills = () => {
           variants={itemVariants}
           className="mt-12 md:mt-16 text-center"
         >
-          <div className="glass-effect rounded-xl p-6 md:p-8 border border-white/10">
+          <div className="bg-white/[0.03] backdrop-blur-xl rounded-2xl p-6 md:p-10 border border-white/10 hover:border-amber-400/30 transition-all duration-300 shadow-xl">
             <h4 className="text-xl md:text-2xl font-bold text-[#F7AB0A] mb-4">
               {t('skills.alwaysLearning')}
             </h4>
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-3xl mx-auto max-ch-70">
+            <p className="text-gray-200 text-base md:text-lg leading-relaxed max-w-3xl mx-auto max-ch-70 font-light">
               {t('skills.learningText')}
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-6 md:mt-8">
-              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20">
+              <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-amber-500/10 text-amber-300 rounded-full text-sm font-medium border border-amber-500/20 hover:border-amber-400/40 transition-colors">
                 {t('skills.tag.continuousLearning')}
               </span>
-              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-blue-500/10 text-blue-400 rounded-full text-sm border border-blue-500/20">
+              <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-blue-500/10 text-blue-300 rounded-full text-sm font-medium border border-blue-500/20 hover:border-blue-400/40 transition-colors">
                 {t('skills.tag.bestPractices')}
               </span>
-              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-green-500/10 text-green-400 rounded-full text-sm border border-green-500/20">
+              <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-emerald-500/10 text-emerald-300 rounded-full text-sm font-medium border border-emerald-500/20 hover:border-emerald-400/40 transition-colors">
                 {t('skills.tag.cleanCode')}
               </span>
-              <span className="px-3 py-1.5 md:px-4 md:py-2 bg-purple-500/10 text-purple-400 rounded-full text-sm border border-purple-500/20">
+              <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-purple-500/10 text-purple-300 rounded-full text-sm font-medium border border-purple-500/20 hover:border-purple-400/40 transition-colors">
                 {t('skills.tag.teamwork')}
               </span>
             </div>
