@@ -15,6 +15,8 @@ export interface Project {
   github?: string;
   demo?: string;
   featured?: boolean;
+  category?: 'fullstack' | 'frontend' | 'backend' | 'ai' | 'mobile';
+  architectureDetails?: string;
 }
 
 export interface Technology {

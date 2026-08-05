@@ -1,33 +1,36 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Project as ProjectType } from '@/types';
 import { PROJECTS } from '@/constants';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
 import { Section } from '@/components/common/Section';
 import { Button } from '@/components/common/Button';
 import { useTranslation } from '@/lib/i18n/useTranslation';
+import { ProjectDetailModal } from './ProjectDetailModal';
 
 interface ProjectCardProps {
   project: ProjectType;
   index: number;
+  onOpenDetails: (project: ProjectType) => void;
 }
 
-const ProjectCard = ({ project, index }: ProjectCardProps) => {
+const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      viewport={{ once: true, amount: 0.2 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
       className="group relative w-full mx-auto bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-amber-400/40 rounded-2xl p-5 hover:-translate-y-1.5 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(247,171,10,0.12)] flex flex-col justify-between"
     >
       <div>
         <motion.div
-          className="relative w-full aspect-video rounded-xl overflow-hidden mb-4 border border-white/5"
+          className="relative w-full aspect-video rounded-xl overflow-hidden mb-4 border border-white/5 cursor-pointer"
           whileHover={{ scale: 1.01 }}
           transition={{ duration: 0.2 }}
+          onClick={() => onOpenDetails(project)}
         >
           <Image
             src={project.image}
@@ -39,18 +42,18 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           {/* Overlay - visible en hover (pointer) o siempre en touch */}
           <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
             <div className="flex flex-wrap items-center justify-center gap-3 p-2">
-              {project.github && (
-                <Button
-                  variant="overlay"
-                  size="sm"
-                  shape="pill"
-                  href={project.github}
-                  target="_blank"
-                  ariaLabel={`Ver código fuente de ${project.title} en GitHub`}
-                >
-                  GitHub
-                </Button>
-              )}
+              <Button
+                variant="overlay"
+                size="sm"
+                shape="pill"
+                onClick={e => {
+                  e?.stopPropagation();
+                  onOpenDetails(project);
+                }}
+                ariaLabel={`Ver detalles de ${project.title}`}
+              >
+                Caso de Estudio
+              </Button>
               {project.demo && (
                 <Button
                   variant="overlayWhite"
@@ -67,8 +70,8 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </div>
         </motion.div>
         <motion.h3
-          className="text-lg md:text-xl font-bold mb-2 text-[#F7AB0A] group-hover:text-amber-300 transition-colors"
-          whileHover={{ scale: 1.01 }}
+          className="text-lg md:text-xl font-bold mb-2 text-[#F7AB0A] group-hover:text-amber-300 transition-colors cursor-pointer"
+          onClick={() => onOpenDetails(project)}
         >
           {project.title}
         </motion.h3>
@@ -97,25 +100,35 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 export const Projects = () => {
   const containerRef = useRef(null);
   const { t } = useTranslation();
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activeProject, setActiveProject] = useState<ProjectType | null>(null);
 
   useLazySection('projects', () => {
-    // Precargar imágenes de proyectos cuando la sección sea visible
     PROJECTS.forEach(project => {
       const img = document.createElement('img');
       img.src = project.image;
     });
   });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        duration: 0.3,
-      },
-    },
-  };
+  const categories = [
+    { id: 'all', label: 'Todos' },
+    { id: 'fullstack', label: 'Full Stack' },
+    { id: 'ai', label: 'IA & Agentes' },
+    { id: 'frontend', label: 'Frontend' },
+  ];
+
+  const filteredProjects = PROJECTS.filter(project => {
+    const matchesCategory =
+      selectedCategory === 'all' || project.category === selectedCategory;
+    const matchesSearch =
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.technologies.some(t =>
+        t.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <Section
@@ -123,18 +136,80 @@ export const Projects = () => {
       title={t('projects.title') || 'Proyectos'}
       className="py-16 md:py-20 lg:py-24 px-4"
     >
+      {/* Controles de Filtro y Búsqueda */}
+      <div className="max-w-7xl mx-auto mt-8 mb-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Píldoras de Categoría */}
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 border ${
+                selectedCategory === cat.id
+                  ? 'bg-amber-400/20 text-amber-300 border-amber-400/50 shadow-[0_0_15px_rgba(247,171,10,0.2)]'
+                  : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:border-white/20'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Input de Búsqueda */}
+        <div className="relative w-full md:w-72">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Buscar por tecnología..."
+            className="w-full px-4 py-2 pl-10 text-sm bg-white/5 border border-white/10 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-amber-400/50 focus:ring-1 focus:ring-amber-400/30 transition-colors"
+          />
+          <svg
+            className="w-4 h-4 text-gray-400 absolute left-3.5 top-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* Grid de Proyectos Filtrados */}
       <motion.div
         ref={containerRef}
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
-        className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto"
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto"
       >
-        {PROJECTS.map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
-        ))}
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onOpenDetails={setActiveProject}
+            />
+          ))}
+        </AnimatePresence>
       </motion.div>
+
+      {/* Mensaje de Sin Resultados */}
+      {filteredProjects.length === 0 && (
+        <div className="text-center py-12 text-gray-400 text-base">
+          No se encontraron proyectos para los criterios seleccionados.
+        </div>
+      )}
+
+      {/* Modal de Detalle / Caso de Estudio */}
+      <ProjectDetailModal
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
     </Section>
   );
 };
