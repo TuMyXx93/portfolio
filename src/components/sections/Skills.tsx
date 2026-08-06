@@ -8,7 +8,7 @@ import { useTranslation } from '@/lib/i18n/useTranslation';
 
 export const Skills = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t } = useTranslation();
 
   useLazySection('skills', () => {
@@ -92,7 +92,7 @@ export const Skills = () => {
             <motion.div
               key={category}
               variants={itemVariants}
-              className="bg-white/[0.03] backdrop-blur-xl rounded-2xl p-5 md:p-6 border border-white/10 hover:border-amber-400/30 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(247,171,10,0.08)] hover:-translate-y-1"
+              className="bg-slate-800/80 rounded-2xl p-5 md:p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200 hover:ring-1 hover:ring-amber-400/20"
             >
               <div className="flex items-center gap-3 mb-4 md:mb-6">
                 <div
@@ -150,7 +150,7 @@ export const Skills = () => {
           variants={itemVariants}
           className="mt-12 md:mt-16 text-center"
         >
-          <div className="bg-white/[0.03] backdrop-blur-xl rounded-2xl p-6 md:p-10 border border-white/10 hover:border-amber-400/30 transition-all duration-300 shadow-xl">
+          <div className="bg-slate-800/80 rounded-2xl p-6 md:p-10 border border-white/10 hover:border-amber-400/30 transition-colors duration-200">
             <h4 className="text-xl md:text-2xl font-bold text-[#F7AB0A] mb-4">
               {t('skills.alwaysLearning')}
             </h4>

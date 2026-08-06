@@ -8,7 +8,7 @@ import { Button } from '@/components/common/Button';
 
 export const About = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t, locale } = useTranslation();
 
   useLazySection('about', () => {
@@ -69,7 +69,7 @@ export const About = () => {
                 href={`/docs/${locale === 'en' ? 'CV_TuMyXx_EN.pdf' : 'CV_TuMyXx_ES.pdf'}`}
                 download={locale === 'en' ? 'CV_TuMyXx_EN.pdf' : 'CV_TuMyXx_ES.pdf'}
                 ariaLabel={`Descargar CV en formato PDF (${locale.toUpperCase()})`}
-                className="w-full sm:w-auto shadow-lg shadow-amber-500/20 hover:shadow-amber-500/35 transition-all duration-300 font-semibold"
+                className="w-full sm:w-auto transition-colors duration-200 font-semibold"
               >
                 <svg
                   className="w-5 h-5 mr-2 inline-block"

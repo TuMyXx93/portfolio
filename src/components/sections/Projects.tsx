@@ -23,7 +23,7 @@ const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="group relative w-full mx-auto bg-white/[0.03] backdrop-blur-xl border border-white/10 hover:border-amber-400/40 rounded-2xl p-5 hover:-translate-y-1.5 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(247,171,10,0.12)] flex flex-col justify-between"
+      className="group relative w-full mx-auto bg-slate-800/80 border border-white/10 hover:border-amber-400/40 rounded-2xl p-5 transition-colors duration-200 hover:ring-1 hover:ring-amber-400/30 flex flex-col justify-between"
     >
       <div>
         <motion.div

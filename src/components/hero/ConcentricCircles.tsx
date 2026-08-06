@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 
 // Radar/sonar effect: 4 circles expand from center with staggered delays
@@ -19,31 +18,19 @@ export const ConcentricCircles = () => {
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none">
       {circles.map((circle, index) => (
-        <motion.div
+        <div
           key={index}
           className={`
             absolute rounded-full pointer-events-none
             ${circle.highlight ? 'border-amber-300 shadow-[0_0_15px_rgba(247,171,10,0.3)]' : 'border-amber-400/40'}
+            ${shouldAnimate ? 'radar-circle-animated' : ''}
           `}
-          transformTemplate={({ scale }) => `scale3d(${scale}, ${scale}, 1)`}
           style={{
             width: 'min(1000px, 90vmin)',
             height: 'min(1000px, 90vmin)',
             borderWidth: circle.strokeWidth,
-          }}
-          initial={{
-            scale: 0,
-            opacity: 1,
-          }}
-          animate={{
-            scale: shouldAnimate ? [0, 1] : 1,
-            opacity: shouldAnimate ? [circle.opacity, 0] : circle.opacity,
-          }}
-          transition={{
-            delay: circle.delay,
-            duration: circle.duration,
-            ease: 'easeOut',
-            repeat: Infinity,
+            animationDelay: shouldAnimate ? `${circle.delay}s` : '0s',
+            opacity: shouldAnimate ? undefined : circle.opacity,
           }}
         />
       ))}

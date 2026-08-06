@@ -9,7 +9,7 @@ import { useTranslation } from '@/lib/i18n/useTranslation';
 
 export const Experience = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t } = useTranslation();
 
   useLazySection('experience', () => {
@@ -63,7 +63,7 @@ export const Experience = () => {
           variants={itemVariants}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto"
         >
-          <div className="glass-effect rounded-xl p-6 border border-white/10 shadow-md hover:border-white/20 transition-all duration-300">
+          <div className="bg-slate-800/80 rounded-xl p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200">
             <h4 className="text-lg md:text-xl font-semibold text-white mb-4 tracking-wide flex items-center gap-2">
               <span className="w-2 h-2 bg-[#F7AB0A] rounded-full"></span>
               {t('experience.highlights')}
@@ -96,7 +96,7 @@ export const Experience = () => {
             </ul>
           </div>
 
-          <div className="glass-effect rounded-xl p-6 border border-white/10 shadow-md hover:border-amber-500/20 transition-all duration-300">
+          <div className="bg-slate-800/80 rounded-xl p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200">
             <h4 className="text-lg md:text-xl font-semibold text-[#F7AB0A] mb-4 tracking-wide flex items-center gap-2">
               <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
               {t('experience.approach')}

@@ -31,11 +31,11 @@ export const Timeline = ({ items }: TimelineProps) => {
           >
             {/* Dot marker */}
             <div className="absolute left-4 sm:left-6 md:left-8 top-4 -translate-x-1/2 z-10">
-              <div className="w-4 h-4 rounded-full bg-[#F7AB0A] ring-4 ring-[#0a1628] shadow-[0_0_10px_rgba(247,171,10,0.5)]" />
+              <div className="w-4 h-4 rounded-full bg-[#F7AB0A] ring-4 ring-[#0a1628]" />
             </div>
 
             {/* Tarjeta de Contenido */}
-            <div className="glass-effect rounded-xl p-5 sm:p-6 border border-white/10 hover:border-amber-500/30 transition-all duration-300 shadow-lg">
+            <div className="bg-slate-800/80 rounded-xl p-5 sm:p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200 hover:ring-1 hover:ring-amber-400/20">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <span className="text-xs font-mono text-[#F7AB0A] bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full font-medium">
                   {item.date}

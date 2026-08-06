@@ -81,16 +81,15 @@ export const HorizontalNavigation = () => {
               hover:bg-amber-400 hover:text-slate-900 
               focus:bg-amber-400 focus:text-slate-900 focus:outline-none 
               focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900
-              transition-all duration-300 text-xs sm:text-sm md:text-base font-medium overflow-hidden
+              transition-colors duration-200 text-xs sm:text-sm md:text-base font-medium overflow-hidden
               min-h-[40px] sm:min-h-[44px]
               ${state.enhancedFocus ? 'ring-2 ring-offset-2 ring-offset-slate-900' : ''}
-              ${isHovered ? 'shadow-lg shadow-amber-400/20' : ''}
+              ${isHovered ? 'ring-1 ring-amber-400/40' : ''}
             `}
             whileHover={
               shouldAnimate
                 ? {
                     scale: 1.05,
-                    boxShadow: '0 10px 20px rgba(251, 191, 36, 0.2)',
                   }
                 : {}
             }
