@@ -165,13 +165,11 @@
 }
 
 .nav-icon {
-  transition: all var(--hero-animation-fast) var(--hero-ease);
-  filter: drop-shadow(0 0 5px currentColor);
+  transition: transform var(--hero-animation-fast) var(--hero-ease);
 }
 
 .nav-button:hover .nav-icon {
   transform: scale(1.2) rotate(5deg);
-  filter: drop-shadow(0 0 10px currentColor);
 }
 
 /* ====================================
@@ -221,20 +219,6 @@
 
 .particle {
   pointer-events: none;
-  filter: blur(0.5px);
-  animation: particleFloat 6s ease-in-out infinite;
-}
-
-@keyframes particleFloat {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  50% {
-    transform: translateY(-50px) rotate(180deg);
-    opacity: 1;
-  }
 }
 
 /* Efecto de ondas en hover */
@@ -525,9 +509,7 @@
 .glow-amber {
   box-shadow:
     0 0 20px rgba(251, 191, 36, 0.4),
-    0 0 40px rgba(251, 191, 36, 0.2),
-    inset 0 0 10px rgba(251, 191, 36, 0.1);
-  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3));
+    0 0 40px rgba(251, 191, 36, 0.2);
 }
 
 /* Focus mejorado para navegación por teclado */

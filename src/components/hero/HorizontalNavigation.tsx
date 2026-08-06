@@ -70,58 +70,26 @@ export const HorizontalNavigation = () => {
         const isHovered = hoveredItem === item.key;
 
         return (
-          <motion.button
+          <button
             key={item.key}
-            variants={shouldAnimate ? itemVariants : undefined}
             onClick={() => handleNavigation(item.key, label)}
-            onMouseEnter={() => setHoveredItem(item.key)}
-            onMouseLeave={() => setHoveredItem(null)}
             className={`
               group relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full border border-amber-400/30 text-amber-400 
-              hover:bg-amber-400 hover:text-slate-900 
+              hover:bg-amber-400 hover:text-slate-900 hover:scale-105 active:scale-95
               focus:bg-amber-400 focus:text-slate-900 focus:outline-none 
               focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900
-              transition-colors duration-200 text-xs sm:text-sm md:text-base font-medium overflow-hidden
-              min-h-[40px] sm:min-h-[44px]
+              transition-all duration-200 text-xs sm:text-sm md:text-base font-medium overflow-hidden
+              min-h-[40px] sm:min-h-[44px] cursor-pointer
               ${state.enhancedFocus ? 'ring-2 ring-offset-2 ring-offset-slate-900' : ''}
-              ${isHovered ? 'ring-1 ring-amber-400/40' : ''}
             `}
-            whileHover={
-              shouldAnimate
-                ? {
-                    scale: 1.05,
-                  }
-                : {}
-            }
-            whileTap={shouldAnimate ? { scale: 0.95 } : {}}
             aria-label={`Ir a sección ${label}`}
           >
-            {/* Efecto de onda en hover */}
-            {shouldAnimate && isHovered && (
-              <motion.div
-                className="absolute inset-0 bg-amber-400/10 rounded-full"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1.5, opacity: [0, 0.5, 0] }}
-                transition={{ duration: 0.6 }}
-              />
-            )}
-
             {/* Contenido del botón */}
             <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
               <span className="text-base sm:text-lg">{item.icon}</span>
               <span suppressHydrationWarning>{label}</span>
             </span>
-
-            {/* Borde animado */}
-            {shouldAnimate && (
-              <motion.div
-                className="absolute bottom-0 left-0 h-0.5 bg-amber-400"
-                initial={{ width: 0 }}
-                animate={{ width: isHovered ? '100%' : 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            )}
-          </motion.button>
+          </button>
         );
       })}
     </motion.nav>
