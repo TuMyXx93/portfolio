@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('home renders and main navigation is visible', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
 
   await expect(page).toHaveTitle(/TumiDev/i);
   await expect(

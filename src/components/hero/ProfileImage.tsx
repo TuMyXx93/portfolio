@@ -17,26 +17,9 @@ export const ProfileImage = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.8, duration: 1.2, ease: 'easeOut' as const }}
       >
-        {/* Círculo palpitante alrededor de la imagen */}
-        <motion.div
-          className="absolute inset-0 rounded-full border-2 border-white/20"
-          animate={
-            shouldAnimate
-              ? {
-                  scale: [1, 1.1, 1],
-                  opacity: [0.5, 0.8, 0.5],
-                }
-              : {}
-          }
-          transition={
-            shouldAnimate
-              ? {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut' as const,
-                }
-              : {}
-          }
+        {/* Círculo sutil alrededor de la imagen */}
+        <div
+          className="absolute inset-0 rounded-full border-2 border-amber-400/30"
           style={{
             width: 'calc(100% + 16px)',
             height: 'calc(100% + 16px)',

@@ -23,6 +23,7 @@ export interface ButtonProps {
   href?: string;
   target?: string;
   rel?: string;
+  download?: string | boolean;
   disabled?: boolean;
   loading?: boolean;
   icon?: React.ReactNode;
@@ -30,7 +31,7 @@ export interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
   ariaLabel?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   onFocus?: () => void;
@@ -78,6 +79,7 @@ export const Button = React.forwardRef<
       href,
       target,
       rel,
+      download,
       disabled = false,
       loading = false,
       icon,
@@ -98,7 +100,7 @@ export const Button = React.forwardRef<
     const isDisabled = disabled || loading;
 
     const baseClasses =
-      'inline-flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 overflow-hidden relative';
+      'inline-flex items-center justify-center transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900 overflow-hidden relative';
 
     const motionProps = {
       whileHover: !isDisabled ? { scale: isSubmit ? 1.02 : 1.05 } : undefined,
@@ -160,9 +162,11 @@ export const Button = React.forwardRef<
         <motion.a
           href={href}
           target={target}
+          download={download}
           rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
           className={classes}
           aria-label={ariaLabel}
+          onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
           {...motionProps}
           {...eventHandlers}
           ref={ref as React.Ref<HTMLAnchorElement>}

@@ -39,31 +39,19 @@ export const CircularHero = () => {
     <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
       {/* Logo en la esquina superior con entrada animada */}
       <motion.div
-        initial={{ opacity: 0, x: -50, scale: 0.8 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        transition={{ duration: 1.2, ease: 'easeOut' as const }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' as const }}
         className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-30"
       >
-        <motion.div
-          whileHover={
-            shouldAnimate
-              ? {
-                  scale: 1.05,
-                  filter: 'brightness(1.1)',
-                }
-              : {}
-          }
-          transition={{ duration: 0.3 }}
-        >
-          <Image
-            src="/images/logo.png"
-            alt="Tumidev Logo"
-            width={300}
-            height={100}
-            className="object-contain filter drop-shadow-lg w-auto h-16 sm:h-20 md:h-24"
-            priority
-          />
-        </motion.div>
+        <Image
+          src="/images/logo.png"
+          alt="Tumidev Logo"
+          width={300}
+          height={100}
+          className="object-contain w-auto h-16 sm:h-20 md:h-24 hover:scale-105 transition-transform duration-200"
+          priority
+        />
       </motion.div>
 
       {/* Círculos Concéntricos de Fondo */}

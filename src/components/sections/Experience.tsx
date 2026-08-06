@@ -6,11 +6,10 @@ import { EXPERIENCE_ITEMS } from '@/constants';
 import { useRef } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
 import { useTranslation } from '@/lib/i18n/useTranslation';
-import { Button } from '@/components/common/Button';
 
 export const Experience = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t } = useTranslation();
 
   useLazySection('experience', () => {
@@ -52,93 +51,61 @@ export const Experience = () => {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="mt-12 md:mt-16 max-w-7xl mx-auto"
+        className="mt-8 md:mt-12 max-w-5xl mx-auto space-y-12"
       >
-        {/* Contenido principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-          {/* Timeline de experiencia */}
-          <motion.div
-            variants={itemVariants}
-            className="space-y-4 md:space-y-6"
-          >
-            <h3 className="text-xl md:text-2xl font-light text-white mb-6 md:mb-8 tracking-wide">
-              {t('experience.professionalExperience')}
-            </h3>
-            <Timeline items={EXPERIENCE_ITEMS} />
-          </motion.div>
+        {/* Timeline de experiencia (ancho completo optimizado) */}
+        <motion.div variants={itemVariants} className="w-full">
+          <Timeline items={EXPERIENCE_ITEMS} />
+        </motion.div>
 
-          {/* Información adicional */}
-          <motion.div
-            variants={itemVariants}
-            className="space-y-6 md:space-y-8"
-          >
-            <div className="glass-effect rounded-lg p-4 md:p-6 border border-white/10">
-              <h4 className="text-lg md:text-xl font-light text-white mb-4 tracking-wide">
-                {t('experience.highlights')}
-              </h4>
-              <ul className="space-y-3 text-gray-300 font-light text-sm md:text-base">
-                <li className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-white/40 rounded-full mt-1.5 flex-shrink-0"></span>
-                  <span className="tracking-wide">
-                    {t('experience.bullet1')}
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-white/40 rounded-full mt-1.5 flex-shrink-0"></span>
-                  <span className="tracking-wide">
-                    {t('experience.bullet2')}
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-white/40 rounded-full mt-1.5 flex-shrink-0"></span>
-                  <span className="tracking-wide">
-                    {t('experience.bullet3')}
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-2 h-2 bg-white/40 rounded-full mt-1.5 flex-shrink-0"></span>
-                  <span className="tracking-wide">
-                    {t('experience.bullet4')}
-                  </span>
-                </li>
-              </ul>
-            </div>
+        {/* Información adicional (Grilla equilibrada de 2 columnas) */}
+        <motion.div
+          variants={itemVariants}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto"
+        >
+          <div className="bg-slate-800/80 rounded-xl p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200">
+            <h4 className="text-lg md:text-xl font-semibold text-white mb-4 tracking-wide flex items-center gap-2">
+              <span className="w-2 h-2 bg-[#F7AB0A] rounded-full"></span>
+              {t('experience.highlights')}
+            </h4>
+            <ul className="space-y-3 text-gray-300 font-light text-sm md:text-base">
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="tracking-wide">
+                  {t('experience.bullet1')}
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="tracking-wide">
+                  {t('experience.bullet2')}
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="tracking-wide">
+                  {t('experience.bullet3')}
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
+                <span className="tracking-wide">
+                  {t('experience.bullet4')}
+                </span>
+              </li>
+            </ul>
+          </div>
 
-            <div className="glass-effect rounded-lg p-4 md:p-6 border border-white/10">
-              <h4 className="text-lg md:text-xl font-semibold text-[#F7AB0A] mb-4">
-                {t('experience.approach')}
-              </h4>
-              <p className="text-gray-300 leading-relaxed text-sm md:text-base max-ch-70">
-                {t('experience.approachText')}
-              </p>
-            </div>
-
-            {/* Botones de acción usando Button component */}
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Button
-                variant="primary"
-                size="md"
-                shape="rounded"
-                href="#contact"
-                className="w-full sm:w-auto"
-                ariaLabel={t('experience.contactMe') || 'Contactarme'}
-              >
-                {t('experience.contactMe')}
-              </Button>
-              <Button
-                variant="secondary"
-                size="md"
-                shape="rounded"
-                href="/cv.pdf"
-                target="_blank"
-                className="w-full sm:w-auto"
-                ariaLabel={t('experience.downloadCV') || 'Descargar CV'}
-              >
-                {t('experience.downloadCV')}
-              </Button>
-            </div>
-          </motion.div>
-        </div>
+          <div className="bg-slate-800/80 rounded-xl p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200">
+            <h4 className="text-lg md:text-xl font-semibold text-[#F7AB0A] mb-4 tracking-wide flex items-center gap-2">
+              <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
+              {t('experience.approach')}
+            </h4>
+            <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+              {t('experience.approachText')}
+            </p>
+          </div>
+        </motion.div>
       </motion.div>
     </Section>
   );

@@ -299,11 +299,10 @@ body {
     background: var(--gradient-card);
   }
 
-  /* Glass effect - fuente única de verdad */
+  /* Glass effect - fuente única de verdad optimizada para rendimiento GPU */
   .glass-effect {
-    @apply bg-white/5 backdrop-blur-lg dark:bg-white/5
-    transition-all duration-300;
-    background-color: rgba(26, 39, 68, 0.6);
+    @apply bg-slate-800/80
+    transition-colors duration-200;
   }
 
   /* Responsive section base */
@@ -311,6 +310,7 @@ body {
     @apply relative min-h-screen w-full;
     padding-top: var(--space-fluid-xl);
     padding-bottom: var(--space-fluid-xl);
+    contain: layout style;
   }
 
   /* Container limitado para ultra-wide */

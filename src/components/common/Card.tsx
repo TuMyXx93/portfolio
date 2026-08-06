@@ -14,7 +14,7 @@ interface CardProps {
 
 const variantClasses = {
   glass:
-    'bg-white/5 backdrop-blur-lg border border-white/10 hover:border-white/20',
+    'bg-slate-800/80 border border-white/10 hover:border-amber-400/30',
   bordered: 'border border-gray-700 hover:border-gray-600',
   plain: '',
 };
@@ -35,11 +35,11 @@ export const Card = ({
   onClick,
 }: CardProps) => {
   const baseClasses = [
-    'rounded-xl transition-all duration-300',
+    'rounded-xl transition-colors duration-200',
     variantClasses[variant],
     paddingClasses[padding],
-    hover && !onClick ? 'hover:shadow-lg hover:shadow-amber-500/5' : '',
-    onClick ? 'cursor-pointer hover:shadow-lg hover:shadow-amber-500/10' : '',
+    hover && !onClick ? 'hover:ring-1 hover:ring-amber-400/20' : '',
+    onClick ? 'cursor-pointer hover:ring-1 hover:ring-amber-400/30' : '',
     className,
   ].join(' ');
 

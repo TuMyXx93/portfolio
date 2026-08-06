@@ -85,10 +85,8 @@ export const TypewriterEffect = ({
       className="inline-flex items-center min-h-[1.2em]"
     >
       {display}
-      <motion.span
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-        className="inline-block w-[3px] h-[1em] bg-amber-400 ml-1 sm:ml-2"
+      <span
+        className="inline-block w-[3px] h-[1em] bg-amber-400 ml-1 sm:ml-2 animate-pulse"
         style={{ verticalAlign: 'text-bottom' }}
       />
     </motion.span>
