@@ -7,6 +7,14 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/spec/
 
 ## [Unreleased]
 
+### Added
+
+- **Integración de envío de correo en tiempo real (Fase 6A)**:
+  - Instalado SDK oficial de `resend` (v6.18.1).
+  - Conectado `/api/contact` con el servicio Resend (`resend.emails.send()`).
+  - Creada plantilla de correo HTML responsive adaptada al sistema de diseño enterprise (`#0a1628` background, resplandor ámbar `#f59e0b`).
+  - Configurado `replyTo` dinámico y variables de entorno `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_NAME`.
+
 ### Changed
 
 - **Actualizaciones Major de dependencias**:
