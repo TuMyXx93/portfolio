@@ -27,32 +27,33 @@
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@vercel/og": "^0.11.1",
-    "dompurify": "^3.4.12",
-    "framer-motion": "^12.43.0",
-    "isomorphic-dompurify": "^3.20.0",
-    "next": "^16.2.12",
+    "dompurify": "^3.4.13",
+    "framer-motion": "^13.0.0",
+    "isomorphic-dompurify": "^3.21.0",
+    "next": "^16.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "resend": "^6.18.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
-    "zod": "^3.25.76"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.13.3",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.2.12",
+    "eslint-config-next": "^16.3.0",
     "glob": "^13.0.6",
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "postcss": "^8.5.25",
     "prettier": "^3.9.6",
-    "vercel": "^58.4.0"
+    "vercel": "^58.7.1"
   }
 }

@@ -7,6 +7,35 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/spec/
 
 ## [Unreleased]
 
+### Added
+
+- **Integración de envío de correo en tiempo real (Fase 6A)**:
+  - Instalado SDK oficial de `resend` (v6.18.1).
+  - Conectado `/api/contact` con el servicio Resend (`resend.emails.send()`).
+  - Creada plantilla de correo HTML responsive adaptada al sistema de diseño enterprise (`#0a1628` background, resplandor ámbar `#f59e0b`).
+  - Configurado `replyTo` dinámico y variables de entorno `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_NAME`.
+
+### Changed
+
+- **Actualizaciones Major de dependencias**:
+  - `framer-motion` a `13.0.0` (Unified Motion).
+  - `zod` a `4.4.3` con migración de API en `src/app/api/contact/route.ts` (`result.error.issues`).
+  - `@testing-library/jest-dom` a `7.0.0`.
+- **Actualizaciones Patch y Minor**:
+  - `next` y `eslint-config-next` a `16.3.0`.
+  - `dompurify` a `3.4.13` e `isomorphic-dompurify` a `3.21.0`.
+  - `@types/react` a `19.2.18` y `@types/react-dom` a `19.2.4`.
+  - `vercel` CLI a `58.7.1`.
+- **Optimización visual e infraestructura del Hero (Fase 5)**:
+  - Círculos radar optimizados a un único elemento SVG concéntrico de 3 anillos en `ConcentricCircles.tsx` (~75% reducción de carga GPU).
+  - Animación de rotación y pulso SVG 100% compositor-safe en `hero.css` con `contain: strict` y `will-change: transform`.
+  - Efectos de ripple (`::before`) y acento inferior (`::after`) en `HorizontalNavigation.tsx` sin Javascript ni Framer Motion rAF loop.
+  - Resplandor ambiental de logo en `CircularHero.tsx` con contenedor ámbar blur estático.
+
+### Fixed
+
+- **Migración de API Zod v4 en Contact API**: sustituida la propiedad obsoleta `result.error.errors` por `result.error.issues` en `src/app/api/contact/route.ts`.
+
 ## [1.1.0] - 2026-07-30
 
 ### Added

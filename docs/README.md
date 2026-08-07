@@ -41,5 +41,6 @@ quadrantChart
   * [ADR 0002: Sistema de Colores Progresivo y Tailwind CSS v4](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0002-tailwind-v4-color-system.md)
   * [ADR 0003: Migración al Gestor de Paquetes pnpm v11](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0003-pnpm-package-manager.md)
   * [ADR 0004: Suite de Accesibilidad WCAG 2.1 de 4 Cuadrantes](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0004-accessibility-wcag-system.md)
+  * [ADR 0005: Estrategia de Actualización de Dependencias Major/Patch](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0005-dependency-update-strategy.md)
 * [Investigación de Accesibilidad de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md): Análisis de ratios de contraste WCAG 2.1.
 * [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md): Bitácora histórica de iteraciones y auditorías.

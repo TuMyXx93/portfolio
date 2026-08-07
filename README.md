@@ -1,10 +1,10 @@
 # Portfolio Tumidev
 
-![Next.js](https://img.shields.io/badge/Next.js-16.2.12-black?style=flat-square&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-16.3.0-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.8-blue?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.3-38bdf8?style=flat-square&logo=tailwind-css)
-![pnpm](https://img.shields.io/badge/pnpm-11.18.0-orange?style=flat-square&logo=pnpm)
+![pnpm](https://img.shields.io/badge/pnpm-11.20.0-orange?style=flat-square&logo=pnpm)
 ![WCAG](https://img.shields.io/badge/WCAG_2.1-AA%2FAAA-green?style=flat-square)
 
 Portfolio profesional Enterprise diseñado con arquitectura limpia, alto rendimiento, accesibilidad estricta WCAG 2.1 y soporte para internacionalización (es/en).
@@ -33,13 +33,13 @@ El servidor local estará disponible en `http://localhost:3000`.
 
 | Categoría | Tecnología / Librería | Versión | Propósito |
 |---|---|---|---|
-| **Core Framework** | Next.js | `16.2.12` | App Router, SSR, Turbopack, Server Actions |
+| **Core Framework** | Next.js | `16.3.0` | App Router, SSR, Turbopack, Server Actions |
 | **UI Library** | React | `19.2.8` | Componentes concurrentes y Hooks |
 | **Lenguaje** | TypeScript | `5.9.3` | Tipado estricto (Strict Mode) |
 | **Estilos & UI** | Tailwind CSS | `4.3.3` | Motor de CSS con variables semánticas |
-| **Animaciones** | Framer Motion | `12.43.0` | Transiciones suaves y micro-interacciones |
-| **Package Manager**| pnpm | `11.18.0` | Gestor de paquetes aislado e hiperrápido |
-| **Unit Testing** | Jest + React Testing Library | `30.4.2` | Pruebas unitarias de hooks y componentes |
+| **Animaciones** | Framer Motion | `13.0.0` | Transiciones suaves y micro-interacciones |
+| **Package Manager**| pnpm | `11.20.0` | Gestor de paquetes aislado e hiperrápido |
+| **Unit Testing** | Jest + React Testing Library | `30.4.2` | Pruebas unitarias de hooks y componentes (`jest-dom` v7.0) |
 | **E2E Testing** | Playwright | `1.62.1` | Pruebas de humo multinavegador (Chromium, Firefox, WebKit) |
 
 ---
@@ -56,7 +56,7 @@ Toda la documentación técnica del proyecto está estructurada bajo el estánda
 | **Referencia** | [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md) | Contrato OpenAPI 3.1 para `/api/contact` |
 | **Referencia** | [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md) | Especificación de CSP, HSTS, Sanitización y Rate Limiting |
 | **Explicación** | [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md) | Diagrama C4, arquitectura de capas y flujo de datos |
-| **Explicación** | [Registros ADR](file:///C:/Users/HACKTU/code/portfolio/docs/adr/) | Arquitectura Decision Records (ADR 0001 - 0004) |
+| **Explicación** | [Registros ADR](file:///C:/Users/HACKTU/code/portfolio/docs/adr/) | Arquitectura Decision Records (ADR 0001 - 0005) |
 | **Explicación** | [Investigación de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md) | Auditoría de ratios de contraste WCAG 2.1 |
 | **Historial** | [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md) | Registro histórico de refactorizaciones y auditorías |
 | **Historial** | [Changelog](file:///C:/Users/HACKTU/code/portfolio/CHANGELOG.md) | Registro de versiones y notas de entrega |
