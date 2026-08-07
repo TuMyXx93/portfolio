@@ -7,6 +7,26 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/spec/
 
 ## [Unreleased]
 
+### Changed
+
+- **Actualizaciones Major de dependencias**:
+  - `framer-motion` a `13.0.0` (Unified Motion).
+  - `zod` a `4.4.3` con migración de API en `src/app/api/contact/route.ts` (`result.error.issues`).
+  - `@testing-library/jest-dom` a `7.0.0`.
+- **Actualizaciones Patch y Minor**:
+  - `next` y `eslint-config-next` a `16.3.0`.
+  - `dompurify` a `3.4.13` e `isomorphic-dompurify` a `3.21.0`.
+  - `@types/react` a `19.2.18` y `@types/react-dom` a `19.2.4`.
+  - `vercel` CLI a `58.7.1`.
+- **Decisiones de Retención de Versión (ADR 0005)**:
+  - Mantenido `eslint` en `9.39.5` por incompatibilidad de `eslint-plugin-react@7.37.5` (`context.getFilename()`) en ESLint 10.
+  - Mantenido `typescript` en `5.9.3` LTS por ser el compilador certificado oficial para Next.js 16.
+  - Mantenido `@types/node` en `24.13.3` para alineación estricta con Node.js v24 LTS.
+
+### Fixed
+
+- **Migración de API Zod v4 en Contact API**: sustituida la propiedad obsoleta `result.error.errors` por `result.error.issues` en `src/app/api/contact/route.ts`.
+
 ## [1.1.0] - 2026-07-30
 
 ### Added

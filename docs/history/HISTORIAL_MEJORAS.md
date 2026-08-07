@@ -50,6 +50,18 @@ Este documento compila el registro histórico de mejoras técnicas, auditorías 
 
 ---
 
+## 6. Auditoría y Actualización Enterprise de Dependencias (Agosto 2026)
+
+- **Core & Animaciones:** `next` a `16.3.0` (Turbopack optimizado), `framer-motion` a `13.0.0` (Unified Motion), `dompurify` a `3.4.13` e `isomorphic-dompurify` a `3.21.0`.
+- **Testing & Tooling:** `@testing-library/jest-dom` a `7.0.0` (13 suites / 60 tests en verde), `@types/react` a `19.2.18`, `@types/react-dom` a `19.2.4`, `vercel` CLI a `58.7.1`.
+- **API Contacto:** `zod` a `4.4.3` con migración de API en `src/app/api/contact/route.ts` (`result.error.issues`).
+- **Retenciones de Versión Documentadas ([ADR 0005](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0005-dependency-update-strategy.md)):**
+  - Mantenido `eslint` en `9.39.5` por incompatibilidad de `eslint-plugin-react@7.37.5` (`context.getFilename()`) en ESLint 10.
+  - Mantenido `typescript` en `5.9.3` LTS por ser el compilador certificado oficial para Next.js 16.
+  - Mantenido `@types/node` en `24.13.3` para alineación estricta con Node.js v24 LTS.
+
+---
+
 _Fecha de creación: 27 de Abril de 2026_  
-_Última actualización: 30 de Julio de 2026_  
-_Versión: 1.2_
+_Última actualización: 6 de Agosto de 2026_  
+_Versión: 1.3_
