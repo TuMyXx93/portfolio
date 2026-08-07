@@ -1,17 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import DOMPurify from 'isomorphic-dompurify';
+import validator from 'validator';
 import { Resend } from 'resend';
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
+
+function sanitizeText(val: string): string {
+  const stripped = validator.stripLow(val, true);
+  return validator.escape(stripped.trim());
+}
 
 const contactSchema = z.object({
   name: z
     .string()
     .min(2, 'Name must be at least 2 characters')
     .max(100, 'Name must be less than 100 characters')
-    .transform(val => DOMPurify.sanitize(val)),
+    .transform(sanitizeText),
   email: z
     .string()
     .email('Invalid email format')
@@ -20,16 +25,16 @@ const contactSchema = z.object({
     .string()
     .min(5, 'Subject must be at least 5 characters')
     .max(200, 'Subject must be less than 200 characters')
-    .transform(val => DOMPurify.sanitize(val)),
+    .transform(sanitizeText),
   message: z
     .string()
     .min(20, 'Message must be at least 20 characters')
     .max(5000, 'Message must be less than 5000 characters')
-    .transform(val => DOMPurify.sanitize(val)),
+    .transform(sanitizeText),
 });
 
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
-const RATE_LIMIT = 5;
+const RATE_LIMIT = 15;
 const RATE_WINDOW_MS = 60000;
 
 function getClientIP(request: NextRequest): string {
@@ -57,40 +62,34 @@ function checkRateLimit(ip: string): boolean {
 
 const logger = {
   error: (message: string, meta?: object) => {
-    if (process.env.NODE_ENV === 'development') {
-      console.error(
-        JSON.stringify({
-          timestamp: new Date().toISOString(),
-          level: 'error',
-          message,
-          ...meta,
-        })
-      );
-    }
+    console.error(
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        level: 'error',
+        message,
+        ...meta,
+      })
+    );
   },
   warn: (message: string, meta?: object) => {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(
-        JSON.stringify({
-          timestamp: new Date().toISOString(),
-          level: 'warn',
-          message,
-          ...meta,
-        })
-      );
-    }
+    console.warn(
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        level: 'warn',
+        message,
+        ...meta,
+      })
+    );
   },
   info: (message: string, meta?: object) => {
-    if (process.env.NODE_ENV === 'development') {
-      console.info(
-        JSON.stringify({
-          timestamp: new Date().toISOString(),
-          level: 'info',
-          message,
-          ...meta,
-        })
-      );
-    }
+    console.info(
+      JSON.stringify({
+        timestamp: new Date().toISOString(),
+        level: 'info',
+        message,
+        ...meta,
+      })
+    );
   },
 };
 
@@ -165,7 +164,10 @@ export async function POST(request: NextRequest) {
       if (sendResult.error) {
         logger.error('Resend email delivery failed', { error: sendResult.error });
         return NextResponse.json(
-          { error: 'Failed to send email. Please try again.' },
+          {
+            error: 'Failed to send email. Please try again.',
+            details: sendResult.error.message,
+          },
           { status: 500 }
         );
       }
