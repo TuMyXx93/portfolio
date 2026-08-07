@@ -37,19 +37,20 @@ export const CircularHero = () => {
 
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
-      {/* Logo en la esquina superior con entrada animada */}
+      {/* Logo en la esquina superior con entrada animada y sutil resplandor ámbar */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' as const }}
-        className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-30"
+        className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-30 group"
       >
+        <div className="absolute -inset-2 bg-amber-400/10 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         <Image
           src="/images/logo.png"
           alt="Tumidev Logo"
           width={300}
           height={100}
-          className="object-contain w-auto h-16 sm:h-20 md:h-24 hover:scale-105 transition-transform duration-200"
+          className="relative z-10 object-contain w-auto h-16 sm:h-20 md:h-24 hover:scale-105 transition-transform duration-200"
           priority
         />
       </motion.div>

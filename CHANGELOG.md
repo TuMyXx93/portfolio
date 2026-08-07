@@ -18,10 +18,11 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/spec/
   - `dompurify` a `3.4.13` e `isomorphic-dompurify` a `3.21.0`.
   - `@types/react` a `19.2.18` y `@types/react-dom` a `19.2.4`.
   - `vercel` CLI a `58.7.1`.
-- **Decisiones de Retención de Versión (ADR 0005)**:
-  - Mantenido `eslint` en `9.39.5` por incompatibilidad de `eslint-plugin-react@7.37.5` (`context.getFilename()`) en ESLint 10.
-  - Mantenido `typescript` en `5.9.3` LTS por ser el compilador certificado oficial para Next.js 16.
-  - Mantenido `@types/node` en `24.13.3` para alineación estricta con Node.js v24 LTS.
+- **Optimización visual e infraestructura del Hero (Fase 5)**:
+  - Círculos radar optimizados a un único elemento SVG concéntrico de 3 anillos en `ConcentricCircles.tsx` (~75% reducción de carga GPU).
+  - Animación de rotación y pulso SVG 100% compositor-safe en `hero.css` con `contain: strict` y `will-change: transform`.
+  - Efectos de ripple (`::before`) y acento inferior (`::after`) en `HorizontalNavigation.tsx` sin Javascript ni Framer Motion rAF loop.
+  - Resplandor ambiental de logo en `CircularHero.tsx` con contenedor ámbar blur estático.
 
 ### Fixed
 

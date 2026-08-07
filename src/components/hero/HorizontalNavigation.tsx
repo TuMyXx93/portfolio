@@ -79,7 +79,7 @@ export const HorizontalNavigation = () => {
               focus:bg-amber-400 focus:text-slate-900 focus:outline-none 
               focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-slate-900
               transition-all duration-200 text-xs sm:text-sm md:text-base font-medium overflow-hidden
-              min-h-[40px] sm:min-h-[44px] cursor-pointer
+              min-h-[40px] sm:min-h-[44px] cursor-pointer nav-btn-ripple nav-btn-accent
               ${state.enhancedFocus ? 'ring-2 ring-offset-2 ring-offset-slate-900' : ''}
             `}
             aria-label={`Ir a sección ${label}`}

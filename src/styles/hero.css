@@ -246,20 +246,93 @@
   height: 300px;
 }
 
-@keyframes radarExpand {
-  0% {
-    transform: scale3d(0, 0, 1);
-    opacity: 0.2;
+@keyframes radarSvgRotate {
+  from {
+    transform: rotate(0deg);
   }
-  100% {
-    transform: scale3d(1, 1, 1);
-    opacity: 0;
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.radar-circle-animated {
+@keyframes radarPulseRing {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.02);
+  }
+}
+
+.radar-svg-animated {
   contain: strict;
-  animation: radarExpand 4.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  transform-origin: center center;
+  animation: radarSvgRotate 90s linear infinite;
+  will-change: transform;
+}
+
+.radar-ring-1 {
+  transform-origin: center center;
+  animation: radarPulseRing 6s ease-in-out infinite;
+}
+
+.radar-ring-2 {
+  transform-origin: center center;
+  animation: radarPulseRing 4.5s ease-in-out infinite 1.5s;
+}
+
+.radar-ring-3 {
+  transform-origin: center center;
+  animation: radarPulseRing 3s ease-in-out infinite 0.75s;
+}
+
+/* Zero-JS Navigation Button Ripple Effect */
+.nav-btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-btn-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.35) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+  border-radius: 9999px;
+}
+
+.nav-btn-ripple:hover::before,
+.nav-btn-ripple:focus::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Zero-JS Navigation Button Underline Accent */
+.nav-btn-accent::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+}
+
+.nav-btn-accent:hover::after,
+.nav-btn-accent:focus::after {
+  transform: scaleX(1);
 }
 
 @keyframes rotateClockwise {
