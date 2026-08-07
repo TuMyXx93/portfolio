@@ -7,6 +7,8 @@ import '../styles/hero.css';
 import { ScrollProgress } from '@/components/common/ScrollProgress';
 import { PWAInstallButton } from '@/components/common/PWAInstallButton';
 import { ConnectionStatus } from '@/components/common/ConnectionStatus';
+import { Footer } from '@/components/layout/Footer';
+import { BackToTop } from '@/components/common/BackToTop';
 import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
 import { I18nProvider } from '@/lib/i18n/useTranslation';
 import {
@@ -158,6 +160,8 @@ export default function RootLayout({
             >
               {children}
             </main>
+            <Footer />
+            <BackToTop />
             <PWAInstallButton />
           </AccessibilityProvider>
         </I18nProvider>

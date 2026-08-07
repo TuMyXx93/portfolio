@@ -106,3 +106,31 @@ export const EXPERIENCE_ITEMS = [
     technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
   },
 ];
+
+export const SOCIAL_LINKS = [
+  {
+    id: 'github',
+    label: 'GitHub',
+    href: 'https://github.com/TuMyXx93',
+    ariaLabel: 'Visitar perfil de GitHub de TumiDev',
+  },
+  {
+    id: 'linkedin',
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/wilson-tumi/',
+    ariaLabel: 'Visitar perfil de LinkedIn de TumiDev',
+  },
+  {
+    id: 'twitter',
+    label: 'X (Twitter)',
+    href: 'https://x.com/Tumix19',
+    ariaLabel: 'Visitar perfil de X de TumiDev',
+  },
+  {
+    id: 'email',
+    label: 'Correo',
+    href: 'mailto:tumyxx2@gmail.com',
+    ariaLabel: 'Enviar correo electrónico a TumiDev',
+  },
+];
+
