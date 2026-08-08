@@ -15,9 +15,13 @@ export const Footer: React.FC = () => {
   ) => {
     e.preventDefault();
     const sectionId = href.replace('#', '');
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -43,7 +47,7 @@ export const Footer: React.FC = () => {
               />
             </div>
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Desarrollador Full Stack Senior especializado en aplicaciones web de alto rendimiento con Next.js, React, TypeScript y arquitecturas sólidas.
+              Ingeniero de Sistemas & Desarrollador Full Stack especializado en arquitecturas Monorepo, React 19, Fastify, Flutter e ingeniería potenciada con Inteligencia Artificial.
             </p>
           </div>
 

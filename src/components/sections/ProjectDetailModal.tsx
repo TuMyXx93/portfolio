@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/types';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/common/Button';
 
 interface ProjectDetailModalProps {
@@ -14,6 +14,28 @@ export const ProjectDetailModal = ({
   project,
   onClose,
 }: ProjectDetailModalProps) => {
+  const imagesList =
+    project?.images && project.images.length > 0
+      ? project.images
+      : project
+        ? [project.image]
+        : [];
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [prevProjectId, setPrevProjectId] = useState(project?.id);
+
+  if (project?.id !== prevProjectId) {
+    setPrevProjectId(project?.id);
+    setActiveImgIndex(0);
+  }
+
+  useEffect(() => {
+    if (!project || imagesList.length <= 1) return;
+    const timer = setInterval(() => {
+      setActiveImgIndex(prev => (prev + 1) % imagesList.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [project, imagesList.length]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -59,7 +81,7 @@ export const ProjectDetailModal = ({
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
+              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none z-20"
               aria-label="Cerrar modal"
             >
               <svg
@@ -90,15 +112,93 @@ export const ProjectDetailModal = ({
               </h2>
             </div>
 
-            {/* Image Preview */}
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6 border border-white/10 shadow-lg">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
+            {/* Image Preview / Slider */}
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6 border border-white/10 shadow-lg group">
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={imagesList[activeImgIndex]}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={imagesList[activeImgIndex]}
+                    alt={`${project.title} - Vista ${activeImgIndex + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 800px"
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Botones de navegación manual si hay más de 1 imagen */}
+              {imagesList.length > 1 && (
+                <>
+                  <button
+                    onClick={() =>
+                      setActiveImgIndex(
+                        prev =>
+                          (prev - 1 + imagesList.length) % imagesList.length
+                      )
+                    }
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black text-white transition-colors backdrop-blur-xs z-20"
+                    aria-label="Vista anterior"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() =>
+                      setActiveImgIndex(prev => (prev + 1) % imagesList.length)
+                    }
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black text-white transition-colors backdrop-blur-xs z-20"
+                    aria-label="Vista siguiente"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Indicadores flotantes inferiores */}
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/10">
+                    {imagesList.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveImgIndex(idx)}
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          idx === activeImgIndex
+                            ? 'w-6 bg-amber-400'
+                            : 'w-2 bg-white/40 hover:bg-white'
+                        }`}
+                        aria-label={`Ir a la vista ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Description */}
@@ -178,9 +278,12 @@ export const ProjectDetailModal = ({
                   shape="pill"
                   href={project.demo}
                   target="_blank"
-                  ariaLabel={`Demo en vivo de ${project.title}`}
+                  download={project.demo.endsWith('.apk') ? true : undefined}
+                  ariaLabel={`Descargar o probar demo de ${project.title}`}
                 >
-                  Probar Demo
+                  {project.demo.endsWith('.apk')
+                    ? 'Descargar APK'
+                    : 'Probar Demo'}
                 </Button>
               )}
             </div>
