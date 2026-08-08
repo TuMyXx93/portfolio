@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project as ProjectType } from '@/types';
 import { PROJECTS } from '@/constants';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLazySection } from '@/hooks/useLazySection';
 import { Section } from '@/components/common/Section';
 import { Button } from '@/components/common/Button';
@@ -17,6 +17,20 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
+  const imagesList =
+    project.images && project.images.length > 0
+      ? project.images
+      : [project.image];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (imagesList.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentImageIndex(prev => (prev + 1) % imagesList.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [imagesList.length]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -32,15 +46,48 @@ const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
           transition={{ duration: 0.2 }}
           onClick={() => onOpenDetails(project)}
         >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={imagesList[currentImageIndex]}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={imagesList[currentImageIndex]}
+                alt={`${project.title} - Vista ${currentImageIndex + 1}`}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Indicadores de imágenes múltiples */}
+          {imagesList.length > 1 && (
+            <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/10">
+              {imagesList.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={e => {
+                    e.stopPropagation();
+                    setCurrentImageIndex(idx);
+                  }}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    idx === currentImageIndex
+                      ? 'w-5 bg-amber-400'
+                      : 'w-1.5 bg-white/40 hover:bg-white'
+                  }`}
+                  aria-label={`Ver vista ${idx + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
           {/* Overlay - visible en hover (pointer) o siempre en touch */}
-          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
+          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs z-10">
             <div className="flex flex-wrap items-center justify-center gap-3 p-2">
               <Button
                 variant="overlay"
@@ -61,9 +108,10 @@ const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
                   shape="pill"
                   href={project.demo}
                   target="_blank"
-                  ariaLabel={`Ver demo de ${project.title}`}
+                  download={project.demo.endsWith('.apk') ? true : undefined}
+                  ariaLabel={`Descargar o ver demo de ${project.title}`}
                 >
-                  Demo
+                  {project.demo.endsWith('.apk') ? 'Descargar APK' : 'Demo'}
                 </Button>
               )}
             </div>

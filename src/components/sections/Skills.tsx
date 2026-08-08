@@ -53,20 +53,20 @@ export const Skills = () => {
 
   const getCategoryTitle = (category: string) => {
     const titles: Record<string, string> = {
-      frontend: t('skills.frontend'),
-      backend: t('skills.backend'),
-      tools: t('skills.tools'),
-      soft: t('skills.soft'),
+      languages: t('skills.languages'),
+      frameworks: t('skills.frameworks'),
+      databases: t('skills.databases'),
+      ai_tools: t('skills.ai_tools'),
     };
     return titles[category] || category;
   };
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      frontend: 'from-blue-500 to-cyan-500',
-      backend: 'from-green-500 to-emerald-500',
-      tools: 'from-purple-500 to-violet-500',
-      soft: 'from-orange-500 to-amber-500',
+      languages: 'from-amber-500 to-yellow-400',
+      frameworks: 'from-blue-500 to-cyan-400',
+      databases: 'from-emerald-500 to-teal-400',
+      ai_tools: 'from-purple-500 to-indigo-400',
     };
     return (
       colors[category as keyof typeof colors] || 'from-gray-500 to-slate-500'
@@ -92,60 +92,49 @@ export const Skills = () => {
             <motion.div
               key={category}
               variants={itemVariants}
-              className="bg-slate-800/80 rounded-2xl p-5 md:p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200 hover:ring-1 hover:ring-amber-400/20"
+              className="bg-slate-800/80 rounded-2xl p-5 md:p-6 border border-white/10 hover:border-amber-400/30 transition-colors duration-200 hover:ring-1 hover:ring-amber-400/20 flex flex-col justify-between"
             >
-              <div className="flex items-center gap-3 mb-4 md:mb-6">
-                <div
-                  className={`w-3.5 h-3.5 rounded-full bg-gradient-to-r ${getCategoryColor(category)} shadow-sm`}
-                ></div>
-                <h3 className="text-lg md:text-xl font-medium text-white tracking-wide">
-                  {getCategoryTitle(category)}
-                </h3>
-              </div>
-
-              <div className="grid gap-3 md:gap-4">
-                {skills.map(skill => (
+              <div>
+                <div className="flex items-center gap-3 mb-4 md:mb-6 pb-3 border-b border-white/5">
                   <div
-                    key={skill.name}
-                    className="flex items-center justify-between group [@media(hover:hover)]:hover:translate-x-1 transition-transform duration-200"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 flex items-center justify-center bg-white/10 rounded-lg group-hover:bg-amber-500/20 group-hover:border-amber-400/40 border border-transparent transition-all duration-200">
-                        <span className="text-xs font-bold text-amber-400">
-                          {skill.name.charAt(0)}
+                    className={`w-3.5 h-3.5 rounded-full bg-gradient-to-r ${getCategoryColor(category)} shadow-sm`}
+                  ></div>
+                  <h3 className="text-lg md:text-xl font-medium text-white tracking-wide">
+                    {getCategoryTitle(category)}
+                  </h3>
+                </div>
+
+                <div className="flex flex-col gap-2.5">
+                  {skills.map(skill => (
+                    <div
+                      key={skill.name}
+                      className="flex items-center justify-between p-2 rounded-xl bg-white/5 border border-white/5 hover:border-amber-400/30 hover:bg-white/10 transition-all duration-200 group"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 flex items-center justify-center bg-amber-500/10 rounded-lg group-hover:bg-amber-500/20 border border-amber-500/20 transition-all duration-200">
+                          <span className="text-xs font-bold text-amber-400">
+                            {skill.name.charAt(0)}
+                          </span>
+                        </div>
+                        <span className="text-gray-200 group-hover:text-white transition-colors font-medium tracking-wide text-xs sm:text-sm">
+                          {skill.name}
                         </span>
                       </div>
-                      <span className="text-gray-200 group-hover:text-white transition-colors font-normal tracking-wide text-sm md:text-base">
-                        {skill.name}
-                      </span>
-                    </div>
 
-                    {/* Barra de progreso */}
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-14 md:w-20 h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
-                        <motion.div
-                          className={`h-full bg-gradient-to-r ${getCategoryColor(category)} rounded-full shadow-[0_0_8px_rgba(247,171,10,0.3)]`}
-                          initial={{ width: 0 }}
-                          animate={
-                            isInView
-                              ? { width: `${skill.level}%` }
-                              : { width: 0 }
-                          }
-                          transition={{ duration: 1, delay: 0.3 }}
-                        />
-                      </div>
-                      <span className="text-xs text-gray-300 font-mono min-w-[2.2rem] text-right font-medium">
-                        {skill.level}%
-                      </span>
+                      {skill.badge && (
+                        <span className="text-[10px] font-mono text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full font-medium">
+                          {skill.badge}
+                        </span>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Información adicional */}
+        {/* Información adicional: Siempre Aprendiendo */}
         <motion.div
           variants={itemVariants}
           className="mt-12 md:mt-16 text-center"
@@ -163,13 +152,13 @@ export const Skills = () => {
                 {t('skills.tag.continuousLearning')}
               </span>
               <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-blue-500/10 text-blue-300 rounded-full text-sm font-medium border border-blue-500/20 hover:border-blue-400/40 transition-colors">
-                {t('skills.tag.bestPractices')}
+                {t('skills.tag.aiEngineering')}
               </span>
               <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-emerald-500/10 text-emerald-300 rounded-full text-sm font-medium border border-emerald-500/20 hover:border-emerald-400/40 transition-colors">
                 {t('skills.tag.cleanCode')}
               </span>
               <span className="px-3.5 py-1.5 md:px-4 md:py-2 bg-purple-500/10 text-purple-300 rounded-full text-sm font-medium border border-purple-500/20 hover:border-purple-400/40 transition-colors">
-                {t('skills.tag.teamwork')}
+                {t('skills.tag.accessibility')}
               </span>
             </div>
           </div>

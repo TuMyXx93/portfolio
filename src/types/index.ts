@@ -11,6 +11,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  images?: string[];
   technologies: Technology[];
   github?: string;
   demo?: string;
@@ -28,6 +29,6 @@ export interface Technology {
 export interface Skill {
   name: string;
   icon: string;
-  level: number;
-  category: 'frontend' | 'backend' | 'tools' | 'soft';
+  category: 'languages' | 'frameworks' | 'databases' | 'ai_tools';
+  badge?: string;
 }

@@ -66,8 +66,14 @@ export const About = () => {
                 variant="primary"
                 size="md"
                 shape="pill"
-                href={`/docs/${locale === 'en' ? 'CV_TuMyXx_EN.pdf' : 'CV_TuMyXx_ES.pdf'}`}
-                download={locale === 'en' ? 'CV_TuMyXx_EN.pdf' : 'CV_TuMyXx_ES.pdf'}
+                href={
+                  locale === 'en'
+                    ? 'https://pub-cf08710fb7df426c96d811575acc39c4.r2.dev/CV/CV-WilsonTumina-1064435224-EN.pdf'
+                    : 'https://pub-cf08710fb7df426c96d811575acc39c4.r2.dev/CV/CV-WilsonTumina-1064435224-ES.pdf'
+                }
+                download={true}
+                target="_blank"
+                rel="noopener noreferrer"
                 ariaLabel={`Descargar CV en formato PDF (${locale.toUpperCase()})`}
                 className="w-full sm:w-auto transition-colors duration-200 font-semibold"
               >
@@ -84,7 +90,7 @@ export const About = () => {
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                {locale === 'en' ? 'Descargar CV (PDF)' : 'Descargar CV (PDF)'}
+                {locale === 'en' ? 'Download CV (PDF)' : 'Descargar CV (PDF)'}
               </Button>
             </div>
           </motion.div>
@@ -98,12 +104,12 @@ export const About = () => {
                   01
                 </div>
                 <h4 className="text-white font-semibold text-base">
-                  {locale === 'en' ? 'Full Stack Architecture' : 'Arquitectura Full Stack'}
+                  {locale === 'en' ? 'Monorepo & Full Stack' : 'Monorepos & Full Stack'}
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
                   {locale === 'en'
-                    ? 'Scalable Web Applications built with Next.js App Router, React 19, and TypeScript.'
-                    : 'Aplicaciones web escalables construidas con Next.js App Router, React 19 y TypeScript.'}
+                    ? 'Scalable Monorepos built with Turborepo, Fastify REST APIs, React 19, and Prisma ORM.'
+                    : 'Monorepos escalables desarrollados con Turborepo, Fastify APIs, React 19 y Prisma ORM.'}
                 </p>
               </div>
 
@@ -112,12 +118,12 @@ export const About = () => {
                   02
                 </div>
                 <h4 className="text-white font-semibold text-base">
-                  {locale === 'en' ? 'Performance & UX' : 'Rendimiento & UX'}
+                  {locale === 'en' ? 'Mobile & Cultural PWAs' : 'Desarrollo Móvil & PWAs'}
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
                   {locale === 'en'
-                    ? '60fps micro-animations, fast Core Web Vitals, and responsive enterprise styling.'
-                    : 'Micro-animaciones fluidas a 60fps, optimización de Core Web Vitals y diseño adaptativo.'}
+                    ? 'Native-feel Flutter mobile apps, Hive NoSQL databases, and Offline PWA architectures.'
+                    : 'Aplicaciones móviles en Flutter 3, bases de datos Hive NoSQL y arquitecturas PWA offline.'}
                 </p>
               </div>
 
@@ -131,7 +137,7 @@ export const About = () => {
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
                   {locale === 'en'
                     ? 'WCAG 2.1 AAA standards, screen-reader navigation, and reduced-motion modes.'
-                    : 'Estándares WCAG 2.1 AAA, navegación accesible por teclado y mododos adaptativos.'}
+                    : 'Estándares WCAG 2.1 AAA, navegación accesible por teclado y modos adaptativos.'}
                 </p>
               </div>
 
@@ -144,8 +150,8 @@ export const About = () => {
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
                   {locale === 'en'
-                    ? 'Strict TypeScript types, automated Jest unit tests, and Playwright E2E smoke tests.'
-                    : 'Tipado estricto con TypeScript, pruebas unitarias con Jest y suites E2E con Playwright.'}
+                    ? 'Strict TypeScript, Biome linter, automated Vitest unit tests, and Playwright E2E.'
+                    : 'Tipado estricto en TypeScript, Biome CI, pruebas unitarias con Vitest y E2E con Playwright.'}
                 </p>
               </div>
             </div>

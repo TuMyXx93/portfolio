@@ -36,7 +36,7 @@ export const CircularHero = () => {
   };
 
   return (
-    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
+    <section id="home" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
       {/* Logo en la esquina superior con entrada animada y sutil resplandor ámbar */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -48,8 +48,8 @@ export const CircularHero = () => {
         <Image
           src="/images/logo.png"
           alt="Tumidev Logo"
-          width={300}
-          height={100}
+          width={200}
+          height={200}
           className="relative z-10 object-contain w-auto h-16 sm:h-20 md:h-24 hover:scale-105 transition-transform duration-200"
           priority
         />
