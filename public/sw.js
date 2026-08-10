@@ -1,17 +1,9 @@
 // Service Worker para Portfolio PWA
-const CACHE_NAME = 'tumidev-portfolio-v1.0.0';
-const STATIC_CACHE_NAME = 'tumidev-static-v1.0.0';
-const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.0.0';
+const STATIC_CACHE_NAME = 'tumidev-static-v1.1.1';
+const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.1.1';
 
 // Archivos estáticos para cachear
-const STATIC_FILES = [
-  '/',
-  '/offline',
-  '/manifest.json',
-  '/favicon.ico',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-];
+const STATIC_FILES = ['/', '/offline', '/manifest.json', '/images/logo.png'];
 
 // Estrategias de cache
 const CACHE_STRATEGIES = {
@@ -21,12 +13,13 @@ const CACHE_STRATEGIES = {
 };
 
 // Instalación del Service Worker
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
   console.log('[SW] Installing Service Worker...');
-  
+
   event.waitUntil(
-    caches.open(STATIC_CACHE_NAME)
-      .then((cache) => {
+    caches
+      .open(STATIC_CACHE_NAME)
+      .then(cache => {
         console.log('[SW] Precaching static files');
         return cache.addAll(STATIC_FILES);
       })
@@ -37,15 +30,19 @@ self.addEventListener('install', (event) => {
 });
 
 // Activación del Service Worker
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
   console.log('[SW] Activating Service Worker...');
-  
+
   event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
+    caches
+      .keys()
+      .then(cacheNames => {
         return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE_NAME && cacheName !== DYNAMIC_CACHE_NAME) {
+          cacheNames.map(cacheName => {
+            if (
+              cacheName !== STATIC_CACHE_NAME &&
+              cacheName !== DYNAMIC_CACHE_NAME
+            ) {
               console.log('[SW] Removing old cache:', cacheName);
               return caches.delete(cacheName);
             }
@@ -59,15 +56,21 @@ self.addEventListener('activate', (event) => {
 });
 
 // Interceptar peticiones (Fetch)
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Solo manejar peticiones del mismo origen
-  if (url.origin !== location.origin) return;
+  // Solo manejar peticiones GET del mismo origen. Las mutaciones nunca se cachean.
+  if (url.origin !== location.origin || request.method !== 'GET') return;
+
+  // Las APIs, incluido el formulario de contacto, siempre deben ir a la red.
+  if (url.pathname.startsWith('/api/')) return;
 
   // Estrategia para archivos estáticos
-  if (STATIC_FILES.includes(url.pathname) || url.pathname.startsWith('/_next/static/')) {
+  if (
+    STATIC_FILES.includes(url.pathname) ||
+    url.pathname.startsWith('/_next/static/')
+  ) {
     event.respondWith(cacheFirst(request));
     return;
   }
@@ -123,12 +126,12 @@ async function networkFirst(request) {
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // Si es una navegación, mostrar página offline
     if (request.mode === 'navigate') {
       return getOfflinePage();
     }
-    
+
     throw error;
   }
 }
@@ -137,13 +140,14 @@ async function networkFirst(request) {
 async function getOfflinePage() {
   const cache = await caches.open(STATIC_CACHE_NAME);
   const offlinePage = await cache.match('/offline');
-  
+
   if (offlinePage) {
     return offlinePage;
   }
 
   // Página offline básica si no existe
-  return new Response(`
+  return new Response(
+    `
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -195,115 +199,16 @@ async function getOfflinePage() {
       </div>
     </body>
     </html>
-  `, {
-    headers: { 'Content-Type': 'text/html' }
-  });
+  `,
+    {
+      headers: { 'Content-Type': 'text/html' },
+    }
+  );
 }
 
 // Escuchar mensajes del cliente
-self.addEventListener('message', (event) => {
+self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
-  }
-});
-
-// Background Sync para formularios offline
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'contact-form') {
-    event.waitUntil(syncContactForm());
-  }
-});
-
-async function syncContactForm() {
-  try {
-    console.log('[SW] Syncing contact form...');
-    
-    // Get stored form data from IndexedDB or cache
-    const cache = await caches.open(DYNAMIC_CACHE_NAME);
-    const storedData = await cache.match('/contact-form-data');
-    
-    if (storedData) {
-      const formData = await storedData.json();
-      
-      // Try to submit the form data
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        console.log('[SW] Contact form synced successfully');
-        // Remove the stored data after successful sync
-        await cache.delete('/contact-form-data');
-        
-        // Notify client of successful sync
-        const clients = await self.clients.matchAll();
-        clients.forEach(client => {
-          client.postMessage({
-            type: 'CONTACT_FORM_SYNCED',
-            success: true,
-          });
-        });
-      } else {
-        throw new Error('Failed to sync contact form');
-      }
-    }
-  } catch (error) {
-    console.error('[SW] Sync failed:', error);
-    
-    // Notify client of sync failure
-    const clients = await self.clients.matchAll();
-    clients.forEach(client => {
-      client.postMessage({
-        type: 'CONTACT_FORM_SYNC_FAILED',
-        error: error.message,
-      });
-    });
-  }
-}
-
-// Push notifications (para futuras implementaciones)
-self.addEventListener('push', (event) => {
-  if (!event.data) return;
-
-  const options = {
-    body: event.data.text(),
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/badge-72x72.png',
-    vibrate: [200, 100, 200],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    },
-    actions: [
-      {
-        action: 'explore',
-        title: 'Ver portfolio',
-        icon: '/icons/checkmark.png'
-      },
-      {
-        action: 'close',
-        title: 'Cerrar',
-        icon: '/icons/xmark.png'
-      }
-    ]
-  };
-
-  event.waitUntil(
-    self.registration.showNotification('TumiDev Portfolio', options)
-  );
-});
-
-// Manejar clicks en notificaciones
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
   }
 });

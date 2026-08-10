@@ -10,6 +10,7 @@ interface FormData {
   email: string;
   subject: string;
   message: string;
+  website: string;
 }
 
 interface FormErrors {
@@ -17,6 +18,7 @@ interface FormErrors {
   email?: string;
   subject?: string;
   message?: string;
+  website?: string;
 }
 
 interface ContactFormProps {
@@ -32,6 +34,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
     email: '',
     subject: '',
     message: '',
+    website: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -95,7 +98,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
     setSubmitStatus('idle');
 
     try {
-      // Simulate API call - replace with actual implementation
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -106,7 +108,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          website: '',
+        });
         announceToScreenReader(t('contact.form.success'));
       } else {
         throw new Error('Failed to send message');
@@ -141,6 +149,21 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
       transition={{ duration: 0.5 }}
       noValidate
     >
+      <label htmlFor="contact-website" className="sr-only">
+        Website
+      </label>
+      <input
+        id="contact-website"
+        name="website"
+        type="text"
+        value={formData.website}
+        onChange={e => handleInputChange('website', e.target.value)}
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-px w-px overflow-hidden"
+      />
+
       {/* Name + Email en grid 2 columnas en md+ */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Name Field */}

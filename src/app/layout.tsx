@@ -1,5 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 // import { Inter } from 'next/font/google'; // Commented out to avoid network dependency
 import './globals.css';
 import '../styles/accessibility.css';
@@ -21,14 +23,10 @@ const inter = {
   className: 'font-sans',
 };
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.NODE_ENV === 'production'
-    ? 'https://tumidev.com'
-    : 'http://localhost:3000';
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://tumidev.com';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
+  metadataBase: new URL(siteUrl),
   title: 'TumiDev | Portfolio Profesional',
   description:
     'Portfolio profesional de TumiDev - Desarrollador Full Stack especializado en React, Next.js, TypeScript y tecnologías modernas de desarrollo web',
@@ -47,17 +45,11 @@ export const metadata: Metadata = {
   publisher: 'TumiDev',
   robots: 'index, follow',
   alternates: {
-    canonical: defaultUrl,
+    canonical: siteUrl,
   },
   manifest: '/manifest.json',
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
-    shortcut: '/favicon.ico',
+    icon: [{ url: '/images/logo.png', type: 'image/png' }],
   },
   appleWebApp: {
     capable: true,
@@ -71,11 +63,11 @@ export const metadata: Metadata = {
     title: 'TumiDev | Portfolio Profesional',
     description:
       'Portfolio profesional de TumiDev mostrando proyectos y habilidades en desarrollo web full stack',
-    url: defaultUrl,
+    url: siteUrl,
     siteName: 'TumiDev Portfolio',
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'TumiDev Portfolio',
@@ -88,7 +80,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'TumiDev | Portfolio Profesional',
     description: 'Portfolio profesional de TumiDev - Desarrollador Full Stack',
-    images: ['/images/og-image.png'],
+    images: ['/opengraph-image'],
     creator: '@tumidev',
   },
 };
@@ -166,6 +158,8 @@ export default function RootLayout({
           </AccessibilityProvider>
         </I18nProvider>
         <div id="accessibility-root" />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
