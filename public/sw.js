@@ -1,6 +1,6 @@
 // Service Worker para Portfolio PWA
-const STATIC_CACHE_NAME = 'tumidev-static-v1.1.1';
-const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.1.1';
+const STATIC_CACHE_NAME = 'tumidev-static-v1.1.2';
+const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.1.2';
 
 // Archivos estáticos para cachear
 const STATIC_FILES = ['/', '/offline', '/manifest.json', '/images/logo.png'];
