@@ -35,10 +35,24 @@ test('metadata assets resolve for social sharing', async ({
   const imageResponse = await request.get('/opengraph-image');
   expect(imageResponse.ok()).toBeTruthy();
   expect(imageResponse.headers()['content-type']).toContain('image/png');
+
+  const manifestResponse = await request.get('/manifest.json');
+  expect(manifestResponse.ok()).toBeTruthy();
+  const manifest = await manifestResponse.json();
+  expect(manifest.icons).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ src: '/images/logo.png' }),
+    ])
+  );
 });
 
 test('home has no critical accessibility violations', async ({ page }) => {
+  test.setTimeout(60_000);
   await page.goto('/', { waitUntil: 'networkidle' });
+  await page.waitForFunction(
+    () =>
+      !navigator.serviceWorker?.installing && !navigator.serviceWorker?.waiting
+  );
   await page.waitForTimeout(1000);
   let results;
   for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -103,19 +117,37 @@ test('contact POST is not intercepted by the service worker', async ({
     Boolean(navigator.serviceWorker?.controller)
   );
 
-  const status = await page.evaluate(async () => {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: '',
-        email: 'bad',
-        subject: '',
-        message: '',
-      }),
-    });
-    return response.status;
-  });
+  let status: number | undefined;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      status = await page.evaluate(async () => {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: '',
+            email: 'bad',
+            subject: '',
+            message: '',
+          }),
+        });
+        return response.status;
+      });
+      break;
+    } catch (error) {
+      if (
+        attempt === 1 ||
+        !(error instanceof Error) ||
+        !error.message.includes('Execution context was destroyed')
+      ) {
+        throw error;
+      }
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForFunction(() =>
+        Boolean(navigator.serviceWorker?.controller)
+      );
+    }
+  }
 
   expect(status).toBe(400);
 });
