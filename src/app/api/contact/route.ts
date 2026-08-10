@@ -8,6 +8,41 @@ const MAX_BODY_BYTES = 16_384;
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
+class PayloadTooLargeError extends Error {}
+
+async function readJsonBody(request: NextRequest): Promise<unknown> {
+  if (!request.body) return request.json();
+
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+
+      totalBytes += value.byteLength;
+      if (totalBytes > MAX_BODY_BYTES) {
+        throw new PayloadTooLargeError('Request payload is too large.');
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const bodyBytes = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bodyBytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+
+  return JSON.parse(new TextDecoder().decode(bodyBytes));
+}
+
 function escapeText(value: string): string {
   return validator.escape(validator.stripLow(value, true).trim());
 }
@@ -42,7 +77,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body = await readJsonBody(request);
     const result = contactSchema.safeParse(body);
 
     if (!result.success) {
@@ -127,7 +162,14 @@ export async function POST(request: NextRequest) {
       { message: 'Message sent successfully', success: true },
       { status: 200 }
     );
-  } catch {
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      logEvent('warn', 'contact.payload_too_large', requestId);
+      return NextResponse.json(
+        { error: 'Request payload is too large.' },
+        { status: 413 }
+      );
+    }
     logEvent('error', 'contact.unhandled_error', requestId);
     return NextResponse.json(
       { error: 'Internal server error' },

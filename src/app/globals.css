@@ -1,6 +1,11 @@
 @config "../../tailwind.config.js";
 @import 'tailwindcss';
 
+/* Keep native form controls aligned with the dark design system in every browser. */
+html {
+  color-scheme: dark;
+}
+
 /* ====================================
    SISTEMA DE COLORES ENTERPRISE 2026
    Dark Mode Progressive Gradient

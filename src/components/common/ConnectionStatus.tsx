@@ -1,13 +1,24 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePWA } from '@/hooks/usePWA';
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 export const ConnectionStatus = () => {
-  const { isOnline } = usePWA();
+  const [isOnline, setIsOnline] = useState(true);
   const [showStatus, setShowStatus] = useState(false);
   const lastOnlineStatusRef = useRef(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const updateOnlineStatus = () => setIsOnline(navigator.onLine);
+    updateOnlineStatus();
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    return () => {
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+    };
+  }, []);
 
   const hideStatus = useCallback(() => {
     if (timeoutRef.current) {

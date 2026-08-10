@@ -45,6 +45,24 @@ function request(body?: unknown, method = 'POST'): NextRequest {
   } as unknown as NextRequest;
 }
 
+function streamedRequest(bytes: Uint8Array): NextRequest {
+  let consumed = false;
+  return {
+    method: 'POST',
+    headers: { get: () => null },
+    body: {
+      getReader: () => ({
+        read: async () => {
+          if (consumed) return { done: true, value: undefined };
+          consumed = true;
+          return { done: false, value: bytes };
+        },
+        releaseLock: () => undefined,
+      }),
+    },
+  } as unknown as NextRequest;
+}
+
 describe('contact route', () => {
   const originalEnv = { ...process.env };
 
@@ -74,6 +92,14 @@ describe('contact route', () => {
     await expect(response.json()).resolves.toMatchObject({
       error: 'Validation failed',
     });
+  });
+
+  it('rejects an oversized streamed payload without buffering it fully', async () => {
+    const { POST } = await import('../route');
+    const oversized = new Uint8Array(16_385);
+    const response = await POST(streamedRequest(oversized));
+
+    expect(response.status).toBe(413);
   });
 
   it('accepts a honeypot submission without sending mail', async () => {

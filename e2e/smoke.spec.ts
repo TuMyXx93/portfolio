@@ -13,10 +13,43 @@ test('home renders and main navigation is visible', async ({ page }) => {
   ).toBeVisible();
 });
 
+test('metadata assets resolve for social sharing', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    /tumidev\.com\/?$/
+  );
+
+  const imageResponse = await request.get('/opengraph-image');
+  expect(imageResponse.ok()).toBeTruthy();
+  expect(imageResponse.headers()['content-type']).toContain('image/png');
+});
+
 test('home has no critical accessibility violations', async ({ page }) => {
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.waitForTimeout(1000);
-  const results = await new AxeBuilder({ page }).analyze();
+  let results;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      results = await new AxeBuilder({ page }).analyze();
+      break;
+    } catch (error) {
+      if (
+        attempt === 1 ||
+        !(error instanceof Error) ||
+        !error.message.includes('Execution context was destroyed')
+      ) {
+        throw error;
+      }
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForTimeout(500);
+    }
+  }
+
+  if (!results) throw new Error('Accessibility analysis did not complete.');
   const blockingViolations = results.violations.filter(
     violation =>
       violation.impact === 'critical' || violation.impact === 'serious'
