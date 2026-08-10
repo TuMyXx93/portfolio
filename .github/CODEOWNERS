@@ -1,0 +1,4 @@
+# Review ownership for protected branches.
+* @Tumi-dev
+.github/ @Tumi-dev
+src/app/api/ @Tumi-dev

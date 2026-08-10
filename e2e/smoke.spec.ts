@@ -17,6 +17,15 @@ test('metadata assets resolve for social sharing', async ({
   page,
   request,
 }) => {
+  const homeResponse = await request.get('/');
+  const csp = homeResponse.headers()['content-security-policy'];
+  expect(csp).toContain(
+    "img-src 'self' blob: data: https://pub-cf08710fb7df426c96d811575acc39c4.r2.dev"
+  );
+  expect(csp).toContain(
+    "connect-src 'self' https://vitals.vercel-insights.com"
+  );
+
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     'href',

@@ -5,8 +5,12 @@ const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https:;
+    img-src 'self' blob: data: https://pub-cf08710fb7df426c96d811575acc39c4.r2.dev;
+    connect-src 'self' https://vitals.vercel-insights.com;
     font-src 'self';
+    media-src 'self';
+    manifest-src 'self';
+    worker-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
