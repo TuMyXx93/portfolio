@@ -11,10 +11,10 @@ El proyecto cuenta con 3 flujos de trabajo automatizados en `.github/workflows/`
 1. **`ci-cd.yml` (CI Web Validation):**
    * Se ejecuta en cada `push` y `pull_request` sobre las ramas `dev` y `main`.
    * Ejecuta: `pnpm run lint` ➔ `pnpm run type-check` ➔ `pnpm run test` ➔ `pnpm run build` ➔ `pnpm run test:e2e`.
-   * Sincroniza memorias persistentes en Engram Cloud.
-2. **`auto-update.yml` (Actualizaciones Automáticas):**
+   * Ejecuta el gate de cobertura, build de producción y smoke E2E.
+2. **Dependabot (Actualizaciones Automáticas):**
    * Se ejecuta semanalmente (lunes a las 2:00 AM UTC).
-   * Audita paquetes desactualizados con `pnpm outdated`, actualiza parches/minors compatibles y genera un PR automático.
+   * Revisa semanalmente dependencias npm y GitHub Actions y genera PRs revisables.
 3. **`deploy.yml` (Despliegue a Producción):**
    * Se ejecuta automáticamente tras cada merge exitoso en la rama `main`.
 
@@ -30,8 +30,6 @@ Las siguientes variables de entorno deben estar configuradas en la consola de Ve
 | `VERCEL_TOKEN` | GitHub Secret | Token de autenticación de CLI de Vercel para despliegue automatizado. |
 | `VERCEL_ORG_ID` | GitHub Secret | ID de la organización en Vercel. |
 | `VERCEL_PROJECT_ID` | GitHub Secret | ID del proyecto en Vercel. |
-| `ENGRAM_CLOUD_TOKEN` | GitHub Secret | Token de sincronización de Engram Cloud. |
-| `ENGRAM_CLOUD_SERVER` | GitHub Secret | URL del servidor de sincronización de Engram Cloud. |
 
 ---
 
@@ -55,7 +53,11 @@ pnpm exec vercel deploy --prebuilt --prod
 
 ---
 
-## 4. Auditoría Post-Despliegue (Lighthouse)
+## 4. Protección del endpoint de contacto
+
+Configura en Vercel Firewall una regla para `POST /api/contact` con límite de 5 solicitudes por IP cada 10 minutos y challenge para tráfico automatizado. Valida la regla en preview y producción, y registra cualquier cambio en el historial de auditoría de Vercel.
+
+## 5. Auditoría Post-Despliegue (Lighthouse)
 
 Tras el despliegue a producción, se recomienda ejecutar la validación de Lighthouse CI:
 

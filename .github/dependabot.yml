@@ -1,42 +1,37 @@
 version: 2
 updates:
-  # 📦 PNPM Dependencies
-  - package-ecosystem: 'pnpm'
-    directory: '/'
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '04:00'
-      timezone: 'Etc/UTC'
+      interval: weekly
     open-pull-requests-limit: 5
     reviewers:
-      - 'Tumi-dev'
+      - Tumi-dev
     assignees:
-      - 'Tumi-dev'
+      - Tumi-dev
     commit-message:
-      prefix: 'chore'
-      prefix-development: 'chore'
-      include: 'scope'
+      prefix: chore
+      include: scope
     labels:
-      - 'dependencies'
-      - 'automated'
-
-  # 🔧 GitHub Actions
-  - package-ecosystem: 'github-actions'
-    directory: '/.github/workflows'
+      - dependencies
+      - automated
+    groups:
+      production-dependencies:
+        dependency-type: production
+      development-dependencies:
+        dependency-type: development
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '04:00'
-      timezone: 'Etc/UTC'
+      interval: weekly
     open-pull-requests-limit: 3
     reviewers:
-      - 'Tumi-dev'
+      - Tumi-dev
     assignees:
-      - 'Tumi-dev'
+      - Tumi-dev
     commit-message:
-      prefix: 'ci'
-      include: 'scope'
+      prefix: ci
+      include: scope
     labels:
-      - 'github-actions'
-      - 'automated'
+      - github-actions
+      - automated

@@ -20,7 +20,7 @@ graph TD
     subgraph ServerLayer ["Capa de Servidor (Next.js Node/Edge)"]
         APIContact["🛡️ Endpoint /api/contact"]
         ZodValidator["🔍 Validador de Esquemas (Zod)"]
-        Sanitizer["🧹 Sanitizador DOMPurify"]
+    Sanitizer["🧹 Escape contextual de salida"]
         RateLimiter["⏱️ Control de Tasa (In-Memory IP Limiter)"]
     end
 
@@ -38,7 +38,7 @@ graph TD
 3. **Defense in Depth (Seguridad en Capas):**
    * Validación formal de tipo en tiempo de compilación con TypeScript strict mode.
    * Validación formal en tiempo de ejecución con Zod schemas.
-   * Sanitización activa contra vectores XSS con DOMPurify.
+   * Escape contextual de valores antes de interpolarlos en correos HTML.
    * Encabezados de seguridad HTTP estrictos (CSP, HSTS, X-Frame-Options).
 
 ---

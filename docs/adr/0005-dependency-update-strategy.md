@@ -12,7 +12,7 @@ Con la evolución del ecosistema React 19 y Next.js 16, varias dependencias del 
 
 1. **Actualización de Core & Runtime (Patch/Minor):**
    - **`next`** y **`eslint-config-next`** actualizados de `16.2.12` a `16.3.0` (soporte Turbopack optimizado).
-   - **`dompurify`** (`3.4.13`) e **`isomorphic-dompurify`** (`3.21.0`) actualizados por seguridad.
+   - La salida del endpoint de contacto usa escape contextual; no se mantiene una dependencia de sanitización HTML no utilizada.
    - **`@types/react`** (`19.2.18`) y **`@types/react-dom`** (`19.2.4`) alineados.
    - **`vercel` CLI** actualizado a `58.7.1`.
 

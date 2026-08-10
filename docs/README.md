@@ -31,7 +31,7 @@ quadrantChart
 
 ### 3. Referencia Técnica (Reference — Información Explicita)
 * [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md): Especificación del contrato OpenAPI 3.1 para `/api/contact`.
-* [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md): Especificaciones de CSP, HSTS, Sanitización Zod/DOMPurify y Rate Limiting.
+* [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md): Especificaciones de CSP, HSTS, contrato Zod, escape contextual y Rate Limiting WAF.
 * [Orquestador AI y Reglas de Desarrollo](file:///C:/Users/HACKTU/code/portfolio/AGENTS.md): Especificación para agentes de IA y comandos del sistema (`.opencode/`).
 
 ### 4. Explicación y Decisiones (Explanation / Architecture — Entendimiento)

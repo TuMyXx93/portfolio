@@ -1,5 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 // import { Inter } from 'next/font/google'; // Commented out to avoid network dependency
 import './globals.css';
 import '../styles/accessibility.css';
@@ -51,13 +53,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
-    shortcut: '/favicon.ico',
+    icon: [{ url: '/images/logo.png', type: 'image/png' }],
   },
   appleWebApp: {
     capable: true,
@@ -166,6 +162,8 @@ export default function RootLayout({
           </AccessibilityProvider>
         </I18nProvider>
         <div id="accessibility-root" />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

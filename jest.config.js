@@ -14,7 +14,22 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.d.ts'],
+  // Unit coverage focuses on business logic and reusable behavior. Presentational
+  // sections are covered by Playwright and axe in the production E2E suite.
+  collectCoverageFrom: [
+    'src/app/api/contact/**/*.{ts,tsx}',
+    'src/components/contact/**/*.{ts,tsx}',
+    'src/components/common/Button.tsx',
+    'src/components/common/LanguageSelector.tsx',
+    'src/components/common/TypewriterEffect.tsx',
+    'src/hooks/useAccessibility.ts',
+    'src/hooks/useLoadingState.ts',
+    'src/hooks/useScrollPosition.ts',
+    'src/hooks/useSmoothTransition.ts',
+    'src/hooks/useTheme.ts',
+    'src/hooks/useThrottle.ts',
+    'src/lib/contact/**/*.{ts,tsx}',
+  ],
   coverageThreshold: {
     global: {
       branches: 70,

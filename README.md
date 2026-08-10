@@ -67,16 +67,16 @@ Para explorar la estructura completa, visita el [Centro de Documentación princi
 
 ## 🔒 Seguridad & Calidad Enterprise
 
-* **Validación en Capas:** Zod schemas en API + sanitización HTML con DOMPurify.
+* **Validación en Capas:** Contrato Zod compartido en API y cliente + escape contextual de salida.
 * **Cabeceras HTTP HTTP:** CSP estricto, HSTS, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`.
 * **Zero PII Logging:** Ningún dato personal es almacenado en logs ni expuesto en respuestas de error.
 * **Gates de Calidad (`/version-gate`):**
   ```bash
   pnpm run lint        # Validation ESLint 9
   pnpm run type-check   # Check TypeScript
-  pnpm test            # 60 Unit Tests Jest
+  pnpm test            # Tests Jest + cobertura mínima del 70%
   pnpm run build       # Build de producción Next.js
-  pnpm run test:e2e    # 9 Smoke Tests Playwright
+  pnpm run test:e2e    # Build + smoke tests Playwright de producción
   ```
 
 ---

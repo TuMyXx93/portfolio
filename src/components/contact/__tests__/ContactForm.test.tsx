@@ -173,6 +173,7 @@ describe('ContactForm', () => {
           email: 'john@example.com',
           subject: 'Test Subject',
           message: 'Test message',
+          website: '',
         }),
       });
     });

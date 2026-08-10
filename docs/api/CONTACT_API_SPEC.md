@@ -9,7 +9,7 @@
 
 ## 1. Descripción General
 
-El endpoint `/api/contact` procesa el envío de formularios de contacto del portafolio. Cuenta con validación formal de tipos mediante **Zod**, sanitización de marcado HTML contra ataques XSS mediante **DOMPurify** y limitación de tasa basada en la IP del cliente.
+El endpoint `/api/contact` procesa el envío de formularios de contacto del portafolio. Cuenta con validación formal mediante un contrato **Zod** compartido, escape contextual del HTML de correo y protección distribuida mediante **Vercel WAF**.
 
 ---
 
@@ -65,6 +65,7 @@ components:
       required:
         - name
         - email
+        - subject
         - message
       properties:
         name:
@@ -76,11 +77,20 @@ components:
           type: string
           format: email
           example: "juan.perez@example.com"
+        subject:
+          type: string
+          minLength: 5
+          maxLength: 200
+          example: "Oportunidad de colaboración"
         message:
           type: string
-          minLength: 10
-          maxLength: 2000
+          minLength: 20
+          maxLength: 5000
           example: "Hola, me gustaría discutir una oportunidad de colaboración."
+        website:
+          type: string
+          maxLength: 200
+          description: "Campo honeypot; debe permanecer vacío."
     ErrorResponse:
       type: object
       properties:
@@ -90,7 +100,7 @@ components:
         details:
           type: array
           items:
-            type: string
+            type: object
 ```
 
 ---
@@ -122,3 +132,7 @@ components:
   "error": "Rate limit exceeded. Please wait before sending another message."
 }
 ```
+
+### ⚠️ 503 Service Unavailable — Entrega no configurada
+
+La API falla cerrada si Resend o el destinatario no están configurados. Nunca simula una entrega exitosa.

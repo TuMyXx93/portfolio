@@ -33,11 +33,12 @@ Responderemos a la notificación en un plazo máximo de 48 horas y coordinaremos
 ## 3. Arquitectura de Seguridad Implementada
 
 ### A. Sanitización de Entradas (Input Sanitization)
-* **Zod Schemas:** Todas las solicitudes entrantes al endpoint `/api/contact` son validadas estrictamente con esquemas Zod antes de su procesamiento.
-* **DOMPurify:** Se aplica sanitización HTML profunda (`isomorphic-dompurify`) para prevenir ataques de Scripting entre Sitios (XSS) y la inyección de marcado malicioso.
+* **Zod Schemas:** Todas las solicitudes entrantes al endpoint `/api/contact` son validadas estrictamente con el contrato compartido antes de su procesamiento.
+* **Contextual output encoding:** Los datos se escapan antes de interpolarse en el HTML del correo; no se acepta HTML arbitrario.
 
 ### B. Limitación de Tasa (Rate Limiting)
-* Control de tasa basado en IP de origen (máximo 5 solicitudes por ventana de tiempo) para prevenir abuso por fuerza bruta y denegación de servicio (DoS).
+* Vercel WAF limita `POST /api/contact` a 5 solicitudes por IP cada 10 minutos y aplica challenge al tráfico automatizado.
+* El endpoint no mantiene estado de rate limiting en memoria; la política distribuida vive en el perímetro.
 
 ### C. Cabeceras HTTP de Seguridad (Security Headers)
 Configuradas en `next.config.js`:
@@ -48,4 +49,5 @@ Configuradas en `next.config.js`:
 * **Permissions-Policy:** Bloqueo explícito de características de hardware como cámara, micrófono y geolocalización.
 
 ### D. Zero PII & Structured Logging
-* Los registradores del servidor no almacenan ni exponen Información de Identificación Personal (PII) en los logs ni en las respuestas de error hacia el cliente.
+* Los registradores del servidor no almacenan ni exponen IP, email, destinatario, asunto, mensaje ni errores del proveedor.
+* Las respuestas de error son genéricas y llevan un identificador de correlación solo en los logs internos.
