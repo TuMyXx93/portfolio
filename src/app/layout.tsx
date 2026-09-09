@@ -6,17 +6,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import '../styles/accessibility.css';
 import '../styles/hero.css';
-import { ScrollProgress } from '@/components/common/ScrollProgress';
-import { PWAInstallButton } from '@/components/common/PWAInstallButton';
-import { ConnectionStatus } from '@/components/common/ConnectionStatus';
-import { Footer } from '@/components/layout/Footer';
-import { BackToTop } from '@/components/common/BackToTop';
 import { AccessibilityProvider } from '@/contexts/AccessibilityContext';
-import { I18nProvider } from '@/lib/i18n/useTranslation';
-import {
-  SkipToContent,
-  LiveRegion,
-} from '@/components/accessibility/AccessibilityComponents';
 
 // Use system fonts as fallback to avoid Google Fonts API dependency
 const inter = {
@@ -139,24 +129,9 @@ export default function RootLayout({
         className={`${inter.className} transition-colors duration-300`}
         suppressHydrationWarning
       >
-        <SkipToContent />
-        <I18nProvider>
-          <AccessibilityProvider>
-            <ConnectionStatus />
-            <ScrollProgress />
-            <LiveRegion />
-            <main
-              id="main-content"
-              tabIndex={-1}
-              className="min-h-screen bg-gradient-custom focus:outline-none"
-            >
-              {children}
-            </main>
-            <Footer />
-            <BackToTop />
-            <PWAInstallButton />
-          </AccessibilityProvider>
-        </I18nProvider>
+        <AccessibilityProvider>
+          {children}
+        </AccessibilityProvider>
         <div id="accessibility-root" />
         <Analytics />
         <SpeedInsights />

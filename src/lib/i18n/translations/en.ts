@@ -37,6 +37,23 @@ export const en: Translation = {
     projects: 'completed projects',
     clients: 'satisfied clients',
     technologies: 'mastered technologies',
+    pillarsTitle: 'Core Engineering Pillars',
+    pillars: {
+      p1Title: 'Monorepo & Full Stack',
+      p1Desc:
+        'Scalable Monorepos built with Turborepo, Fastify REST APIs, React 19, and Prisma ORM.',
+      p2Title: 'Mobile & Cultural PWAs',
+      p2Desc:
+        'Native-feel Flutter mobile apps, Hive NoSQL databases, and Offline PWA architectures.',
+      p3Title: 'Accessibility (a11y)',
+      p3Desc:
+        'WCAG 2.1 AAA standards, screen-reader navigation, and reduced-motion modes.',
+      p4Title: 'Clean Code & QA',
+      p4Desc:
+        'Strict TypeScript, Biome linter, automated Vitest unit tests, and Playwright E2E.',
+    },
+    downloadCV: 'Download CV (PDF)',
+    downloadCVAria: 'Download CV in PDF format ({{locale}})',
   },
   skills: {
     title: 'Skills & Stack',
@@ -67,6 +84,18 @@ export const en: Translation = {
     features: 'Features',
     challenges: 'Challenges',
     learnings: 'Learnings',
+    modal: {
+      caseStudy: 'Technical Case Study',
+      overview: 'Overview',
+      architecture: 'Architecture & Technical Challenges',
+      keyTech: 'Key Technologies',
+      github: 'View on GitHub',
+      demo: 'Live Demo',
+      downloadApk: 'Download APK',
+      close: 'Close modal',
+      prevView: 'Previous view',
+      nextView: 'Next view',
+    },
   },
   experience: {
     title: 'Experience',

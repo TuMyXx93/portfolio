@@ -63,10 +63,13 @@ function streamedRequest(bytes: Uint8Array): NextRequest {
   } as unknown as NextRequest;
 }
 
+import { resetInMemoryStore } from '@/lib/security/rateLimiter';
+
 describe('contact route', () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {
+    resetInMemoryStore();
     process.env.RESEND_API_KEY = 'test-key';
     process.env.CONTACT_TO_EMAIL = 'owner@example.com';
   });
@@ -148,5 +151,32 @@ describe('contact route', () => {
       message: 'Message sent successfully',
       success: true,
     });
+  });
+
+  it('blocks requests with 429 when rate limit is exceeded', async () => {
+    const { POST } = await import('../route');
+    const makePayload = () =>
+      request({
+        name: 'Valid User',
+        email: 'valid@example.com',
+        subject: 'A valid subject',
+        message: 'This message is long enough for the validation schema.',
+      });
+
+    // Exhaust 5 allowed requests
+    for (let i = 0; i < 5; i++) {
+      const res = await POST(makePayload());
+      expect(res.status).toBe(200);
+    }
+
+    // 6th request must be blocked by rate limiter
+    const blockedRes = await POST(makePayload());
+    expect(blockedRes.status).toBe(429);
+    expect(blockedRes.headers.get('Retry-After')).toBeDefined();
+    await expect(blockedRes.json()).resolves.toEqual(
+      expect.objectContaining({
+        error: 'Too many requests. Please try again later.',
+      })
+    );
   });
 });

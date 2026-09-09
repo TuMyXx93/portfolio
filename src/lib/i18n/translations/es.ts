@@ -37,6 +37,23 @@ export const es: Translation = {
     projects: 'proyectos completados',
     clients: 'clientes satisfechos',
     technologies: 'tecnologías dominadas',
+    pillarsTitle: 'Pilares de Ingeniería',
+    pillars: {
+      p1Title: 'Monorepos & Full Stack',
+      p1Desc:
+        'Monorepos escalables desarrollados con Turborepo, Fastify APIs, React 19 y Prisma ORM.',
+      p2Title: 'Desarrollo Móvil & PWAs',
+      p2Desc:
+        'Aplicaciones móviles en Flutter 3, bases de datos Hive NoSQL y arquitecturas PWA offline.',
+      p3Title: 'Accesibilidad Universal',
+      p3Desc:
+        'Estándares WCAG 2.1 AAA, navegación accesible por teclado y modos adaptativos.',
+      p4Title: 'Código Limpio & QA',
+      p4Desc:
+        'Tipado estricto en TypeScript, Biome CI, pruebas unitarias con Vitest y E2E con Playwright.',
+    },
+    downloadCV: 'Descargar CV (PDF)',
+    downloadCVAria: 'Descargar CV en formato PDF ({{locale}})',
   },
   skills: {
     title: 'Habilidades & Stack',
@@ -67,6 +84,18 @@ export const es: Translation = {
     features: 'Características',
     challenges: 'Desafíos',
     learnings: 'Aprendizajes',
+    modal: {
+      caseStudy: 'Caso de Estudio Técnico',
+      overview: 'Descripción General',
+      architecture: 'Arquitectura & Retos Técnicos',
+      keyTech: 'Tecnologías Clave',
+      github: 'Ver en GitHub',
+      demo: 'Probar Demo',
+      downloadApk: 'Descargar APK',
+      close: 'Cerrar modal',
+      prevView: 'Vista anterior',
+      nextView: 'Vista siguiente',
+    },
   },
   experience: {
     title: 'Experiencia',

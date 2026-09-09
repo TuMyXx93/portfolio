@@ -29,33 +29,53 @@ interface I18nProviderProps {
 
 export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
   const [locale, setLocale] = useState<Locale>(() => {
+    if (initialLocale && locales.includes(initialLocale)) {
+      return initialLocale;
+    }
     if (typeof window === 'undefined') {
-      return initialLocale || defaultLocale;
+      return defaultLocale;
     }
     const savedLocale = localStorage.getItem('locale') as Locale;
     if (savedLocale && locales.includes(savedLocale)) {
       return savedLocale;
     }
-    return initialLocale || defaultLocale;
+    return defaultLocale;
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // Sync browser locale after initial mount if no saved preference exists
-    const savedLocale = localStorage.getItem('locale');
-    if (!savedLocale) {
-      const browserLocale = navigator.language.split('-')[0] as Locale;
-      if (process.env.NODE_ENV !== 'test' && locales.includes(browserLocale) && browserLocale !== locale) {
-        queueMicrotask(() => {
-          setLocale(browserLocale);
-        });
-      }
-    }
-  }, [locale]);
+  const [prevInitialLocale, setPrevInitialLocale] = useState(initialLocale);
+  if (
+    initialLocale &&
+    initialLocale !== prevInitialLocale &&
+    locales.includes(initialLocale)
+  ) {
+    setPrevInitialLocale(initialLocale);
+    setLocale(initialLocale);
+  }
 
   useEffect(() => {
-    // Save locale to localStorage and update document
+    // Sync browser locale after initial mount if no saved preference exists and no initialLocale
+    if (!initialLocale) {
+      const savedLocale = localStorage.getItem('locale');
+      if (!savedLocale) {
+        const browserLocale = navigator.language.split('-')[0] as Locale;
+        if (
+          process.env.NODE_ENV !== 'test' &&
+          locales.includes(browserLocale) &&
+          browserLocale !== locale
+        ) {
+          queueMicrotask(() => {
+            setLocale(browserLocale);
+          });
+        }
+      }
+    }
+  }, [locale, initialLocale]);
+
+  useEffect(() => {
+    // Save locale to localStorage, cookie and update document
     localStorage.setItem('locale', locale);
+    document.cookie = `locale=${locale}; path=/; max-age=31536000; SameSite=Lax`;
     document.documentElement.lang = locale;
   }, [locale]);
 
@@ -90,6 +110,25 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
   const handleSetLocale = (newLocale: Locale) => {
     if (locales.includes(newLocale)) {
       setLocale(newLocale);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('locale', newLocale);
+        document.cookie = `locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+        document.documentElement.lang = newLocale;
+
+        const pathname = window.location.pathname;
+        const currentPrefix = locales.find(
+          l => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+        );
+        if (currentPrefix && currentPrefix !== newLocale) {
+          const newPath = pathname.replace(`/${currentPrefix}`, `/${newLocale}`);
+          window.location.assign(
+            newPath + window.location.search + window.location.hash
+          );
+        } else if (!currentPrefix && (pathname === '/' || pathname === '')) {
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+          window.location.assign(`/${newLocale}`);
+        }
+      }
     }
   };
 

@@ -48,8 +48,6 @@ export function usePWA(): PWAState & PWAActions {
             scope: '/',
           });
 
-          console.log('✅ Service Worker registrado:', registration);
-
           // Verificar actualizaciones
           registration.addEventListener('updatefound', () => {
             const newWorker = registration.installing;
@@ -57,7 +55,6 @@ export function usePWA(): PWAState & PWAActions {
               newWorker.addEventListener('statechange', () => {
                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                   setUpdateAvailable(true);
-                  console.log('🔄 Nueva versión disponible');
                 }
               });
             }
@@ -79,7 +76,6 @@ export function usePWA(): PWAState & PWAActions {
       e.preventDefault();
       setDeferredPrompt(e as any);
       setIsInstallable(true);
-      console.log('📱 App es instalable');
     };
 
     // Event listeners
@@ -101,21 +97,17 @@ export function usePWA(): PWAState & PWAActions {
 
   const installApp = async () => {
     if (!deferredPrompt) {
-      console.log('❌ Prompt de instalación no disponible');
       return;
     }
 
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      
+
       if (outcome === 'accepted') {
-        console.log('✅ Usuario aceptó la instalación');
         setIsInstalled(true);
-      } else {
-        console.log('❌ Usuario rechazó la instalación');
       }
-      
+
       setDeferredPrompt(null);
       setIsInstallable(false);
     } catch (error) {
@@ -139,11 +131,9 @@ export function usePWA(): PWAState & PWAActions {
     try {
       if (navigator.share && navigator.canShare?.(shareData)) {
         await navigator.share(shareData);
-        console.log('✅ Contenido compartido exitosamente');
       } else {
         // Fallback: copiar al clipboard
         await navigator.clipboard.writeText(window.location.origin);
-        console.log('📋 URL copiada al clipboard');
         
         // Mostrar notificación temporal
         if ('Notification' in window && Notification.permission === 'granted') {
