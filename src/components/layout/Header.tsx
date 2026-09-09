@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface HeaderProps {
   links: Array<{
@@ -13,6 +14,7 @@ interface HeaderProps {
 
 export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -35,7 +37,7 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
         <a
           href="#home"
           onClick={e => handleClick(e, '#home')}
-          aria-label="Ir al inicio"
+          aria-label={t('nav.home')}
           className="text-gradient font-bold text-xl"
         >
           TumiDev
@@ -45,12 +47,12 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
           className="p-2 rounded-full glass-effect"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          aria-label={`Cambiar a tema ${theme === 'dark' ? 'claro' : 'oscuro'}`}
+          aria-label={theme === 'dark' ? t('accessibility.lightMode') : t('accessibility.darkMode')}
         >
           {theme === 'dark' ? '🌞' : '🌙'}
         </motion.button>
       </div>
-      <nav aria-label="Navegación principal">
+      <nav aria-label={t('nav.mainNav')}>
         <ul className="flex items-center space-x-8">
           {links.map(link => {
             const sectionId = link.href.replace('#', '');
@@ -64,7 +66,7 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
                   className={`text-gray-400 hover:text-primary-dark dark:hover:text-primary-light transition-colors ${
                     isActive ? 'text-primary-dark dark:text-primary-light' : ''
                   }`}
-                  aria-label={`Ir a la sección ${link.title}`}
+                  aria-label={link.title}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   {link.title}

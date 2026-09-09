@@ -10,6 +10,7 @@ export const es: Translation = {
     contact: 'Contacto',
     blog: 'Blog',
     language: 'Idioma',
+    mainNav: 'Navegación principal',
   },
   hero: {
     title: 'Bienvenido a mi portafolio',
@@ -194,6 +195,11 @@ export const es: Translation = {
     copyright: 'Todos los derechos reservados',
     madeWith: 'Hecho con',
     in: 'en',
+    description:
+      'Ingeniero de Sistemas & Desarrollador Full Stack especializado en arquitecturas Monorepo, React 19, Fastify, Flutter e ingeniería potenciada con Inteligencia Artificial.',
+    nav: 'Navegación',
+    social: 'Redes Sociales',
+    connect: '¿Tienes un proyecto en mente? Conectemos.',
     links: {
       privacy: 'Política de Privacidad',
       terms: 'Términos de Servicio',
@@ -233,6 +239,8 @@ export const es: Translation = {
     keyboardNavigation: 'Navegación por teclado',
     readingMode: 'Modo de lectura',
     reducedMotion: 'Movimiento reducido',
+    lightMode: 'Cambiar a tema claro',
+    darkMode: 'Cambiar a tema oscuro',
     announcements: {
       navigationChanged: 'Navegación cambiada a {{page}}',
       settingChanged: '{{setting}} {{state}}',
