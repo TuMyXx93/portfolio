@@ -173,4 +173,18 @@ describe('LanguageSelector', () => {
       expect(listbox).not.toBeInTheDocument();
     }
   });
+
+  test('closes dropdown when mobile backdrop is clicked', () => {
+    const { container } = renderWithProvider(<LanguageSelector />);
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+
+    const backdrop = container.querySelector('.fixed.inset-0.z-10');
+    expect(backdrop).toBeInTheDocument();
+    if (backdrop) {
+      fireEvent.click(backdrop);
+    }
+
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
 });
