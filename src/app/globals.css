@@ -114,6 +114,10 @@ body {
   overflow-x: hidden;
 }
 
+.contact-form-control {
+  color-scheme: light;
+}
+
 /* ====================================
    TIPOGRAFIA FLUIDA UTILITIES
    ==================================== */

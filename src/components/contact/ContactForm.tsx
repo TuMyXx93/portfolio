@@ -128,7 +128,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
   };
 
   const inputClassName = (fieldName: keyof FormErrors) => `
-    w-full px-4 py-3 rounded-lg border-2 transition-colors
+    contact-form-control w-full px-4 py-3 rounded-lg border-2 transition-colors
     ${
       errors[fieldName]
         ? 'border-red-500 focus:border-red-600 focus:ring-red-200 dark:focus:ring-red-800'
