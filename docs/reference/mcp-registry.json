@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project": "portfolio",
+  "policy": {
+    "configurationModel": "native-adapters-with-shared-contract",
+    "defaultPermission": "read-only",
+    "secretsInRepository": false,
+    "cloudMemorySync": "opt-in"
+  },
+  "servers": [
+    {
+      "id": "context7",
+      "status": "active",
+      "purpose": "framework-and-dependency-documentation",
+      "transports": {
+        "opencode": {
+          "type": "remote",
+          "url": "https://mcp.context7.com/mcp"
+        },
+        "vscode": {
+          "type": "http",
+          "url": "https://mcp.context7.com/mcp"
+        }
+      },
+      "permissions": ["documentation-query"],
+      "dataRestrictions": ["no-secrets", "no-environment-files", "no-pii"]
+    },
+    {
+      "id": "engram",
+      "status": "active",
+      "purpose": "project-memory-and-session-continuity",
+      "transports": {
+        "opencode": {
+          "type": "local",
+          "command": "C:\\Users\\HACKTU\\go\\bin\\engram.exe"
+        },
+        "vscode": {
+          "type": "stdio",
+          "command": "${env:ENGRAM_BIN}"
+        }
+      },
+      "arguments": ["mcp", "--project=portfolio", "--tools=agent"],
+      "permissions": ["agent-memory-tools"],
+      "dataRestrictions": ["no-secrets", "no-pii", "cloud-sync-opt-in"]
+    },
+    {
+      "id": "github",
+      "status": "planned",
+      "purpose": "repository-pull-requests-issues-actions-and-checks",
+      "initialPermission": "read-only",
+      "scope": ["TuMyXx93/portfolio"]
+    },
+    {
+      "id": "playwright",
+      "status": "planned",
+      "purpose": "local-e2e-ui-and-accessibility-validation",
+      "initialPermission": "local-browser",
+      "scope": ["http://127.0.0.1:*"]
+    },
+    {
+      "id": "vercel",
+      "status": "planned",
+      "purpose": "deployment-build-and-runtime-diagnostics",
+      "initialPermission": "read-only",
+      "scope": ["portfolio-project"]
+    },
+    {
+      "id": "semgrep",
+      "status": "evaluated",
+      "purpose": "local-static-security-analysis",
+      "initialPermission": "local-analysis"
+    },
+    {
+      "id": "sentry",
+      "status": "conditional",
+      "purpose": "production-observability-with-pii-redaction",
+      "activationPrerequisite": "approved-pii-redaction-policy"
+    },
+    {
+      "id": "upstash",
+      "status": "conditional",
+      "purpose": "restricted-rate-limit-diagnostics",
+      "activationPrerequisite": "approved-operational-access-policy"
+    }
+  ]
+}

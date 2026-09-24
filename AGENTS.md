@@ -96,6 +96,8 @@ See `.opencode/skills/` for detailed rules.
 
 ### MCP Tools
 
+La referencia portable y la matriz de equivalencia entre clientes están en [`docs/reference/MCP_INTEGRATION.md`](docs/reference/MCP_INTEGRATION.md). `opencode.json` y `.vscode/mcp.json` son adaptadores nativos; no deben contener secretos.
+
 **context7**: Dependency/framework documentation resolver. Use to fetch up-to-date library docs before implementing.
 
 **engram**: Persistent memory system for AI coding agents. 19 tools available (Engram v1.16.1, aligned with upstream):

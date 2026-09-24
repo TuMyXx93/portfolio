@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/main/src/vs/workbench/contrib/mcp/common/mcp.schema.json",
+  "servers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "engram": {
+      "type": "stdio",
+      "command": "${env:ENGRAM_BIN}",
+      "args": ["mcp", "--project=portfolio", "--tools=agent"]
+    }
+  }
+}
