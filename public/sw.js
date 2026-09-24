@@ -3,7 +3,7 @@ const STATIC_CACHE_NAME = 'tumidev-static-v1.1.2';
 const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.1.2';
 
 // Archivos estáticos para cachear
-const STATIC_FILES = ['/', '/offline', '/manifest.json', '/images/logo.png'];
+const STATIC_FILES = ['/es', '/en', '/offline', '/manifest.json', '/images/logo.png'];
 
 // Estrategias de cache
 const CACHE_STRATEGIES = {
@@ -14,13 +14,10 @@ const CACHE_STRATEGIES = {
 
 // Instalación del Service Worker
 self.addEventListener('install', event => {
-  console.log('[SW] Installing Service Worker...');
-
   event.waitUntil(
     caches
       .open(STATIC_CACHE_NAME)
       .then(cache => {
-        console.log('[SW] Precaching static files');
         return cache.addAll(STATIC_FILES);
       })
       .then(() => {
@@ -31,8 +28,6 @@ self.addEventListener('install', event => {
 
 // Activación del Service Worker
 self.addEventListener('activate', event => {
-  console.log('[SW] Activating Service Worker...');
-
   event.waitUntil(
     caches
       .keys()
@@ -43,7 +38,6 @@ self.addEventListener('activate', event => {
               cacheName !== STATIC_CACHE_NAME &&
               cacheName !== DYNAMIC_CACHE_NAME
             ) {
-              console.log('[SW] Removing old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
@@ -105,8 +99,7 @@ async function cacheFirst(request) {
       cache.put(request, networkResponse.clone());
     }
     return networkResponse;
-  } catch (error) {
-    console.error('[SW] Cache first failed:', error);
+  } catch (_error) {
     return getOfflinePage();
   }
 }
@@ -121,7 +114,6 @@ async function networkFirst(request) {
     }
     return networkResponse;
   } catch (error) {
-    console.log('[SW] Network failed, trying cache...');
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;

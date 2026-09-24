@@ -4,6 +4,7 @@ import { Project } from '@/types';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/common/Button';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 
 interface ProjectDetailModalProps {
   project: Project | null;
@@ -14,6 +15,7 @@ export const ProjectDetailModal = ({
   project,
   onClose,
 }: ProjectDetailModalProps) => {
+  const { t } = useTranslation();
   const imagesList =
     project?.images && project.images.length > 0
       ? project.images
@@ -82,7 +84,7 @@ export const ProjectDetailModal = ({
             <button
               onClick={onClose}
               className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none z-20"
-              aria-label="Cerrar modal"
+              aria-label={t('projects.modal.close')}
             >
               <svg
                 className="w-5 h-5"
@@ -102,7 +104,7 @@ export const ProjectDetailModal = ({
             {/* Header */}
             <div className="mb-6">
               <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/20 rounded-full mb-2">
-                Caso de Estudio Técnicos
+                {t('projects.modal.caseStudy')}
               </span>
               <h2
                 id="modal-title"
@@ -144,7 +146,7 @@ export const ProjectDetailModal = ({
                       )
                     }
                     className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black text-white transition-colors backdrop-blur-xs z-20"
-                    aria-label="Vista anterior"
+                    aria-label={t('projects.modal.prevView')}
                   >
                     <svg
                       className="w-4 h-4"
@@ -165,7 +167,7 @@ export const ProjectDetailModal = ({
                       setActiveImgIndex(prev => (prev + 1) % imagesList.length)
                     }
                     className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 hover:bg-amber-400 hover:text-black text-white transition-colors backdrop-blur-xs z-20"
-                    aria-label="Vista siguiente"
+                    aria-label={t('projects.modal.nextView')}
                   >
                     <svg
                       className="w-4 h-4"
@@ -204,7 +206,7 @@ export const ProjectDetailModal = ({
             {/* Description */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                Descripción General
+                {t('projects.modal.overview')}
               </h3>
               <p className="text-gray-200 text-base leading-relaxed">
                 {project.description}
@@ -228,7 +230,7 @@ export const ProjectDetailModal = ({
                       d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 01-1.022-.547l-1.07-1.07a2 2 0 010-2.828l1.07-1.07a2 2 0 011.022-.547l2.387-.477a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 011.022.547l1.07 1.07a2 2 0 010 2.828l-1.07 1.07z"
                     />
                   </svg>
-                  Arquitectura & Retos Técnicos
+                  {t('projects.modal.architecture')}
                 </h3>
                 <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                   {project.architectureDetails}
@@ -239,7 +241,7 @@ export const ProjectDetailModal = ({
             {/* Stack Technologies */}
             <div className="mb-8">
               <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Tecnologías Clave
+                {t('projects.modal.keyTech')}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map(tech => (
@@ -268,7 +270,7 @@ export const ProjectDetailModal = ({
                   target="_blank"
                   ariaLabel={`Código en GitHub de ${project.title}`}
                 >
-                  Ver en GitHub
+                  {t('projects.modal.github')}
                 </Button>
               )}
               {project.demo && (
@@ -282,8 +284,8 @@ export const ProjectDetailModal = ({
                   ariaLabel={`Descargar o probar demo de ${project.title}`}
                 >
                   {project.demo.endsWith('.apk')
-                    ? 'Descargar APK'
-                    : 'Probar Demo'}
+                    ? t('projects.modal.downloadApk')
+                    : t('projects.modal.demo')}
                 </Button>
               )}
             </div>

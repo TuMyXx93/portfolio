@@ -164,6 +164,7 @@ export const Projects = () => {
     { id: 'fullstack', label: 'Full Stack' },
     { id: 'ai', label: 'IA & Agentes' },
     { id: 'frontend', label: 'Frontend' },
+    { id: 'mobile', label: 'Mobile' },
   ];
 
   const filteredProjects = PROJECTS.filter(project => {

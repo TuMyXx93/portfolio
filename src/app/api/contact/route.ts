@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import validator from 'validator';
 import { Resend } from 'resend';
 import { contactSchema } from '@/lib/contact/schema';
+import { rateLimit } from '@/lib/security/rateLimiter';
 
 const MAX_BODY_BYTES = 16_384;
 const resendApiKey = process.env.RESEND_API_KEY;
@@ -68,6 +69,33 @@ export async function POST(request: NextRequest) {
   const requestId = randomUUID();
 
   try {
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const clientIp =
+      forwardedFor?.split(',')[0]?.trim() ||
+      request.headers.get('x-real-ip') ||
+      '127.0.0.1';
+
+    const limitResult = await rateLimit(clientIp);
+    if (!limitResult.success) {
+      logEvent('warn', 'contact.rate_limit_exceeded', requestId, { ip: clientIp });
+      const retryAfterSeconds = Math.max(
+        1,
+        Math.ceil((limitResult.reset - Date.now()) / 1000)
+      );
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(retryAfterSeconds),
+            'X-RateLimit-Limit': String(limitResult.limit),
+            'X-RateLimit-Remaining': String(limitResult.remaining),
+            'X-RateLimit-Reset': String(limitResult.reset),
+          },
+        }
+      );
+    }
+
     const contentLength = Number(request.headers.get('content-length') || 0);
     if (contentLength > MAX_BODY_BYTES) {
       logEvent('warn', 'contact.payload_too_large', requestId);

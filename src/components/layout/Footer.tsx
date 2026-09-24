@@ -2,12 +2,22 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { SOCIAL_LINKS, NAVIGATION_LINKS } from '@/constants';
 import { SocialLinks } from '@/components/common/SocialLinks';
+import { useTranslation } from '@/lib/i18n/useTranslation';
+
+const NAV_KEY_MAP: Record<string, string> = {
+  '#home': 'nav.home',
+  '#about': 'nav.about',
+  '#experience': 'nav.experience',
+  '#skills': 'nav.skills',
+  '#projects': 'nav.projects',
+  '#contact': 'nav.contact',
+};
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -47,37 +57,43 @@ export const Footer: React.FC = () => {
               />
             </div>
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Ingeniero de Sistemas & Desarrollador Full Stack especializado en arquitecturas Monorepo, React 19, Fastify, Flutter e ingeniería potenciada con Inteligencia Artificial.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Columna 2: Navegación Rápida */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
             <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-widest">
-              Navegación
+              {t('footer.nav')}
             </h3>
             <ul className="grid grid-cols-2 gap-2 text-sm">
-              {NAVIGATION_LINKS.map(link => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={e => handleNavClick(e, link.href)}
-                    className="hover:text-amber-400 transition-colors duration-200 focus:outline-none focus:text-amber-400"
-                  >
-                    {link.title}
-                  </a>
-                </li>
-              ))}
+              {NAVIGATION_LINKS.map(link => {
+                const label = NAV_KEY_MAP[link.href]
+                  ? t(NAV_KEY_MAP[link.href])
+                  : link.title;
+
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={e => handleNavClick(e, link.href)}
+                      className="hover:text-amber-400 transition-colors duration-200 focus:outline-none focus:text-amber-400"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
           {/* Columna 3: Conexión y Redes Sociales */}
           <div className="flex flex-col items-center md:items-end text-center md:text-right space-y-4">
             <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-widest">
-              Redes Sociales
+              {t('footer.social')}
             </h3>
             <p className="text-sm text-gray-400">
-              ¿Tienes un proyecto en mente? Conectemos.
+              {t('footer.connect')}
             </p>
             <SocialLinks size="md" orientation="horizontal" />
           </div>
@@ -85,7 +101,7 @@ export const Footer: React.FC = () => {
 
         {/* Barra Inferior de Derechos de Autor */}
         <div className="pt-8 text-center text-xs text-gray-500">
-          <p>© {currentYear} TumiDev. Todos los derechos reservados.</p>
+          <p>© {currentYear} TumiDev. {t('footer.copyright')}.</p>
         </div>
       </div>
     </footer>

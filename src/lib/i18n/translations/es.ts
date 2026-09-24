@@ -10,6 +10,7 @@ export const es: Translation = {
     contact: 'Contacto',
     blog: 'Blog',
     language: 'Idioma',
+    mainNav: 'Navegación principal',
   },
   hero: {
     title: 'Bienvenido a mi portafolio',
@@ -37,6 +38,23 @@ export const es: Translation = {
     projects: 'proyectos completados',
     clients: 'clientes satisfechos',
     technologies: 'tecnologías dominadas',
+    pillarsTitle: 'Pilares de Ingeniería',
+    pillars: {
+      p1Title: 'Monorepos & Full Stack',
+      p1Desc:
+        'Monorepos escalables desarrollados con Turborepo, Fastify APIs, React 19 y Prisma ORM.',
+      p2Title: 'Desarrollo Móvil & PWAs',
+      p2Desc:
+        'Aplicaciones móviles en Flutter 3, bases de datos Hive NoSQL y arquitecturas PWA offline.',
+      p3Title: 'Accesibilidad Universal',
+      p3Desc:
+        'Estándares WCAG 2.1 AAA, navegación accesible por teclado y modos adaptativos.',
+      p4Title: 'Código Limpio & QA',
+      p4Desc:
+        'Tipado estricto en TypeScript, Biome CI, pruebas unitarias con Vitest y E2E con Playwright.',
+    },
+    downloadCV: 'Descargar CV (PDF)',
+    downloadCVAria: 'Descargar CV en formato PDF ({{locale}})',
   },
   skills: {
     title: 'Habilidades & Stack',
@@ -67,6 +85,18 @@ export const es: Translation = {
     features: 'Características',
     challenges: 'Desafíos',
     learnings: 'Aprendizajes',
+    modal: {
+      caseStudy: 'Caso de Estudio Técnico',
+      overview: 'Descripción General',
+      architecture: 'Arquitectura & Retos Técnicos',
+      keyTech: 'Tecnologías Clave',
+      github: 'Ver en GitHub',
+      demo: 'Probar Demo',
+      downloadApk: 'Descargar APK',
+      close: 'Cerrar modal',
+      prevView: 'Vista anterior',
+      nextView: 'Vista siguiente',
+    },
   },
   experience: {
     title: 'Experiencia',
@@ -165,6 +195,11 @@ export const es: Translation = {
     copyright: 'Todos los derechos reservados',
     madeWith: 'Hecho con',
     in: 'en',
+    description:
+      'Ingeniero de Sistemas & Desarrollador Full Stack especializado en arquitecturas Monorepo, React 19, Fastify, Flutter e ingeniería potenciada con Inteligencia Artificial.',
+    nav: 'Navegación',
+    social: 'Redes Sociales',
+    connect: '¿Tienes un proyecto en mente? Conectemos.',
     links: {
       privacy: 'Política de Privacidad',
       terms: 'Términos de Servicio',
@@ -204,6 +239,8 @@ export const es: Translation = {
     keyboardNavigation: 'Navegación por teclado',
     readingMode: 'Modo de lectura',
     reducedMotion: 'Movimiento reducido',
+    lightMode: 'Cambiar a tema claro',
+    darkMode: 'Cambiar a tema oscuro',
     announcements: {
       navigationChanged: 'Navegación cambiada a {{page}}',
       settingChanged: '{{setting}} {{state}}',

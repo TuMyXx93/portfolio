@@ -22,12 +22,14 @@ Object.assign(globalThis, {
   Headers: UndiciHeaders,
 });
 
+const mockSend = jest
+  .fn()
+  .mockResolvedValue({ data: { id: 'test-id' }, error: null });
+
 jest.mock('resend', () => ({
   Resend: jest.fn().mockImplementation(() => ({
     emails: {
-      send: jest
-        .fn()
-        .mockResolvedValue({ data: { id: 'test-id' }, error: null }),
+      send: mockSend,
     },
   })),
 }));
@@ -63,10 +65,13 @@ function streamedRequest(bytes: Uint8Array): NextRequest {
   } as unknown as NextRequest;
 }
 
+import { resetInMemoryStore } from '@/lib/security/rateLimiter';
+
 describe('contact route', () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {
+    resetInMemoryStore();
     process.env.RESEND_API_KEY = 'test-key';
     process.env.CONTACT_TO_EMAIL = 'owner@example.com';
   });
@@ -147,6 +152,84 @@ describe('contact route', () => {
     await expect(response.json()).resolves.toEqual({
       message: 'Message sent successfully',
       success: true,
+    });
+  });
+
+  it('blocks requests with 429 when rate limit is exceeded', async () => {
+    const { POST } = await import('../route');
+    const makePayload = () =>
+      request({
+        name: 'Valid User',
+        email: 'valid@example.com',
+        subject: 'A valid subject',
+        message: 'This message is long enough for the validation schema.',
+      });
+
+    // Exhaust 5 allowed requests
+    for (let i = 0; i < 5; i++) {
+      const res = await POST(makePayload());
+      expect(res.status).toBe(200);
+    }
+
+    // 6th request must be blocked by rate limiter
+    const blockedRes = await POST(makePayload());
+    expect(blockedRes.status).toBe(429);
+    expect(blockedRes.headers.get('Retry-After')).toBeDefined();
+    await expect(blockedRes.json()).resolves.toEqual(
+      expect.objectContaining({
+        error: 'Too many requests. Please try again later.',
+      })
+    );
+  });
+
+  it('rejects immediately with 413 when content-length header exceeds limit', async () => {
+    const { POST } = await import('../route');
+    const req = new Request('http://localhost/api/contact', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'content-length': '200000',
+      },
+      body: JSON.stringify({ name: 'Huge' }),
+    }) as unknown as NextRequest;
+
+    const res = await POST(req);
+    expect(res.status).toBe(413);
+  });
+
+  it('returns 502 when resend client returns an error', async () => {
+    mockSend.mockResolvedValueOnce({ error: { message: 'Provider error' }, data: null });
+    const { POST } = await import('../route');
+    const response = await POST(
+      request({
+        name: 'Jane Doe',
+        email: 'jane@example.com',
+        subject: 'Inquiry',
+        message: 'A sufficiently long valid message for delivery error test.',
+      })
+    );
+
+    expect(response.status).toBe(502);
+    await expect(response.json()).resolves.toEqual({
+      error: 'Failed to send email. Please try again later.',
+    });
+  });
+
+  it('returns 500 on unexpected runtime errors', async () => {
+    const { POST } = await import('../route');
+    const corruptRequest = {
+      headers: { get: () => null },
+      body: {
+        getReader: () => {
+          throw new Error('Stream malfunction');
+        },
+      },
+    } as unknown as NextRequest;
+
+    const response = await POST(corruptRequest);
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({
+      error: 'Internal server error',
     });
   });
 });

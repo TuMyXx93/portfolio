@@ -29,7 +29,7 @@ test('metadata assets resolve for social sharing', async ({
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     'href',
-    /tumidev\.com\/?$/
+    /tumidev\.com(\/(es|en))?\/?$/
   );
 
   const imageResponse = await request.get('/opengraph-image');
@@ -44,6 +44,26 @@ test('metadata assets resolve for social sharing', async ({
       expect.objectContaining({ src: '/images/logo.png' }),
     ])
   );
+});
+
+test('i18n routing redirects / to localized route and supports /es and /en', async ({
+  page,
+}) => {
+  test.setTimeout(60_000);
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  expect(page.url()).toMatch(/\/(es|en)$/);
+
+  await page.goto('/es', { waitUntil: 'domcontentloaded' });
+  expect(page.url()).toContain('/es');
+  await expect(page).toHaveTitle(/Portfolio Profesional/i);
+  await expect(page.locator('footer')).toContainText('Todos los derechos reservados');
+  await expect(page.locator('footer')).toContainText('Navegación');
+
+  await page.goto('/en', { waitUntil: 'domcontentloaded' });
+  expect(page.url()).toContain('/en');
+  await expect(page).toHaveTitle(/Software Engineer/i);
+  await expect(page.locator('footer')).toContainText('All rights reserved');
+  await expect(page.locator('footer')).toContainText('Navigation');
 });
 
 test('home has no critical accessibility violations', async ({ page }) => {

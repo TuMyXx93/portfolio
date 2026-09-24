@@ -74,7 +74,7 @@ export const About = () => {
                 download={true}
                 target="_blank"
                 rel="noopener noreferrer"
-                ariaLabel={`Descargar CV en formato PDF (${locale.toUpperCase()})`}
+                ariaLabel={t('about.downloadCVAria', { locale: locale.toUpperCase() })}
                 className="w-full sm:w-auto transition-colors duration-200 font-semibold"
               >
                 <svg
@@ -90,13 +90,13 @@ export const About = () => {
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                {locale === 'en' ? 'Download CV (PDF)' : 'Descargar CV (PDF)'}
+                {t('about.downloadCV')}
               </Button>
             </div>
           </motion.div>
           <motion.div variants={itemVariants} className="space-y-4 md:space-y-6">
             <h3 className="text-xl md:text-2xl font-bold text-[#F7AB0A]">
-              {locale === 'en' ? 'Core Engineering Pillars' : 'Pilares de Ingeniería'}
+              {t('about.pillarsTitle')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="glass-effect p-4 rounded-xl border border-white/10 space-y-2">
@@ -104,12 +104,10 @@ export const About = () => {
                   01
                 </div>
                 <h4 className="text-white font-semibold text-base">
-                  {locale === 'en' ? 'Monorepo & Full Stack' : 'Monorepos & Full Stack'}
+                  {t('about.pillars.p1Title')}
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                  {locale === 'en'
-                    ? 'Scalable Monorepos built with Turborepo, Fastify REST APIs, React 19, and Prisma ORM.'
-                    : 'Monorepos escalables desarrollados con Turborepo, Fastify APIs, React 19 y Prisma ORM.'}
+                  {t('about.pillars.p1Desc')}
                 </p>
               </div>
 
@@ -118,12 +116,10 @@ export const About = () => {
                   02
                 </div>
                 <h4 className="text-white font-semibold text-base">
-                  {locale === 'en' ? 'Mobile & Cultural PWAs' : 'Desarrollo Móvil & PWAs'}
+                  {t('about.pillars.p2Title')}
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                  {locale === 'en'
-                    ? 'Native-feel Flutter mobile apps, Hive NoSQL databases, and Offline PWA architectures.'
-                    : 'Aplicaciones móviles en Flutter 3, bases de datos Hive NoSQL y arquitecturas PWA offline.'}
+                  {t('about.pillars.p2Desc')}
                 </p>
               </div>
 
@@ -132,12 +128,10 @@ export const About = () => {
                   03
                 </div>
                 <h4 className="text-white font-semibold text-base">
-                  {locale === 'en' ? 'Accessibility (a11y)' : 'Accesibilidad Universal'}
+                  {t('about.pillars.p3Title')}
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                  {locale === 'en'
-                    ? 'WCAG 2.1 AAA standards, screen-reader navigation, and reduced-motion modes.'
-                    : 'Estándares WCAG 2.1 AAA, navegación accesible por teclado y modos adaptativos.'}
+                  {t('about.pillars.p3Desc')}
                 </p>
               </div>
 
@@ -146,12 +140,10 @@ export const About = () => {
                   04
                 </div>
                 <h4 className="text-white font-semibold text-base">
-                  {locale === 'en' ? 'Clean Code & QA' : 'Código Limpio & QA'}
+                  {t('about.pillars.p4Title')}
                 </h4>
                 <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                  {locale === 'en'
-                    ? 'Strict TypeScript, Biome linter, automated Vitest unit tests, and Playwright E2E.'
-                    : 'Tipado estricto en TypeScript, Biome CI, pruebas unitarias con Vitest y E2E con Playwright.'}
+                  {t('about.pillars.p4Desc')}
                 </p>
               </div>
             </div>

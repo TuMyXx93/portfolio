@@ -10,6 +10,7 @@ export const en: Translation = {
     contact: 'Contact',
     blog: 'Blog',
     language: 'Language',
+    mainNav: 'Main navigation',
   },
   hero: {
     title: 'Welcome to my portfolio',
@@ -37,6 +38,23 @@ export const en: Translation = {
     projects: 'completed projects',
     clients: 'satisfied clients',
     technologies: 'mastered technologies',
+    pillarsTitle: 'Core Engineering Pillars',
+    pillars: {
+      p1Title: 'Monorepo & Full Stack',
+      p1Desc:
+        'Scalable Monorepos built with Turborepo, Fastify REST APIs, React 19, and Prisma ORM.',
+      p2Title: 'Mobile & Cultural PWAs',
+      p2Desc:
+        'Native-feel Flutter mobile apps, Hive NoSQL databases, and Offline PWA architectures.',
+      p3Title: 'Accessibility (a11y)',
+      p3Desc:
+        'WCAG 2.1 AAA standards, screen-reader navigation, and reduced-motion modes.',
+      p4Title: 'Clean Code & QA',
+      p4Desc:
+        'Strict TypeScript, Biome linter, automated Vitest unit tests, and Playwright E2E.',
+    },
+    downloadCV: 'Download CV (PDF)',
+    downloadCVAria: 'Download CV in PDF format ({{locale}})',
   },
   skills: {
     title: 'Skills & Stack',
@@ -67,6 +85,18 @@ export const en: Translation = {
     features: 'Features',
     challenges: 'Challenges',
     learnings: 'Learnings',
+    modal: {
+      caseStudy: 'Technical Case Study',
+      overview: 'Overview',
+      architecture: 'Architecture & Technical Challenges',
+      keyTech: 'Key Technologies',
+      github: 'View on GitHub',
+      demo: 'Live Demo',
+      downloadApk: 'Download APK',
+      close: 'Close modal',
+      prevView: 'Previous view',
+      nextView: 'Next view',
+    },
   },
   experience: {
     title: 'Experience',
@@ -165,6 +195,11 @@ export const en: Translation = {
     copyright: 'All rights reserved',
     madeWith: 'Made with',
     in: 'in',
+    description:
+      'Systems Engineer & Full Stack Developer specialized in Monorepo architectures, React 19, Fastify, Flutter, and AI-powered software engineering.',
+    nav: 'Navigation',
+    social: 'Social Media',
+    connect: 'Have a project in mind? Let\'s connect.',
     links: {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
@@ -203,6 +238,8 @@ export const en: Translation = {
     keyboardNavigation: 'Keyboard navigation',
     readingMode: 'Reading mode',
     reducedMotion: 'Reduced motion',
+    lightMode: 'Switch to light mode',
+    darkMode: 'Switch to dark mode',
     announcements: {
       navigationChanged: 'Navigation changed to {{page}}',
       settingChanged: '{{setting}} {{state}}',

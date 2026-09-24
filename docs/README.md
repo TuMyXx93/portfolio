@@ -33,6 +33,8 @@ quadrantChart
 * [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md): Especificación del contrato OpenAPI 3.1 para `/api/contact`.
 * [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md): Especificaciones de CSP, HSTS, contrato Zod, escape contextual y Rate Limiting WAF.
 * [Orquestador AI y Reglas de Desarrollo](file:///C:/Users/HACKTU/code/portfolio/AGENTS.md): Especificación para agentes de IA y comandos del sistema (`.opencode/`).
+* [Integración MCP multi-herramienta](file:///C:/Users/HACKTU/code/portfolio/docs/reference/MCP_INTEGRATION.md): Contrato compartido y adaptadores para OpenCode, VS Code y futuros harnesses.
+* [Registro MCP machine-readable](file:///C:/Users/HACKTU/code/portfolio/docs/reference/mcp-registry.json): Estados, transportes, alcances y restricciones para automatización.
 
 ### 4. Explicación y Decisiones (Explanation / Architecture — Entendimiento)
 * [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md): Diagrama C4, capas de componentes y flujo de datos.

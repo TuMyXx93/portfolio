@@ -8,3 +8,4 @@ minimumReleaseAgeExclude:
   - playwright@1.62.1
 overrides:
   nanoid: '>=3.3.17'
+  sharp: '>=0.35.4'
