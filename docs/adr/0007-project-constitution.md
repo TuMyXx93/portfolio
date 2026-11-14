@@ -18,7 +18,7 @@ Se adoptan los siguientes principios no negociables para el proyecto:
 2. **Contratos Zod como fuente ejecutable** para validación en runtime. El schema Zod es la verdad ejecutable; la documentación OpenAPI se deriva o se verifica contra él.
 3. **Fail-closed** en el endpoint de contacto: si Resend o el destinatario no están configurados, se devuelve 503. Nunca se simula una entrega exitosa.
 4. **Escape contextual** de todos los valores del usuario antes de interpolarlos en HTML de correo.
-5. **Rate limiting en dos capas:** Vercel Firewall (10 req/60s por IP, autoritativo) + contador en memoria (5 req/60s por instancia, best-effort). Ambas documentadas como intencionales.
+5. **Rate limiting en dos capas:** Vercel Firewall (10 req/60s por IP, autoritativo) + Upstash Redis sliding-window con fallback en memoria (5 req/60s por IP). Ambas documentadas como intencionales.
 6. **Sin PII en logs de aplicación:** los logs registran `requestId` y eventos, pero no IP, email ni mensaje del usuario. La IP se registra solo en el Firewall de Vercel.
 7. **WCAG 2.1 AA** como mínimo de accesibilidad. La accesibilidad no se sacrifica por animación o pulido visual.
 8. **Cobertura de tests:** mínimo 70% global (branches, functions, lines, statements). Los tests referencian requisitos con `// spec:XXXX#RF-YY`.

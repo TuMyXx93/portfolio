@@ -23,34 +23,34 @@ quadrantChart
 
 ### 1. Tutoriales (Tutorials — Aprendizaje)
 
-- [README.md Principal](file:///C:/Users/HACKTU/code/portfolio/README.md): Resumen ejecutivo, stack tecnológico y Quick Start.
-- [Guía de Contribución](file:///C:/Users/HACKTU/code/portfolio/CONTRIBUTING.md): Guía de incorporación para desarrolladores, flujo de Git y normas de PR.
+- [README.md Principal](../README.md): Resumen ejecutivo, stack tecnológico y Quick Start.
+- [Guía de Contribución](../CONTRIBUTING.md): Guía de incorporación para desarrolladores, flujo de Git y normas de PR.
 
 ### 2. Guías de Procedimiento (How-To Guides — Tareas Prácticas)
 
-- [Runbook de Desarrollo Local](file:///C:/Users/HACKTU/code/portfolio/docs/guides/LOCAL_DEVELOPMENT_RUNBOOK.md): Guía para coexistencia en Windows, WSL2, Docker y pnpm.
-- [Runbook de Despliegue y CI/CD](file:///C:/Users/HACKTU/code/portfolio/docs/guides/DEPLOYMENT_RUNBOOK.md): Procedimiento de despliegue en Vercel y pipelines de validación.
-- [Runbook de Web Application Firewall](file:///C:/Users/HACKTU/code/portfolio/docs/guides/WAF_RUNBOOK.md): Configuración y observación del WAF de Vercel para el endpoint de contacto.
+- [Runbook de Desarrollo Local](./guides/LOCAL_DEVELOPMENT_RUNBOOK.md): Guía para coexistencia en Windows, WSL2, Docker y pnpm.
+- [Runbook de Despliegue y CI/CD](./guides/DEPLOYMENT_RUNBOOK.md): Procedimiento de despliegue en Vercel y pipelines de validación.
+- [Runbook de Web Application Firewall](./guides/WAF_RUNBOOK.md): Configuración y observación del WAF de Vercel para el endpoint de contacto.
 
 ### 3. Referencia Técnica (Reference — Información Explicita)
 
-- [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md): Especificación del contrato OpenAPI 3.1 para `/api/contact`.
-- [Especificaciones de Features (SDD)](file:///C:/Users/HACKTU/code/portfolio/specs/): Specs spec-anchored con requisitos, criterios de aceptación y trazabilidad.
-- [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md): Especificaciones de CSP, HSTS, contrato Zod, escape contextual y Rate Limiting WAF.
-- [Orquestador AI y Reglas de Desarrollo](file:///C:/Users/HACKTU/code/portfolio/AGENTS.md): Especificación para agentes de IA y comandos del sistema (`.opencode/`).
-- [Integración MCP multi-herramienta](file:///C:/Users/HACKTU/code/portfolio/docs/reference/MCP_INTEGRATION.md): Contrato compartido y adaptadores para OpenCode, VS Code y futuros harnesses.
-- [Registro MCP machine-readable](file:///C:/Users/HACKTU/code/portfolio/docs/reference/mcp-registry.json): Estados, transportes, alcances y restricciones para automatización.
+- [Especificación del API de Contacto](./api/CONTACT_API_SPEC.md): Especificación del contrato OpenAPI 3.1 para `/api/contact`.
+- [Especificaciones de Features (SDD)](../specs/): Specs spec-anchored con requisitos, criterios de aceptación y trazabilidad.
+- [Política de Seguridad](../SECURITY.md): Especificaciones de CSP, HSTS, contrato Zod, escape contextual y Rate Limiting WAF.
+- [Orquestador AI y Reglas de Desarrollo](../AGENTS.md): Especificación para agentes de IA y comandos del sistema (`.opencode/`).
+- [Integración MCP multi-herramienta](./reference/MCP_INTEGRATION.md): Contrato compartido y adaptadores para OpenCode, VS Code y futuros harnesses.
+- [Registro MCP machine-readable](./reference/mcp-registry.json): Estados, transportes, alcances y restricciones para automatización.
 
 ### 4. Explicación y Decisiones (Explanation / Architecture — Entendimiento)
 
-- [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md): Diagrama C4, capas de componentes y flujo de datos.
-- [Registros de Decisiones de Arquitectura (ADRs)](file:///C:/Users/HACKTU/code/portfolio/docs/adr/):
-  - [ADR 0001: Next.js 16 App Router & Turbopack](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0001-nextjs-app-router-turbopack.md)
-  - [ADR 0002: Sistema de Colores Progresivo y Tailwind CSS v4](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0002-tailwind-v4-color-system.md)
-  - [ADR 0003: Migración al Gestor de Paquetes pnpm v11](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0003-pnpm-package-manager.md)
-  - [ADR 0004: Suite de Accesibilidad WCAG 2.1 de 4 Cuadrantes](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0004-accessibility-wcag-system.md)
-  - [ADR 0005: Estrategia de Actualización de Dependencias Major/Patch](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0005-dependency-update-strategy.md)
-  - [ADR 0006: Protección Enterprise del Edge](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0006-enterprise-edge-protection.md)
-  - [ADR 0007: Constitución del Proyecto (SDD)](file:///C:/Users/HACKTU/code/portfolio/docs/adr/0007-project-constitution.md)
-- [Investigación de Accesibilidad de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md): Análisis de ratios de contraste WCAG 2.1.
-- [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md): Bitácora histórica de iteraciones y auditorías.
+- [Arquitectura del Sistema](./architecture/ARCHITECTURE.md): Diagrama C4, capas de componentes y flujo de datos.
+- [Registros de Decisiones de Arquitectura (ADRs)](./adr/):
+  - [ADR 0001: Next.js 16 App Router & Turbopack](./adr/0001-nextjs-app-router-turbopack.md)
+  - [ADR 0002: Sistema de Colores Progresivo y Tailwind CSS v4](./adr/0002-tailwind-v4-color-system.md)
+  - [ADR 0003: Migración al Gestor de Paquetes pnpm v11](./adr/0003-pnpm-package-manager.md)
+  - [ADR 0004: Suite de Accesibilidad WCAG 2.1 de 4 Cuadrantes](./adr/0004-accessibility-wcag-system.md)
+  - [ADR 0005: Estrategia de Actualización de Dependencias Major/Patch](./adr/0005-dependency-update-strategy.md)
+  - [ADR 0006: Protección Enterprise del Edge](./adr/0006-enterprise-edge-protection.md)
+  - [ADR 0007: Constitución del Proyecto (SDD)](./adr/0007-project-constitution.md)
+- [Investigación de Accesibilidad de Color](./research/RESEARCH_COLOR_SYSTEM.md): Análisis de ratios de contraste WCAG 2.1.
+- [Historial de Mejoras](./history/HISTORIAL_MEJORAS.md): Bitácora histórica de iteraciones y auditorías.

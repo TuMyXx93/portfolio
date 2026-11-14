@@ -51,7 +51,7 @@ export const en: Translation = {
         'WCAG 2.1 AAA standards, screen-reader navigation, and reduced-motion modes.',
       p4Title: 'Clean Code & QA',
       p4Desc:
-        'Strict TypeScript, Biome linter, automated Vitest unit tests, and Playwright E2E.',
+        'Strict TypeScript, ESLint 9 linter, automated Jest unit tests, and Playwright E2E.',
     },
     downloadCV: 'Download CV (PDF)',
     downloadCVAria: 'Download CV in PDF format ({{locale}})',
@@ -113,7 +113,7 @@ export const en: Translation = {
     bullet3:
       'Digital cultural preservation and mobile applications in Flutter with Hive NoSQL engine.',
     bullet4:
-      'Strict quality assurance with Biome CI, automated testing (Vitest/Playwright), and WCAG AAA.',
+      'Strict quality assurance with ESLint 9, automated testing (Jest/Playwright), and WCAG AAA.',
     contactMe: 'Contact me',
     downloadCV: 'Download CV (PDF)',
     present: 'Present',

@@ -15,7 +15,7 @@ Portfolio profesional Enterprise diseñado con arquitectura limpia, alto rendimi
 
 ```bash
 # 1. Clonar repositorio
-git clone https://github.com/tumidev/portfolio.git
+git clone https://github.com/TuMyXx93/portfolio.git
 cd portfolio
 
 # 2. Instalar dependencias con pnpm v11
@@ -48,27 +48,27 @@ El servidor local estará disponible en `http://localhost:3000`.
 
 Toda la documentación técnica del proyecto está estructurada bajo el estándar **Diátaxis**:
 
-| Categoría Diátaxis | Documento                                                                                                      | Descripción                                                            |
-| ------------------ | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Tutoriales**     | [Guía de Contribución](file:///C:/Users/HACKTU/code/portfolio/CONTRIBUTING.md)                                 | Flujo Git, ramas `dev`/`main`, estándares de PR y Husky                |
-| **How-To Guides**  | [Runbook de Desarrollo Local](file:///C:/Users/HACKTU/code/portfolio/docs/guides/LOCAL_DEVELOPMENT_RUNBOOK.md) | Configuración en Windows, WSL2, Docker y resolución de puertos         |
-| **How-To Guides**  | [Runbook de Despliegue & CI/CD](file:///C:/Users/HACKTU/code/portfolio/docs/guides/DEPLOYMENT_RUNBOOK.md)      | Pipeline en GitHub Actions, Vercel CLI y auditoría Lighthouse opcional |
-| **Referencia**     | [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md)      | Contrato OpenAPI 3.1 para `/api/contact`                               |
-| **Referencia**     | [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md)                                    | Especificación de CSP, HSTS, Sanitización y Rate Limiting              |
-| **Explicación**    | [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md)           | Diagrama C4, arquitectura de capas y flujo de datos                    |
-| **Explicación**    | [Registros ADR](file:///C:/Users/HACKTU/code/portfolio/docs/adr/)                                              | Arquitectura Decision Records (ADR 0001 - 0007)                        |
-| **Explicación**    | [Investigación de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md)        | Auditoría de ratios de contraste WCAG 2.1                              |
-| **Historial**      | [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md)               | Registro histórico de refactorizaciones y auditorías                   |
-| **Historial**      | [Changelog](file:///C:/Users/HACKTU/code/portfolio/CHANGELOG.md)                                               | Registro de versiones y notas de entrega                               |
+| Categoría Diátaxis | Documento                                                                 | Descripción                                                            |
+| ------------------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Tutoriales**     | [Guía de Contribución](./CONTRIBUTING.md)                                 | Flujo Git, ramas `dev`/`main`, estándares de PR y Husky                |
+| **How-To Guides**  | [Runbook de Desarrollo Local](./docs/guides/LOCAL_DEVELOPMENT_RUNBOOK.md) | Configuración en Windows, WSL2, Docker y resolución de puertos         |
+| **How-To Guides**  | [Runbook de Despliegue & CI/CD](./docs/guides/DEPLOYMENT_RUNBOOK.md)      | Pipeline en GitHub Actions, Vercel CLI y auditoría Lighthouse opcional |
+| **Referencia**     | [Especificación del API de Contacto](./docs/api/CONTACT_API_SPEC.md)      | Contrato OpenAPI 3.1 para `/api/contact`                               |
+| **Referencia**     | [Política de Seguridad](./SECURITY.md)                                    | Especificación de CSP, HSTS, Sanitización y Rate Limiting              |
+| **Explicación**    | [Arquitectura del Sistema](./docs/architecture/ARCHITECTURE.md)           | Diagrama C4, arquitectura de capas y flujo de datos                    |
+| **Explicación**    | [Registros ADR](./docs/adr/)                                              | Arquitectura Decision Records (ADR 0001 - 0007)                        |
+| **Explicación**    | [Investigación de Color](./docs/research/RESEARCH_COLOR_SYSTEM.md)        | Auditoría de ratios de contraste WCAG 2.1                              |
+| **Historial**      | [Historial de Mejoras](./docs/history/HISTORIAL_MEJORAS.md)               | Registro histórico de refactorizaciones y auditorías                   |
+| **Historial**      | [Changelog](./CHANGELOG.md)                                               | Registro de versiones y notas de entrega                               |
 
-Para explorar la estructura completa, visita el [Centro de Documentación principal (`docs/README.md`)](file:///C:/Users/HACKTU/code/portfolio/docs/README.md).
+Para explorar la estructura completa, visita el [Centro de Documentación principal (`docs/README.md`)](./docs/README.md).
 
 ---
 
 ## 🔒 Seguridad & Calidad Enterprise
 
 - **Validación en Capas:** Contrato Zod compartido en API y cliente + escape contextual de salida.
-- **Cabeceras HTTP HTTP:** CSP estricto, HSTS, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`.
+- **Cabeceras HTTP:** CSP estricto, HSTS, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`.
 - **Zero PII Logging:** Ningún dato personal es almacenado en logs ni expuesto en respuestas de error.
 - **Gates de Calidad (`/version-gate`):**
   ```bash
@@ -83,4 +83,4 @@ Para explorar la estructura completa, visita el [Centro de Documentación princi
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](file:///C:/Users/HACKTU/code/portfolio/LICENSE) para más detalles.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.

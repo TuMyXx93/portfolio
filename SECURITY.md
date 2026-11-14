@@ -19,7 +19,7 @@ Actualmente se proporciona soporte activo de seguridad a las siguientes versione
 
 Si descubres una vulnerabilidad de seguridad en este proyecto:
 
-1. **NO abrira un issue público** en GitHub.
+1. **NO abras un issue público** en GitHub.
 2. Envía un correo electrónico privado a la dirección de seguridad o contacto oficial del repositorio.
 3. Incluye en tu reporte:
    - Descripción técnica detallada del vector de ataque.
@@ -39,8 +39,8 @@ Responderemos a la notificación en un plazo máximo de 48 horas y coordinaremos
 
 ### B. Limitación de Tasa (Rate Limiting)
 
-- Vercel WAF limita `POST /api/contact` a 5 solicitudes por IP cada 10 minutos y aplica challenge al tráfico automatizado.
-- El endpoint no mantiene estado de rate limiting en memoria; la política distribuida vive en el perímetro.
+- **Perímetro (Vercel WAF):** Limita `POST /api/contact` a 10 solicitudes por IP cada 60 segundos y aplica challenge al tráfico automatizado.
+- **Aplicación (`src/lib/security/rateLimiter.ts`):** Sliding-window de 5 solicitudes por IP cada 60 segundos vía Upstash Redis (cuando está configurado) con fallback automático en memoria por instancia.
 
 ### C. Cabeceras HTTP de Seguridad (Security Headers)
 

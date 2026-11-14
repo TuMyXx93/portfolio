@@ -2,7 +2,6 @@
 import { Section } from '@/components/common/Section';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { useLazySection } from '@/hooks/useLazySection';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { Button } from '@/components/common/Button';
 
@@ -10,10 +9,6 @@ export const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t, locale } = useTranslation();
-
-  useLazySection('about', () => {
-    // Podemos usar esto para inicializar datos específicos de la sección si es necesario
-  });
 
   const containerVariants = {
     hidden: { opacity: 0 },

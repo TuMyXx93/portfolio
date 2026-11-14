@@ -4,17 +4,12 @@ import { Timeline } from '@/components/common/Timeline';
 import { motion, useInView } from 'framer-motion';
 import { EXPERIENCE_ITEMS } from '@/constants';
 import { useRef } from 'react';
-import { useLazySection } from '@/hooks/useLazySection';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 
 export const Experience = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t } = useTranslation();
-
-  useLazySection('experience', () => {
-    // Inicializar datos específicos de la sección si es necesario
-  });
 
   const containerVariants = {
     hidden: { opacity: 0 },

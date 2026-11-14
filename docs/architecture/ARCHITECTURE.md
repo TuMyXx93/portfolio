@@ -19,14 +19,14 @@ graph TD
 
     subgraph ServerLayer ["Capa de Servidor (Next.js Node/Edge)"]
         APIContact["🛡️ Endpoint /api/contact"]
+        RateLimiter["⏱️ Control de Tasa (Vercel WAF + Upstash Redis / In-Memory)"]
         ZodValidator["🔍 Validador de Esquemas (Zod)"]
-    Sanitizer["🧹 Escape contextual de salida"]
-        RateLimiter["⏱️ Control de Tasa (Vercel Firewall + In-Memory Fallback)"]
+        Sanitizer["🧹 Escape contextual de salida"]
     end
 
     NextServer --> ClientLayer
     NextServer --> ServerLayer
-    APIContact --> ZodValidator --> Sanitizer --> RateLimiter
+    APIContact --> RateLimiter --> ZodValidator --> Sanitizer
 ```
 
 ---
@@ -49,7 +49,7 @@ graph TD
 - **`src/components/`**:
   - `common/`: Componentes UI atómicos y reutilizables (Botones, Selectores, Typographies).
   - `sections/`: Secciones de la página principal (Hero, About, Experience, Skills, Projects, Contact).
-  - `accessibility-tabs/`: Componentes especializados para la suite WCAG 2.1.
+  - `accessibility/`: Componentes especializados para la suite WCAG 2.1.
 - **`src/contexts/`**: Proveedores de estado global para accesibilidad e internacionalización.
 - **`src/hooks/`**: Custom hooks encapsulando comportamiento del cliente y efectos secundarios (probados unitariamente con Jest).
 - **`src/lib/`**: Utilidades puras, constantes del sistema y sanitizadores.

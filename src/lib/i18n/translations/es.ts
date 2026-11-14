@@ -51,7 +51,7 @@ export const es: Translation = {
         'Estándares WCAG 2.1 AAA, navegación accesible por teclado y modos adaptativos.',
       p4Title: 'Código Limpio & QA',
       p4Desc:
-        'Tipado estricto en TypeScript, Biome CI, pruebas unitarias con Vitest y E2E con Playwright.',
+        'Tipado estricto en TypeScript, ESLint 9, pruebas unitarias con Jest y E2E con Playwright.',
     },
     downloadCV: 'Descargar CV (PDF)',
     downloadCVAria: 'Descargar CV en formato PDF ({{locale}})',
@@ -113,7 +113,7 @@ export const es: Translation = {
     bullet3:
       'Preservación cultural digital y aplicaciones móviles en Flutter con motor NoSQL Hive.',
     bullet4:
-      'Garantía de calidad estricta con Biome CI, pruebas automatizadas (Vitest/Playwright) y WCAG AAA.',
+      'Garantía de calidad estricta con ESLint 9, pruebas automatizadas (Jest/Playwright) y WCAG AAA.',
     contactMe: 'Contáctame',
     downloadCV: 'Descargar CV (PDF)',
     present: 'Presente',
