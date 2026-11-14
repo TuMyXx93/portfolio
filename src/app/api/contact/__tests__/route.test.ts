@@ -71,6 +71,7 @@ describe('contact route', () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {
+    mockSend.mockClear();
     resetInMemoryStore();
     process.env.RESEND_API_KEY = 'test-key';
     process.env.CONTACT_TO_EMAIL = 'owner@example.com';
@@ -80,6 +81,7 @@ describe('contact route', () => {
     process.env = { ...originalEnv };
   });
 
+  // spec:0001#RF-09
   it('returns health status for GET', async () => {
     const { GET } = await import('../route');
     const response = await GET();
@@ -87,6 +89,7 @@ describe('contact route', () => {
     expect(response.status).toBe(200);
   });
 
+  // spec:0001#RF-02
   it('rejects an invalid payload before delivery', async () => {
     const { POST } = await import('../route');
     const response = await POST(
@@ -99,6 +102,7 @@ describe('contact route', () => {
     });
   });
 
+  // spec:0001#RF-03
   it('rejects an oversized streamed payload without buffering it fully', async () => {
     const { POST } = await import('../route');
     const oversized = new Uint8Array(16_385);
@@ -107,6 +111,7 @@ describe('contact route', () => {
     expect(response.status).toBe(413);
   });
 
+  // spec:0001#RF-04
   it('accepts a honeypot submission without sending mail', async () => {
     const { POST } = await import('../route');
     const response = await POST(
@@ -122,6 +127,7 @@ describe('contact route', () => {
     expect(response.status).toBe(200);
   });
 
+  // spec:0001#RF-05
   it('fails closed when the recipient is not configured', async () => {
     delete process.env.CONTACT_TO_EMAIL;
     const { POST } = await import('../route');
@@ -137,6 +143,7 @@ describe('contact route', () => {
     expect(response.status).toBe(503);
   });
 
+  // spec:0001#RF-01 #RF-10
   it('sends a valid message without exposing provider details', async () => {
     const { POST } = await import('../route');
     const response = await POST(
@@ -155,6 +162,31 @@ describe('contact route', () => {
     });
   });
 
+  // spec:0001#RF-12
+  it('does not log PII in rate limit events', async () => {
+    const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const { POST } = await import('../route');
+    const makePayload = () =>
+      request({
+        name: 'Valid User',
+        email: 'valid@example.com',
+        subject: 'A valid subject',
+        message: 'This message is long enough for the validation schema.',
+      });
+
+    for (let i = 0; i < 5; i++) {
+      await POST(makePayload());
+    }
+    await POST(makePayload());
+
+    const logCalls = consoleSpy.mock.calls.map(c => JSON.stringify(c));
+    const allLogs = logCalls.join(' ');
+    expect(allLogs).not.toContain('127.0.0.1');
+    expect(allLogs).not.toContain('valid@example.com');
+
+    consoleSpy.mockRestore();
+  });
+  // spec:0001#RF-06
   it('blocks requests with 429 when rate limit is exceeded', async () => {
     const { POST } = await import('../route');
     const makePayload = () =>
@@ -182,6 +214,7 @@ describe('contact route', () => {
     );
   });
 
+  // spec:0001#RF-03
   it('rejects immediately with 413 when content-length header exceeds limit', async () => {
     const { POST } = await import('../route');
     const req = new Request('http://localhost/api/contact', {
@@ -197,6 +230,7 @@ describe('contact route', () => {
     expect(res.status).toBe(413);
   });
 
+  // spec:0001#RF-07
   it('returns 502 when resend client returns an error', async () => {
     mockSend.mockResolvedValueOnce({
       error: { message: 'Provider error' },
@@ -218,6 +252,7 @@ describe('contact route', () => {
     });
   });
 
+  // spec:0001#RF-08
   it('returns 500 on unexpected runtime errors', async () => {
     const { POST } = await import('../route');
     const corruptRequest = {
@@ -234,5 +269,75 @@ describe('contact route', () => {
     await expect(response.json()).resolves.toEqual({
       error: 'Internal server error',
     });
+  });
+
+  // spec:0001#RF-02
+  it('returns 400 when the request body is not valid JSON', async () => {
+    const { POST } = await import('../route');
+    const req = new Request('http://localhost/api/contact', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: '{not valid json',
+    }) as unknown as NextRequest;
+
+    const response = await POST(req);
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toMatchObject({
+      error: 'Invalid JSON payload.',
+    });
+  });
+
+  // spec:0001#RF-05
+  it('fails closed when RESEND_API_KEY is not configured', async () => {
+    expect.assertions(1);
+    delete process.env.RESEND_API_KEY;
+    await jest.isolateModulesAsync(async () => {
+      const { POST } = await import('../route');
+      const response = await POST(
+        request({
+          name: 'Valid User',
+          email: 'valid@example.com',
+          subject: 'A valid subject',
+          message: 'This message is long enough for the validation schema.',
+        })
+      );
+      expect(response.status).toBe(503);
+    });
+  });
+
+  // spec:0001#RF-04
+  it('does not call the email provider for a honeypot submission', async () => {
+    const { POST } = await import('../route');
+    const response = await POST(
+      request({
+        name: 'Bot User',
+        email: 'bot@example.com',
+        subject: 'Automated message',
+        message: 'This message is long enough for the validation schema.',
+        website: 'https://bot.example.com',
+      })
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockSend).not.toHaveBeenCalled();
+  });
+
+  // spec:0001#RF-10
+  it('escapes HTML in user input before sending email', async () => {
+    const { POST } = await import('../route');
+    await POST(
+      request({
+        name: '<script>alert("xss")</script>',
+        email: 'valid@example.com',
+        subject: 'A valid subject',
+        message: 'This message is long enough for the validation schema.',
+      })
+    );
+
+    expect(mockSend).toHaveBeenCalled();
+    const callArgs = mockSend.mock.calls[0][0];
+    expect(callArgs.html).not.toContain('<script>');
+    expect(callArgs.html).toContain('&lt;script&gt;');
   });
 });

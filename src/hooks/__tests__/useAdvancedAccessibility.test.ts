@@ -85,6 +85,8 @@ describe('useAdvancedAccessibility - useKeyboardNavigation', () => {
         }
       );
     });
+
+    expect(result.current).toBe(true);
   });
 });
 

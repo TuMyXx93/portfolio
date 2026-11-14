@@ -77,9 +77,7 @@ export async function POST(request: NextRequest) {
 
     const limitResult = await rateLimit(clientIp);
     if (!limitResult.success) {
-      logEvent('warn', 'contact.rate_limit_exceeded', requestId, {
-        ip: clientIp,
-      });
+      logEvent('warn', 'contact.rate_limit_exceeded', requestId);
       const retryAfterSeconds = Math.max(
         1,
         Math.ceil((limitResult.reset - Date.now()) / 1000)
@@ -198,6 +196,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Request payload is too large.' },
         { status: 413 }
+      );
+    }
+    if (error instanceof SyntaxError) {
+      logEvent('warn', 'contact.invalid_json', requestId);
+      return NextResponse.json(
+        { error: 'Invalid JSON payload.' },
+        { status: 400 }
       );
     }
     logEvent('error', 'contact.unhandled_error', requestId);

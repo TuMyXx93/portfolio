@@ -73,7 +73,8 @@ test('home has no critical accessibility violations', async ({ page }) => {
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.waitForFunction(
     () =>
-      !navigator.serviceWorker?.installing && !navigator.serviceWorker?.waiting
+      !(navigator.serviceWorker as { installing?: unknown })?.installing &&
+      !(navigator.serviceWorker as { waiting?: unknown })?.waiting
   );
   await page.waitForTimeout(1000);
   let results;
@@ -126,6 +127,7 @@ test('contact API rejects invalid payload', async ({ request }) => {
   expect(body.error).toContain('Validation failed');
 });
 
+// spec:0001#RF-11
 test('contact POST is not intercepted by the service worker', async ({
   page,
   browserName,
