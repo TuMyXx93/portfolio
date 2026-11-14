@@ -36,7 +36,8 @@ export function usePWA(): PWAState & PWAActions {
       ).matches;
       const isInWebApp =
         'standalone' in window.navigator &&
-        (window.navigator as any).standalone === true;
+        (window.navigator as Navigator & { standalone?: boolean })
+          .standalone === true;
       setIsInstalled(isStandalone || Boolean(isInWebApp));
     };
 
@@ -79,7 +80,7 @@ export function usePWA(): PWAState & PWAActions {
             window.location.reload();
           });
         } catch (error) {
-          console.error('❌ Error registrando Service Worker:', error);
+          console.error('Error registrando Service Worker:', error);
         }
       }
     };
@@ -87,7 +88,7 @@ export function usePWA(): PWAState & PWAActions {
     // Manejar evento beforeinstallprompt
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e as any);
+      setDeferredPrompt(e as unknown as PWAInstallPrompt);
       setIsInstallable(true);
     };
 
@@ -127,7 +128,7 @@ export function usePWA(): PWAState & PWAActions {
       setDeferredPrompt(null);
       setIsInstallable(false);
     } catch (error) {
-      console.error('❌ Error durante la instalación:', error);
+      console.error('Error durante la instalación:', error);
     }
   };
 
@@ -155,12 +156,12 @@ export function usePWA(): PWAState & PWAActions {
         if ('Notification' in window && Notification.permission === 'granted') {
           new Notification('URL copiada', {
             body: 'La URL del portfolio se copió al clipboard',
-            icon: '/icons/icon-192x192.png',
+            icon: '/images/logo.png',
           });
         }
       }
     } catch (error) {
-      console.error('❌ Error compartiendo:', error);
+      console.error('Error compartiendo:', error);
     }
   };
 

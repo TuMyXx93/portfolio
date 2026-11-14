@@ -3,20 +3,7 @@ const STATIC_CACHE_NAME = 'tumidev-static-v1.1.2';
 const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.1.2';
 
 // Archivos estáticos para cachear
-const STATIC_FILES = [
-  '/es',
-  '/en',
-  '/offline',
-  '/manifest.json',
-  '/images/logo.png',
-];
-
-// Estrategias de cache
-const CACHE_STRATEGIES = {
-  STATIC: 'cache-first',
-  DYNAMIC: 'network-first',
-  API: 'network-only',
-};
+const STATIC_FILES = ['/offline', '/manifest.json', '/images/logo.png'];
 
 // Instalación del Service Worker
 self.addEventListener('install', event => {
@@ -106,7 +93,10 @@ async function cacheFirst(request) {
     }
     return networkResponse;
   } catch (_error) {
-    return getOfflinePage();
+    if (request.mode === 'navigate') {
+      return getOfflinePage();
+    }
+    return Response.error();
   }
 }
 
@@ -157,7 +147,7 @@ async function getOfflinePage() {
           font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
           text-align: center; 
           padding: 2rem;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #0a1628 0%, #1e293b 100%);
           color: white;
           min-height: 100vh;
           display: flex;
@@ -166,16 +156,19 @@ async function getOfflinePage() {
           flex-direction: column;
         }
         .offline-container {
-          background: rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(245, 158, 11, 0.25);
           padding: 2rem;
           border-radius: 1rem;
           backdrop-filter: blur(10px);
         }
         h1 { margin-bottom: 1rem; }
         p { margin-bottom: 1.5rem; opacity: 0.9; }
-        button {
-          background: rgba(255,255,255,0.2);
-          border: 2px solid rgba(255,255,255,0.3);
+        .retry-btn {
+          display: inline-block;
+          text-decoration: none;
+          background: rgba(245, 158, 11, 0.2);
+          border: 2px solid rgba(245, 158, 11, 0.5);
           color: white;
           padding: 0.75rem 1.5rem;
           border-radius: 0.5rem;
@@ -183,17 +176,17 @@ async function getOfflinePage() {
           font-size: 1rem;
           transition: all 0.3s ease;
         }
-        button:hover {
-          background: rgba(255,255,255,0.3);
+        .retry-btn:hover {
+          background: rgba(245, 158, 11, 0.35);
           transform: translateY(-2px);
         }
       </style>
     </head>
     <body>
       <div class="offline-container">
-        <h1>🔌 Sin conexión</h1>
+        <h1>Sin conexión</h1>
         <p>No hay conexión a internet disponible.<br>Verifica tu conexión e intenta nuevamente.</p>
-        <button onclick="window.location.reload()">🔄 Reintentar</button>
+        <a class="retry-btn" href="/">Reintentar</a>
       </div>
     </body>
     </html>

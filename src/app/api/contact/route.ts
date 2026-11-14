@@ -48,6 +48,14 @@ function escapeText(value: string): string {
   return validator.escape(validator.stripLow(value, true).trim());
 }
 
+function sanitizeHeaderText(value: string): string {
+  return validator
+    .stripLow(value, false)
+    .replace(/[\r\n]+/g, ' ')
+    .replace(/["<>\\]/g, '')
+    .trim();
+}
+
 function logEvent(
   level: 'error' | 'warn' | 'info',
   event: string,
@@ -69,6 +77,15 @@ export async function POST(request: NextRequest) {
   const requestId = randomUUID();
 
   try {
+    const contentLength = Number(request.headers.get('content-length') || 0);
+    if (contentLength > MAX_BODY_BYTES) {
+      logEvent('warn', 'contact.payload_too_large', requestId);
+      return NextResponse.json(
+        { error: 'Request payload is too large.' },
+        { status: 413 }
+      );
+    }
+
     const forwardedFor = request.headers.get('x-forwarded-for');
     const clientIp =
       forwardedFor?.split(',')[0]?.trim() ||
@@ -93,15 +110,6 @@ export async function POST(request: NextRequest) {
             'X-RateLimit-Reset': String(limitResult.reset),
           },
         }
-      );
-    }
-
-    const contentLength = Number(request.headers.get('content-length') || 0);
-    if (contentLength > MAX_BODY_BYTES) {
-      logEvent('warn', 'contact.payload_too_large', requestId);
-      return NextResponse.json(
-        { error: 'Request payload is too large.' },
-        { status: 413 }
       );
     }
 
@@ -141,9 +149,12 @@ export async function POST(request: NextRequest) {
     }
 
     const { name, email, subject, message } = result.data;
-    const senderName = escapeText(
+    const fromAddress =
+      process.env.CONTACT_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
+    const senderName = sanitizeHeaderText(
       process.env.CONTACT_FROM_NAME || 'Tumidev Portfolio'
     );
+    const headerSubject = sanitizeHeaderText(subject);
     const safeName = escapeText(name);
     const safeEmail = escapeText(email);
     const safeSubject = escapeText(subject);
@@ -159,10 +170,10 @@ export async function POST(request: NextRequest) {
     }
 
     const sendResult = await resend.emails.send({
-      from: `${senderName} <onboarding@resend.dev>`,
+      from: `${senderName} <${fromAddress}>`,
       to: [recipientEmail],
       replyTo: email,
-      subject: `[Portfolio] ${subject}`,
+      subject: `[Portfolio] ${headerSubject}`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #0a1628; color: #f8fafc; border-radius: 12px; border: 1px solid rgba(245, 158, 11, 0.3);">
           <h2 style="color: #f59e0b; font-size: 20px; margin-top: 0;">Nuevo mensaje recibido desde Portfolio Tumidev</h2>

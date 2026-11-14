@@ -117,12 +117,12 @@ export default function RootLayout({
     <html lang="es" className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <ThemeAndAccessibilityScript />
-        <meta name="theme-color" content="#3b82f6" />
+        <meta name="theme-color" content="#0a1628" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="TumiDev" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#3b82f6" />
+        <meta name="msapplication-TileColor" content="#0a1628" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body
