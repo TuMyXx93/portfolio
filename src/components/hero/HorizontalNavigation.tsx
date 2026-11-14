@@ -2,7 +2,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
-import { useState } from 'react';
 
 const navigationItems = [
   { key: 'about', label: 'nav.about', icon: '👤' },
@@ -15,7 +14,6 @@ const navigationItems = [
 export const HorizontalNavigation = () => {
   const { t } = useTranslation();
   const { state, announceToScreenReader } = useAdvancedAccessibility();
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   // Respetar preferencias de reducción de movimiento
   const shouldAnimate = !state.reducedMotion && !state.reducedAnimations;
@@ -46,16 +44,6 @@ export const HorizontalNavigation = () => {
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.5, ease: 'easeOut' as const },
-    },
-  };
-
   return (
     <motion.nav
       variants={shouldAnimate ? containerVariants : undefined}
@@ -65,9 +53,8 @@ export const HorizontalNavigation = () => {
       role="navigation"
       aria-label="Navegación principal"
     >
-      {navigationItems.map((item, index) => {
+      {navigationItems.map(item => {
         const label = t(item.label);
-        const isHovered = hoveredItem === item.key;
 
         return (
           <button

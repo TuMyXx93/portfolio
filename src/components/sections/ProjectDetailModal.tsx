@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/types';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/common/Button';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 
@@ -24,6 +24,7 @@ export const ProjectDetailModal = ({
         : [];
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [prevProjectId, setPrevProjectId] = useState(project?.id);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   if (project?.id !== prevProjectId) {
     setPrevProjectId(project?.id);
@@ -39,18 +40,61 @@ export const ProjectDetailModal = ({
   }, [project, imagesList.length]);
 
   useEffect(() => {
+    if (!project) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = 'hidden';
+
+    const focusTimer = requestAnimationFrame(() => {
+      const container = modalRef.current;
+      if (!container) return;
+      const focusable = container.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        container.focus();
+      }
+    });
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
+        return;
+      }
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = Array.from(
+          modalRef.current.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+        if (focusable.length === 0) {
+          e.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (
+            document.activeElement === first ||
+            document.activeElement === modalRef.current
+          ) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
-    if (project) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    }
+
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.body.style.overflow = 'auto';
+      cancelAnimationFrame(focusTimer);
+      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
+      previousFocus?.focus();
     };
   }, [project, onClose]);
 
@@ -74,6 +118,8 @@ export const ProjectDetailModal = ({
 
           {/* Modal Container */}
           <motion.div
+            ref={modalRef}
+            tabIndex={-1}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}

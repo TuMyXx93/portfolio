@@ -263,12 +263,6 @@
   font-size: 0.875rem;
 }
 
-/* No autoplay */
-.no-autoplay video,
-.no-autoplay audio {
-  autoplay: false !important;
-}
-
 /* No flashing content */
 .no-flashing * {
   animation-name: none !important;

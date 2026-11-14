@@ -114,7 +114,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               animate="visible"
               exit="exit"
               transition={{ duration: 0.2 }}
-              className={`absolute z-20 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden ${
+              className={`absolute right-0 left-auto z-20 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden ${
                 direction === 'up' ? 'bottom-full mb-2' : 'top-full'
               }`}
               role="listbox"

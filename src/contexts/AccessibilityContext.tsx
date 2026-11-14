@@ -175,9 +175,7 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const savedPreferences = localStorage.getItem(
-      'accessibility-preferences-advanced'
-    );
+    const savedPreferences = localStorage.getItem('accessibility-preferences');
 
     // Detectar preferencias del sistema
     const prefersReducedMotion = window.matchMedia(
@@ -205,10 +203,7 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   // Guardar preferencias
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(
-        'accessibility-preferences-advanced',
-        JSON.stringify(state)
-      );
+      localStorage.setItem('accessibility-preferences', JSON.stringify(state));
     }
   }, [state]);
 
@@ -222,28 +217,29 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     html.classList.remove(
       'high-contrast',
       'reduced-motion',
-      'text-small',
-      'text-medium',
-      'text-large',
-      'text-extra-large',
-      'protanopia',
-      'deuteranopia',
-      'tritanopia',
+      'font-size-small',
+      'font-size-medium',
+      'font-size-large',
+      'font-size-extra-large',
+      'color-blind-protanopia',
+      'color-blind-deuteranopia',
+      'color-blind-tritanopia',
       'focus-visible',
+      'keyboard-navigation',
       'reduced-animations',
       'reduced-complexity',
       'enhanced-focus',
       'reading-mode'
     );
 
-    // Aplicar nuevas clases
+    // Aplicar nuevas clases alineadas con layout.tsx y accessibility.css
     if (state.highContrast) html.classList.add('high-contrast');
     if (state.reducedMotion) html.classList.add('reduced-motion');
-    if (state.fontSize !== 'medium')
-      html.classList.add(`text-${state.fontSize}`);
+    html.classList.add(`font-size-${state.fontSize}`);
     if (state.colorBlindMode !== 'none')
-      html.classList.add(state.colorBlindMode);
+      html.classList.add(`color-blind-${state.colorBlindMode}`);
     if (state.focusVisible) html.classList.add('focus-visible');
+    if (state.keyboardNavigation) html.classList.add('keyboard-navigation');
     if (state.reducedAnimations) html.classList.add('reduced-animations');
     if (state.reducedComplexity) html.classList.add('reduced-complexity');
     if (state.enhancedFocus) html.classList.add('enhanced-focus');
