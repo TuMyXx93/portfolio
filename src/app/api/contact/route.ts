@@ -77,7 +77,9 @@ export async function POST(request: NextRequest) {
 
     const limitResult = await rateLimit(clientIp);
     if (!limitResult.success) {
-      logEvent('warn', 'contact.rate_limit_exceeded', requestId, { ip: clientIp });
+      logEvent('warn', 'contact.rate_limit_exceeded', requestId, {
+        ip: clientIp,
+      });
       const retryAfterSeconds = Math.max(
         1,
         Math.ceil((limitResult.reset - Date.now()) / 1000)

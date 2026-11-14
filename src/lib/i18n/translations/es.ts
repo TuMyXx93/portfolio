@@ -106,10 +106,14 @@ export const es: Translation = {
     approach: 'Enfoque de Ingeniería & IA',
     approachText:
       'Mi enfoque combina la disciplina de la arquitectura de software tradicional con la eficiencia de los flujos asistidos por IA. La Inteligencia Artificial actúa como un acelerador de alto nivel cuando se combina con IDEs modernos, CLIs personalizadas, agentes y orquestación de prompts, asegurando mantenibilidad, pruebas rigurosas y alto rendimiento.',
-    bullet1: 'Desarrollo Full Stack en arquitecturas Monorepo escalables (Fastify, React 19, Prisma, Postgres).',
-    bullet2: 'Flujo de desarrollo asistido con IA: integración responsable de LLMs, CLIs, agentes y orquestadores.',
-    bullet3: 'Preservación cultural digital y aplicaciones móviles en Flutter con motor NoSQL Hive.',
-    bullet4: 'Garantía de calidad estricta con Biome CI, pruebas automatizadas (Vitest/Playwright) y WCAG AAA.',
+    bullet1:
+      'Desarrollo Full Stack en arquitecturas Monorepo escalables (Fastify, React 19, Prisma, Postgres).',
+    bullet2:
+      'Flujo de desarrollo asistido con IA: integración responsable de LLMs, CLIs, agentes y orquestadores.',
+    bullet3:
+      'Preservación cultural digital y aplicaciones móviles en Flutter con motor NoSQL Hive.',
+    bullet4:
+      'Garantía de calidad estricta con Biome CI, pruebas automatizadas (Vitest/Playwright) y WCAG AAA.',
     contactMe: 'Contáctame',
     downloadCV: 'Descargar CV (PDF)',
     present: 'Presente',

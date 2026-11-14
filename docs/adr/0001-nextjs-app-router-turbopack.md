@@ -1,8 +1,8 @@
 # ADR 0001: Adopción de Next.js 16 App Router & Turbopack
 
-* **Estado:** Aprobado
-* **Fecha:** 2026-04-27
-* **Autor:** Equipo de Arquitectura Portfolio Tumidev
+- **Estado:** Aprobado
+- **Fecha:** 2026-04-27
+- **Autor:** Equipo de Arquitectura Portfolio Tumidev
 
 ## Contexto
 
@@ -15,9 +15,11 @@ Se adopta **Next.js 16 (App Router)** junto con el empaquetador **Turbopack** co
 ## Consecuencias
 
 ### Positivas
-* Compilación ultrarrápida en desarrollo mediante Turbopack.
-* Renderizado híbrido (Server Components + Client Components) optimizando los tiempos de First Contentful Paint (FCP) y Largest Contentful Paint (LCP).
-* Generación de metadatos dinámica (`sitemap.xml`, `robots.txt`, `opengraph-image`).
+
+- Compilación ultrarrápida en desarrollo mediante Turbopack.
+- Renderizado híbrido (Server Components + Client Components) optimizando los tiempos de First Contentful Paint (FCP) y Largest Contentful Paint (LCP).
+- Generación de metadatos dinámica (`sitemap.xml`, `robots.txt`, `opengraph-image`).
 
 ### Negativas / Mitigaciones
-* Requiere aislamiento explícito entre Client Components (`'use client'`) y Server Components para evitar errores de deshidratación en SSR.
+
+- Requiere aislamiento explícito entre Client Components (`'use client'`) y Server Components para evitar errores de deshidratación en SSR.

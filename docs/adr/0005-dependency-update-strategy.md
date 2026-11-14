@@ -1,8 +1,8 @@
 # ADR 0005: Estrategia de Actualización de Dependencias Major/Patch (Next.js 16.3, Zod 4, Framer Motion 13, ESLint 9 Pin, TypeScript 5.9 Pin)
 
-* **Estado:** Aprobado
-* **Fecha:** 2026-08-06
-* **Autor:** Orchestrator & QA Integration Team
+- **Estado:** Aprobado
+- **Fecha:** 2026-08-06
+- **Autor:** Orchestrator & QA Integration Team
 
 ## Contexto
 
@@ -29,9 +29,11 @@ Con la evolución del ecosistema React 19 y Next.js 16, varias dependencias del 
 ## Consecuencias
 
 ### Positivas
-* **Compatibilidad de Producción:** Next.js 16.3.0 + Turbopack compila estáticamente en 3.0s (reducción de tiempo).
-* **Seguridad y Tipado:** `zod@4.4.3` con migración limpia a `issues` previene errores silenciosos en tiempo de ejecución.
-* **Estabilidad del Tooling:** Retener ESLint 9.39.5 y TypeScript 5.9.3 evita rupturas en la suite de CI/CD.
+
+- **Compatibilidad de Producción:** Next.js 16.3.0 + Turbopack compila estáticamente en 3.0s (reducción de tiempo).
+- **Seguridad y Tipado:** `zod@4.4.3` con migración limpia a `issues` previene errores silenciosos en tiempo de ejecución.
+- **Estabilidad del Tooling:** Retener ESLint 9.39.5 y TypeScript 5.9.3 evita rupturas en la suite de CI/CD.
 
 ### Mitigaciones
-* Se reevaluará ESLint v10 cuando Next.js lance `eslint-config-next` con soporte para ESLint v10 Flat Config.
+
+- Se reevaluará ESLint v10 cuando Next.js lance `eslint-config-next` con soporte para ESLint v10 Flat Config.

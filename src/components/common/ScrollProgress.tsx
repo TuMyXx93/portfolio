@@ -8,9 +8,13 @@ export const ScrollProgress = () => {
     let ticking = false;
 
     const updateScrollProgress = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       if (totalHeight > 0) {
-        const currentProgress = Math.min(Math.max(window.scrollY / totalHeight, 0), 1);
+        const currentProgress = Math.min(
+          Math.max(window.scrollY / totalHeight, 0),
+          1
+        );
         setProgress(currentProgress);
       }
       ticking = false;

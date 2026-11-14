@@ -31,7 +31,9 @@ export interface ButtonProps {
   children?: React.ReactNode;
   className?: string;
   ariaLabel?: string;
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+  onClick?: (
+    e?: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   onFocus?: () => void;

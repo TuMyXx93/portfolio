@@ -11,7 +11,9 @@ interface SocialLinksProps {
   showLabels?: boolean;
 }
 
-const IconGithub: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+const IconGithub: React.FC<{ className?: string }> = ({
+  className = 'w-5 h-5',
+}) => (
   <svg
     className={className}
     fill="currentColor"
@@ -26,7 +28,9 @@ const IconGithub: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' })
   </svg>
 );
 
-const IconLinkedin: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+const IconLinkedin: React.FC<{ className?: string }> = ({
+  className = 'w-5 h-5',
+}) => (
   <svg
     className={className}
     fill="currentColor"
@@ -37,7 +41,9 @@ const IconLinkedin: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' 
   </svg>
 );
 
-const IconTwitter: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+const IconTwitter: React.FC<{ className?: string }> = ({
+  className = 'w-5 h-5',
+}) => (
   <svg
     className={className}
     fill="currentColor"
@@ -48,7 +54,9 @@ const IconTwitter: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }
   </svg>
 );
 
-const IconEmail: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+const IconEmail: React.FC<{ className?: string }> = ({
+  className = 'w-5 h-5',
+}) => (
   <svg
     className={className}
     fill="none"

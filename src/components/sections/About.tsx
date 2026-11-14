@@ -74,7 +74,9 @@ export const About = () => {
                 download={true}
                 target="_blank"
                 rel="noopener noreferrer"
-                ariaLabel={t('about.downloadCVAria', { locale: locale.toUpperCase() })}
+                ariaLabel={t('about.downloadCVAria', {
+                  locale: locale.toUpperCase(),
+                })}
                 className="w-full sm:w-auto transition-colors duration-200 font-semibold"
               >
                 <svg
@@ -94,7 +96,10 @@ export const About = () => {
               </Button>
             </div>
           </motion.div>
-          <motion.div variants={itemVariants} className="space-y-4 md:space-y-6">
+          <motion.div
+            variants={itemVariants}
+            className="space-y-4 md:space-y-6"
+          >
             <h3 className="text-xl md:text-2xl font-bold text-[#F7AB0A]">
               {t('about.pillarsTitle')}
             </h3>

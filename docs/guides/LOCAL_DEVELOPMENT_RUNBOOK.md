@@ -7,11 +7,13 @@ Este documento guía la configuración, resolución de problemas y ejecución lo
 ## 1. Configuración del Entorno de Desarrollo
 
 ### Requisitos Previos
-* **Node.js:** v24.15.0+ (LTS recomendado v24.13.3)
-* **pnpm:** v11.18.0+
-* **Git:** v2.40+
+
+- **Node.js:** v24.15.0+ (LTS recomendado v24.13.3)
+- **pnpm:** v11.18.0+
+- **Git:** v2.40+
 
 ### Pasos de Instalación Rápida
+
 ```bash
 # 1. Clonar el repositorio
 git clone https://github.com/tumidev/portfolio.git
@@ -36,24 +38,29 @@ En entornos mixtos (Windows host + WSL2 Ubuntu + Docker), es común que existan 
 ### Verificación de Puertos Libres
 
 #### En Windows (PowerShell):
+
 ```powershell
 Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue
 ```
 
 #### En WSL / Linux:
+
 ```bash
 wsl ss -tulpn | grep 3000
 ```
 
 ### Diagnóstico de Contenedores Docker Activos (`wsl docker ps`):
+
 Si ejecutas bases de datos u otros servicios en Docker:
-* Redis normalmente utiliza el puerto `6379`.
-* PostgreSQL normalmente utiliza los puertos `5432` / `5433`.
-* El servidor de dev de Next.js utiliza el puerto `3000`.
+
+- Redis normalmente utiliza el puerto `6379`.
+- PostgreSQL normalmente utiliza los puertos `5432` / `5433`.
+- El servidor de dev de Next.js utiliza el puerto `3000`.
 
 ### Resolución de Conflictos de Puerto
 
 Si el puerto `3000` se encuentra ocupado por otra aplicación:
+
 ```bash
 # Opción 1: Levantar Next.js en un puerto alternativo
 pnpm run dev -- -p 3001

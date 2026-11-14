@@ -30,14 +30,20 @@ export const SkipToContent = () => {
     <button
       onClick={skipToMain}
       className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
-      onFocus={() => announceToScreenReader('Enlace para saltar al contenido principal')}
+      onFocus={() =>
+        announceToScreenReader('Enlace para saltar al contenido principal')
+      }
     >
       Saltar al contenido principal
     </button>
   );
 };
 
-export const Breadcrumbs = ({ items }: { items: Array<{ label: string; href?: string }> }) => {
+export const Breadcrumbs = ({
+  items,
+}: {
+  items: Array<{ label: string; href?: string }>;
+}) => {
   const router = useRouter();
 
   const announceToScreenReader = (message: string) => {
@@ -88,7 +94,10 @@ export const Breadcrumbs = ({ items }: { items: Array<{ label: string; href?: st
                 {item.label}
               </button>
             ) : (
-              <span aria-current="page" className="font-medium text-gray-900 dark:text-white">
+              <span
+                aria-current="page"
+                className="font-medium text-gray-900 dark:text-white"
+              >
                 {item.label}
               </span>
             )}
@@ -100,7 +109,9 @@ export const Breadcrumbs = ({ items }: { items: Array<{ label: string; href?: st
 };
 
 export const HeadingNavigation = () => {
-  const [headings, setHeadings] = useState<Array<{ id: string; text: string; level: number }>>([]);
+  const [headings, setHeadings] = useState<
+    Array<{ id: string; text: string; level: number }>
+  >([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const announceToScreenReader = (message: string) => {
@@ -118,7 +129,9 @@ export const HeadingNavigation = () => {
 
   useEffect(() => {
     const updateHeadings = () => {
-      const headingElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      const headingElements = document.querySelectorAll(
+        'h1, h2, h3, h4, h5, h6'
+      );
       const headingsData = Array.from(headingElements).map((heading, index) => {
         if (!heading.id) {
           heading.id = `heading-${index}`;
@@ -126,7 +139,7 @@ export const HeadingNavigation = () => {
         return {
           id: heading.id,
           text: heading.textContent || '',
-          level: parseInt(heading.tagName.charAt(1))
+          level: parseInt(heading.tagName.charAt(1)),
         };
       });
       setHeadings(headingsData);
@@ -167,10 +180,12 @@ export const HeadingNavigation = () => {
       {isOpen && (
         <div className="absolute left-0 bottom-full mb-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl max-h-80 overflow-y-auto">
           <div className="p-3 border-b border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white">Navegación por Encabezados</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Navegación por Encabezados
+            </h3>
           </div>
           <ul className="p-2">
-            {headings.map((heading) => (
+            {headings.map(heading => (
               <li key={heading.id}>
                 <button
                   onClick={() => navigateToHeading(heading.id, heading.text)}
@@ -179,7 +194,9 @@ export const HeadingNavigation = () => {
                   }`}
                   style={{ paddingLeft: `${heading.level * 8}px` }}
                 >
-                  <span className="text-xs text-gray-500 dark:text-gray-400">H{heading.level}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    H{heading.level}
+                  </span>
                   <span className="block text-sm text-gray-900 dark:text-white truncate">
                     {heading.text}
                   </span>
@@ -203,7 +220,7 @@ export const LiveRegion = () => {
         aria-atomic="true"
         className="sr-only"
       />
-      
+
       {/* Assertive announcements for urgent updates */}
       <div
         id="live-region-assertive"
@@ -211,7 +228,7 @@ export const LiveRegion = () => {
         aria-atomic="true"
         className="sr-only"
       />
-      
+
       {/* Status announcements for loading/completion states */}
       <div
         id="live-region-status"
@@ -223,11 +240,11 @@ export const LiveRegion = () => {
   );
 };
 
-export const FocusTrap = ({ 
-  children, 
+export const FocusTrap = ({
+  children,
   active = true,
-  onEscape 
-}: { 
+  onEscape,
+}: {
   children: React.ReactNode;
   active?: boolean;
   onEscape?: () => void;
@@ -238,9 +255,11 @@ export const FocusTrap = ({
     const focusableElements = document.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+    const lastElement = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && onEscape) {

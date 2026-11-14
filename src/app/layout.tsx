@@ -129,9 +129,7 @@ export default function RootLayout({
         className={`${inter.className} transition-colors duration-300`}
         suppressHydrationWarning
       >
-        <AccessibilityProvider>
-          {children}
-        </AccessibilityProvider>
+        <AccessibilityProvider>{children}</AccessibilityProvider>
         <div id="accessibility-root" />
         <Analytics />
         <SpeedInsights />

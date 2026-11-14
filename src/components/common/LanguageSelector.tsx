@@ -64,7 +64,11 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         aria-haspopup="listbox"
       >
         {showFlag && (
-          <span className="text-lg" role="img" aria-label={languageNames[locale]}>
+          <span
+            className="text-lg"
+            role="img"
+            aria-label={languageNames[locale]}
+          >
             {languageFlags[locale]}
           </span>
         )}
@@ -116,7 +120,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               role="listbox"
               aria-label={t('nav.language')}
             >
-              {locales.map((lng) => (
+              {locales.map(lng => (
                 <button
                   key={lng}
                   onClick={() => handleLocaleChange(lng)}
@@ -128,7 +132,11 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   role="option"
                   aria-selected={locale === lng}
                 >
-                  <span className="text-lg" role="img" aria-label={languageNames[lng]}>
+                  <span
+                    className="text-lg"
+                    role="img"
+                    aria-label={languageNames[lng]}
+                  >
                     {languageFlags[lng]}
                   </span>
                   <span className="font-medium">{languageNames[lng]}</span>

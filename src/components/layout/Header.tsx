@@ -47,7 +47,11 @@ export const Header = ({ links, activeSection, onNavigate }: HeaderProps) => {
           className="p-2 rounded-full glass-effect"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          aria-label={theme === 'dark' ? t('accessibility.lightMode') : t('accessibility.darkMode')}
+          aria-label={
+            theme === 'dark'
+              ? t('accessibility.lightMode')
+              : t('accessibility.darkMode')
+          }
         >
           {theme === 'dark' ? '🌞' : '🌙'}
         </motion.button>

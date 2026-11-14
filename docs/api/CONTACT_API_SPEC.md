@@ -45,7 +45,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: "Mensaje enviado con éxito."
+                    example: 'Mensaje enviado con éxito.'
         '400':
           description: Error de validación en los datos de entrada
           content:
@@ -72,31 +72,31 @@ components:
           type: string
           minLength: 2
           maxLength: 100
-          example: "Juan Pérez"
+          example: 'Juan Pérez'
         email:
           type: string
           format: email
-          example: "juan.perez@example.com"
+          example: 'juan.perez@example.com'
         subject:
           type: string
           minLength: 5
           maxLength: 200
-          example: "Oportunidad de colaboración"
+          example: 'Oportunidad de colaboración'
         message:
           type: string
           minLength: 20
           maxLength: 5000
-          example: "Hola, me gustaría discutir una oportunidad de colaboración."
+          example: 'Hola, me gustaría discutir una oportunidad de colaboración.'
         website:
           type: string
           maxLength: 200
-          description: "Campo honeypot; debe permanecer vacío."
+          description: 'Campo honeypot; debe permanecer vacío.'
     ErrorResponse:
       type: object
       properties:
         error:
           type: string
-          example: "Validation failed"
+          example: 'Validation failed'
         details:
           type: array
           items:
@@ -107,7 +107,8 @@ components:
 
 ## 3. Códigos de Estado HTTP y Ejemplos de Respuesta
 
-###  200 OK — Envío Exitoso
+### 200 OK — Envío Exitoso
+
 ```json
 {
   "success": true,
@@ -116,6 +117,7 @@ components:
 ```
 
 ### ❌ 400 Bad Request — Error de Validación Zod
+
 ```json
 {
   "error": "Validation failed",
@@ -127,6 +129,7 @@ components:
 ```
 
 ### 🛑 429 Too Many Requests — Límite de Tasa Excedido
+
 ```json
 {
   "error": "Rate limit exceeded. Please wait before sending another message."

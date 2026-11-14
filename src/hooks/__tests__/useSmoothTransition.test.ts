@@ -71,7 +71,10 @@ describe('useSmoothTransition', () => {
 
     const onTransition = jest.fn();
     const { result } = renderHook(() =>
-      useSmoothTransition(['section1', 'section2'], { threshold: 0.5, onTransition })
+      useSmoothTransition(['section1', 'section2'], {
+        threshold: 0.5,
+        onTransition,
+      })
     );
 
     act(() => {
@@ -122,9 +125,7 @@ describe('useSmoothTransition', () => {
     target.scrollIntoView = scrollIntoViewMock;
     document.body.appendChild(target);
 
-    const { result } = renderHook(() =>
-      useSmoothTransition(['hero-section'])
-    );
+    const { result } = renderHook(() => useSmoothTransition(['hero-section']));
 
     act(() => {
       result.current.scrollToSection('hero-section');
@@ -135,9 +136,7 @@ describe('useSmoothTransition', () => {
   });
 
   it('should gracefully handle scrollToSection when element does not exist', () => {
-    const { result } = renderHook(() =>
-      useSmoothTransition(['non-existent'])
-    );
+    const { result } = renderHook(() => useSmoothTransition(['non-existent']));
 
     expect(() => {
       act(() => {

@@ -3,7 +3,13 @@ const STATIC_CACHE_NAME = 'tumidev-static-v1.1.2';
 const DYNAMIC_CACHE_NAME = 'tumidev-dynamic-v1.1.2';
 
 // Archivos estáticos para cachear
-const STATIC_FILES = ['/es', '/en', '/offline', '/manifest.json', '/images/logo.png'];
+const STATIC_FILES = [
+  '/es',
+  '/en',
+  '/offline',
+  '/manifest.json',
+  '/images/logo.png',
+];
 
 // Estrategias de cache
 const CACHE_STRATEGIES = {

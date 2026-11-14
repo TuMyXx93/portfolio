@@ -120,7 +120,10 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
           l => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
         );
         if (currentPrefix && currentPrefix !== newLocale) {
-          const newPath = pathname.replace(`/${currentPrefix}`, `/${newLocale}`);
+          const newPath = pathname.replace(
+            `/${currentPrefix}`,
+            `/${newLocale}`
+          );
           window.location.assign(
             newPath + window.location.search + window.location.hash
           );

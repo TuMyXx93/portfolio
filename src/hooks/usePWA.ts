@@ -24,13 +24,18 @@ export function usePWA(): PWAState & PWAActions {
   const [isInstalled, setIsInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<PWAInstallPrompt | null>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<PWAInstallPrompt | null>(
+    null
+  );
 
   useEffect(() => {
     // Verificar si ya está instalado
     const checkInstalled = () => {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-      const isInWebApp = 'standalone' in window.navigator && 
+      const isStandalone = window.matchMedia(
+        '(display-mode: standalone)'
+      ).matches;
+      const isInWebApp =
+        'standalone' in window.navigator &&
         (window.navigator as any).standalone === true;
       setIsInstalled(isStandalone || Boolean(isInWebApp));
     };
@@ -42,18 +47,27 @@ export function usePWA(): PWAState & PWAActions {
 
     // Registrar Service Worker (únicamente en entorno de producción)
     const registerServiceWorker = async () => {
-      if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+      if (
+        'serviceWorker' in navigator &&
+        process.env.NODE_ENV === 'production'
+      ) {
         try {
-          const registration = await navigator.serviceWorker.register('/sw.js', {
-            scope: '/',
-          });
+          const registration = await navigator.serviceWorker.register(
+            '/sw.js',
+            {
+              scope: '/',
+            }
+          );
 
           // Verificar actualizaciones
           registration.addEventListener('updatefound', () => {
             const newWorker = registration.installing;
             if (newWorker) {
               newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                if (
+                  newWorker.state === 'installed' &&
+                  navigator.serviceWorker.controller
+                ) {
                   setUpdateAvailable(true);
                 }
               });
@@ -64,7 +78,6 @@ export function usePWA(): PWAState & PWAActions {
           navigator.serviceWorker.addEventListener('controllerchange', () => {
             window.location.reload();
           });
-
         } catch (error) {
           console.error('❌ Error registrando Service Worker:', error);
         }
@@ -89,7 +102,10 @@ export function usePWA(): PWAState & PWAActions {
     registerServiceWorker();
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt
+      );
       window.removeEventListener('online', updateOnlineStatus);
       window.removeEventListener('offline', updateOnlineStatus);
     };
@@ -134,7 +150,7 @@ export function usePWA(): PWAState & PWAActions {
       } else {
         // Fallback: copiar al clipboard
         await navigator.clipboard.writeText(window.location.origin);
-        
+
         // Mostrar notificación temporal
         if ('Notification' in window && Notification.permission === 'granted') {
           new Notification('URL copiada', {
@@ -154,7 +170,7 @@ export function usePWA(): PWAState & PWAActions {
     isInstalled,
     isOnline,
     updateAvailable,
-    
+
     // Actions
     installApp,
     updateApp,

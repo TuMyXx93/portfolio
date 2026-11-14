@@ -13,8 +13,7 @@ interface CardProps {
 }
 
 const variantClasses = {
-  glass:
-    'bg-slate-800/80 border border-white/10 hover:border-amber-400/30',
+  glass: 'bg-slate-800/80 border border-white/10 hover:border-amber-400/30',
   bordered: 'border border-gray-700 hover:border-gray-600',
   plain: '',
 };

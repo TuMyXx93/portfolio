@@ -198,7 +198,10 @@ describe('contact route', () => {
   });
 
   it('returns 502 when resend client returns an error', async () => {
-    mockSend.mockResolvedValueOnce({ error: { message: 'Provider error' }, data: null });
+    mockSend.mockResolvedValueOnce({
+      error: { message: 'Provider error' },
+      data: null,
+    });
     const { POST } = await import('../route');
     const response = await POST(
       request({

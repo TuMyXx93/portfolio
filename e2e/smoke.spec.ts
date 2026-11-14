@@ -56,7 +56,9 @@ test('i18n routing redirects / to localized route and supports /es and /en', asy
   await page.goto('/es', { waitUntil: 'domcontentloaded' });
   expect(page.url()).toContain('/es');
   await expect(page).toHaveTitle(/Portfolio Profesional/i);
-  await expect(page.locator('footer')).toContainText('Todos los derechos reservados');
+  await expect(page.locator('footer')).toContainText(
+    'Todos los derechos reservados'
+  );
   await expect(page.locator('footer')).toContainText('Navegación');
 
   await page.goto('/en', { waitUntil: 'domcontentloaded' });
