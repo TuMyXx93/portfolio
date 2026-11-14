@@ -1,4 +1,4 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
 export const runtime = 'nodejs';
@@ -10,9 +10,6 @@ export async function GET(request: NextRequest) {
 
     const title =
       searchParams.get('title') || 'TumiDev | Portfolio Profesional';
-    const description =
-      searchParams.get('description') ||
-      'Desarrollador Full Stack especializado en React, Next.js, TypeScript y tecnologías modernas de desarrollo web';
 
     return new ImageResponse(
       <div
