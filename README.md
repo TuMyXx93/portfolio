@@ -48,18 +48,18 @@ El servidor local estará disponible en `http://localhost:3000`.
 
 Toda la documentación técnica del proyecto está estructurada bajo el estándar **Diátaxis**:
 
-| Categoría Diátaxis | Documento                                                                                                      | Descripción                                                    |
-| ------------------ | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Tutoriales**     | [Guía de Contribución](file:///C:/Users/HACKTU/code/portfolio/CONTRIBUTING.md)                                 | Flujo Git, ramas `dev`/`main`, estándares de PR y Husky        |
-| **How-To Guides**  | [Runbook de Desarrollo Local](file:///C:/Users/HACKTU/code/portfolio/docs/guides/LOCAL_DEVELOPMENT_RUNBOOK.md) | Configuración en Windows, WSL2, Docker y resolución de puertos |
-| **How-To Guides**  | [Runbook de Despliegue & CI/CD](file:///C:/Users/HACKTU/code/portfolio/docs/guides/DEPLOYMENT_RUNBOOK.md)      | Pipeline en GitHub Actions, Vercel CLI y Lighthouse CI         |
-| **Referencia**     | [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md)      | Contrato OpenAPI 3.1 para `/api/contact`                       |
-| **Referencia**     | [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md)                                    | Especificación de CSP, HSTS, Sanitización y Rate Limiting      |
-| **Explicación**    | [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md)           | Diagrama C4, arquitectura de capas y flujo de datos            |
-| **Explicación**    | [Registros ADR](file:///C:/Users/HACKTU/code/portfolio/docs/adr/)                                              | Arquitectura Decision Records (ADR 0001 - 0005)                |
-| **Explicación**    | [Investigación de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md)        | Auditoría de ratios de contraste WCAG 2.1                      |
-| **Historial**      | [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md)               | Registro histórico de refactorizaciones y auditorías           |
-| **Historial**      | [Changelog](file:///C:/Users/HACKTU/code/portfolio/CHANGELOG.md)                                               | Registro de versiones y notas de entrega                       |
+| Categoría Diátaxis | Documento                                                                                                      | Descripción                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Tutoriales**     | [Guía de Contribución](file:///C:/Users/HACKTU/code/portfolio/CONTRIBUTING.md)                                 | Flujo Git, ramas `dev`/`main`, estándares de PR y Husky                |
+| **How-To Guides**  | [Runbook de Desarrollo Local](file:///C:/Users/HACKTU/code/portfolio/docs/guides/LOCAL_DEVELOPMENT_RUNBOOK.md) | Configuración en Windows, WSL2, Docker y resolución de puertos         |
+| **How-To Guides**  | [Runbook de Despliegue & CI/CD](file:///C:/Users/HACKTU/code/portfolio/docs/guides/DEPLOYMENT_RUNBOOK.md)      | Pipeline en GitHub Actions, Vercel CLI y auditoría Lighthouse opcional |
+| **Referencia**     | [Especificación del API de Contacto](file:///C:/Users/HACKTU/code/portfolio/docs/api/CONTACT_API_SPEC.md)      | Contrato OpenAPI 3.1 para `/api/contact`                               |
+| **Referencia**     | [Política de Seguridad](file:///C:/Users/HACKTU/code/portfolio/SECURITY.md)                                    | Especificación de CSP, HSTS, Sanitización y Rate Limiting              |
+| **Explicación**    | [Arquitectura del Sistema](file:///C:/Users/HACKTU/code/portfolio/docs/architecture/ARCHITECTURE.md)           | Diagrama C4, arquitectura de capas y flujo de datos                    |
+| **Explicación**    | [Registros ADR](file:///C:/Users/HACKTU/code/portfolio/docs/adr/)                                              | Arquitectura Decision Records (ADR 0001 - 0006)                        |
+| **Explicación**    | [Investigación de Color](file:///C:/Users/HACKTU/code/portfolio/docs/research/RESEARCH_COLOR_SYSTEM.md)        | Auditoría de ratios de contraste WCAG 2.1                              |
+| **Historial**      | [Historial de Mejoras](file:///C:/Users/HACKTU/code/portfolio/docs/history/HISTORIAL_MEJORAS.md)               | Registro histórico de refactorizaciones y auditorías                   |
+| **Historial**      | [Changelog](file:///C:/Users/HACKTU/code/portfolio/CHANGELOG.md)                                               | Registro de versiones y notas de entrega                               |
 
 Para explorar la estructura completa, visita el [Centro de Documentación principal (`docs/README.md`)](file:///C:/Users/HACKTU/code/portfolio/docs/README.md).
 

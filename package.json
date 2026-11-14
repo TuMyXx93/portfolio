@@ -21,6 +21,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:e2e": "pnpm run build && playwright test",
+    "spec:trace": "node tools/spec-trace.mjs",
+    "doc:drift": "node tools/check-doc-drift.mjs",
     "test:e2e:ci": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "prepare": "husky"

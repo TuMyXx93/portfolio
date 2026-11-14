@@ -9,4 +9,5 @@ Rules:
 3. Use descriptive commit messages.
 4. Merge to `main` only after validations pass.
 5. Run `/version-gate` before code edits and `/verify-web` before PRs to `main`.
-6. Keep PR descriptions explicit about scope, risks, and verification evidence.
+6. Commits for features/APIs must reference spec-ID: `feat(scope): ... [spec:NNNN RF-XX]`.
+7. Keep PR descriptions explicit about scope, risks, and verification evidence.

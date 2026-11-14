@@ -21,7 +21,7 @@ graph TD
         APIContact["🛡️ Endpoint /api/contact"]
         ZodValidator["🔍 Validador de Esquemas (Zod)"]
     Sanitizer["🧹 Escape contextual de salida"]
-        RateLimiter["⏱️ Control de Tasa (In-Memory IP Limiter)"]
+        RateLimiter["⏱️ Control de Tasa (Vercel Firewall + In-Memory Fallback)"]
     end
 
     NextServer --> ClientLayer

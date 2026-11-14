@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: API de Contacto Portfolio Tumidev
+  version: 1.0.0
+  description: Endpoint seguro para procesamiento de mensajes de contacto.
+
+paths:
+  /api/contact:
+    get:
+      summary: Health check del endpoint de contacto
+      operationId: contactHealth
+      responses:
+        '200':
+          description: Endpoint operativo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Contact API endpoint is working'
+    post:
+      summary: Enviar un mensaje de contacto
+      operationId: sendContactMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactPayload'
+      responses:
+        '200':
+          description: Mensaje enviado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Message sent successfully'
+        '400':
+          description: Error de validación en los datos de entrada o JSON inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Payload demasiado grande (máximo 16384 bytes)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Límite de tasa excedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Error del proveedor de correo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Servicio no configurado (fail-closed)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ContactPayload:
+      type: object
+      required:
+        - name
+        - email
+        - subject
+        - message
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+          example: 'Juan Pérez'
+        email:
+          type: string
+          format: email
+          maxLength: 254
+          example: 'juan.perez@example.com'
+        subject:
+          type: string
+          minLength: 5
+          maxLength: 200
+          example: 'Oportunidad de colaboración'
+        message:
+          type: string
+          minLength: 20
+          maxLength: 5000
+          example: 'Hola, me gustaría discutir una oportunidad de colaboración.'
+        website:
+          type: string
+          maxLength: 200
+          description: 'Campo honeypot; debe permanecer vacío.'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Validation failed'
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
