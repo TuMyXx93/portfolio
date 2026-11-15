@@ -4,17 +4,12 @@ import { Timeline } from '@/components/common/Timeline';
 import { motion, useInView } from 'framer-motion';
 import { EXPERIENCE_ITEMS } from '@/constants';
 import { useRef } from 'react';
-import { useLazySection } from '@/hooks/useLazySection';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 
 export const Experience = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t } = useTranslation();
-
-  useLazySection('experience', () => {
-    // Inicializar datos específicos de la sección si es necesario
-  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -71,27 +66,19 @@ export const Experience = () => {
             <ul className="space-y-3 text-gray-300 font-light text-sm md:text-base">
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="tracking-wide">
-                  {t('experience.bullet1')}
-                </span>
+                <span className="tracking-wide">{t('experience.bullet1')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="tracking-wide">
-                  {t('experience.bullet2')}
-                </span>
+                <span className="tracking-wide">{t('experience.bullet2')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="tracking-wide">
-                  {t('experience.bullet3')}
-                </span>
+                <span className="tracking-wide">{t('experience.bullet3')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-amber-400/80 rounded-full mt-2 flex-shrink-0"></span>
-                <span className="tracking-wide">
-                  {t('experience.bullet4')}
-                </span>
+                <span className="tracking-wide">{t('experience.bullet4')}</span>
               </li>
             </ul>
           </div>

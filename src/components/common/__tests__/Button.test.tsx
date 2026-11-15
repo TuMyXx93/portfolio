@@ -5,14 +5,22 @@ import { Button } from '@/components/common/Button';
 // Mock framer-motion
 jest.mock('framer-motion', () => {
   const React = jest.requireActual('react');
-  const MockButton = React.forwardRef(({ children, whileHover, whileTap, ...props }: any, ref: any) => (
-    <button ref={ref} {...props}>{children}</button>
-  ));
+  const MockButton = React.forwardRef(
+    ({ children, whileHover, whileTap, ...props }: any, ref: any) => (
+      <button ref={ref} {...props}>
+        {children}
+      </button>
+    )
+  );
   MockButton.displayName = 'MockMotionButton';
 
-  const MockA = React.forwardRef(({ children, whileHover, whileTap, ...props }: any, ref: any) => (
-    <a ref={ref} {...props}>{children}</a>
-  ));
+  const MockA = React.forwardRef(
+    ({ children, whileHover, whileTap, ...props }: any, ref: any) => (
+      <a ref={ref} {...props}>
+        {children}
+      </a>
+    )
+  );
   MockA.displayName = 'MockMotionA';
 
   return {
@@ -54,7 +62,11 @@ describe('Button component', () => {
 
   test('disables button when disabled prop is true', () => {
     const handleClick = jest.fn();
-    render(<Button disabled onClick={handleClick}>Disabled</Button>);
+    render(
+      <Button disabled onClick={handleClick}>
+        Disabled
+      </Button>
+    );
     const btn = screen.getByRole('button', { name: /disabled/i });
     expect(btn).toBeDisabled();
     fireEvent.click(btn);
@@ -63,7 +75,11 @@ describe('Button component', () => {
 
   test('shows loading spinner when loading is true and is disabled', () => {
     const handleClick = jest.fn();
-    render(<Button loading onClick={handleClick}>Save</Button>);
+    render(
+      <Button loading onClick={handleClick}>
+        Save
+      </Button>
+    );
     const btn = screen.getByRole('button', { name: /save/i });
     expect(btn).toBeDisabled();
     expect(btn.querySelector('svg.animate-spin')).toBeInTheDocument();
@@ -71,14 +87,20 @@ describe('Button component', () => {
 
   test('renders icons in left and right positions', () => {
     const { rerender } = render(
-      <Button icon={<span data-testid="icon-left">Icon</span>} iconPosition="left">
+      <Button
+        icon={<span data-testid="icon-left">Icon</span>}
+        iconPosition="left"
+      >
         Button with Icon
       </Button>
     );
     expect(screen.getByTestId('icon-left')).toBeInTheDocument();
 
     rerender(
-      <Button icon={<span data-testid="icon-right">Icon</span>} iconPosition="right">
+      <Button
+        icon={<span data-testid="icon-right">Icon</span>}
+        iconPosition="right"
+      >
         Button with Icon
       </Button>
     );

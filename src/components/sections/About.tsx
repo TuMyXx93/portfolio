@@ -2,7 +2,6 @@
 import { Section } from '@/components/common/Section';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { useLazySection } from '@/hooks/useLazySection';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { Button } from '@/components/common/Button';
 
@@ -10,10 +9,6 @@ export const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const { t, locale } = useTranslation();
-
-  useLazySection('about', () => {
-    // Podemos usar esto para inicializar datos específicos de la sección si es necesario
-  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -74,7 +69,9 @@ export const About = () => {
                 download={true}
                 target="_blank"
                 rel="noopener noreferrer"
-                ariaLabel={t('about.downloadCVAria', { locale: locale.toUpperCase() })}
+                ariaLabel={t('about.downloadCVAria', {
+                  locale: locale.toUpperCase(),
+                })}
                 className="w-full sm:w-auto transition-colors duration-200 font-semibold"
               >
                 <svg
@@ -94,7 +91,10 @@ export const About = () => {
               </Button>
             </div>
           </motion.div>
-          <motion.div variants={itemVariants} className="space-y-4 md:space-y-6">
+          <motion.div
+            variants={itemVariants}
+            className="space-y-4 md:space-y-6"
+          >
             <h3 className="text-xl md:text-2xl font-bold text-[#F7AB0A]">
               {t('about.pillarsTitle')}
             </h3>

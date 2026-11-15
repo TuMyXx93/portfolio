@@ -67,7 +67,7 @@ auditoría de Vercel.
 Tras el despliegue a producción, se recomienda ejecutar la validación de Lighthouse CI:
 
 ```bash
-pnpm exec lighthouserc run
+pnpm exec lhci autorun
 ```
 
 - **Rendimiento:** `>=0.8` (Objetivo `>0.9`)

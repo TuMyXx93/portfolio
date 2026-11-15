@@ -22,13 +22,8 @@ const customJestConfig = {
     'src/components/common/Button.tsx',
     'src/components/common/LanguageSelector.tsx',
     'src/components/common/TypewriterEffect.tsx',
-    'src/hooks/useAccessibility.ts',
-    'src/hooks/useLoadingState.ts',
-    'src/hooks/useScrollPosition.ts',
-    'src/hooks/useSmoothTransition.ts',
-    'src/hooks/useTheme.ts',
-    'src/hooks/useThrottle.ts',
     'src/lib/contact/**/*.{ts,tsx}',
+    'src/lib/security/rateLimiter.ts',
   ],
   coverageThreshold: {
     global: {

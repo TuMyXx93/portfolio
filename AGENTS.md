@@ -4,7 +4,7 @@ This file is the source of truth for AI-assisted work. Keep it concise — detai
 
 ## Project Overview
 
-Portfolio web app: Next.js 16 + React 19 + TypeScript 5.9 + Tailwind CSS 4 + Framer Motion 12 + Jest 30 + Playwright (smoke). Package Manager: pnpm 11. Deployment: Vercel.
+Portfolio web app: Next.js 16 + React 19 + TypeScript 5.9 + Tailwind CSS 4 + Framer Motion 13 + Jest 30 + Playwright (smoke). Package Manager: pnpm 11. Deployment: Vercel.
 
 ## Branch Policy
 
@@ -67,6 +67,10 @@ See `.opencode/agents/` for detailed guidelines per agent.
 | `/version-gate`                       | Pre-task: branch + lint + type-check + test + build     |
 | `/audit-orchestrator`                 | Consistency audit for AGENTS, agents, skills, commands  |
 | `/version-bump <patch\|minor\|major>` | Release/version workflow                                |
+| `/specify`                            | Generate feature spec from template                     |
+| `/plan`                               | Technical plan from active spec                         |
+| `/tasks`                              | Decompose plan into atomic tasks                        |
+| `/converge`                           | Final verification (equiv. to `/verify-web`)            |
 | `/engram-status`                      | Memory health and project hygiene                       |
 
 See `.opencode/commands/` for action specs.
@@ -85,12 +89,38 @@ See `.opencode/skills/` for detailed rules.
 ## Dispatch Order
 
 1. Run `/version-gate` for code edits
-2. UI/layout/animation → `frontend-ux-agent`
-3. Performance/SEO → `performance-seo-agent`
-4. Tests/quality regressions → `qa-integration-agent`
-5. CI/build/workflows → `devops-agent`
-6. Docs/changelogs → `tech-writer-agent`
-7. Before merge to `main`, run `/verify-web`
+2. For new features/APIs: `/specify` → `/plan` → `/tasks` → implement → `/verify-web`
+3. UI/layout/animation → `frontend-ux-agent`
+4. Performance/SEO → `performance-seo-agent`
+5. Tests/quality regressions → `qa-integration-agent`
+6. CI/build/workflows → `devops-agent`
+7. Docs/changelogs → `tech-writer-agent`
+8. Before merge to `main`, run `/verify-web`
+
+## Spec-Driven Development Workflow
+
+Ciclo para features nuevas y cambios de API: **specify → plan → tasks → implement → converge**.
+
+1. `/specify` — entrevista al usuario y genera `specs/NNNN-<slug>.md` desde `specs/templates/feature-spec.md`. Sign-off humano explícito antes de continuar.
+2. `/plan` — lee la spec activa + ADRs como restricciones → plan técnico (archivos, contratos, riesgos). Consulta context7 para verificar APIs vigentes.
+3. `/tasks` — descompone el plan en tareas atómicas etiquetadas con `[spec:NNNN RF-XX]`, una por commit.
+4. Implementar — los agentes leen la spec activa antes de editar código. Commits referencian spec-ID.
+5. `/verify-web` — valida implementación contra la spec (incluye `spec:trace` y `doc:drift`).
+
+**Reglas:**
+
+- Leer la spec activa antes de editar código en `src/`.
+- Cada requisito `RF-XX` debe tener al menos un test que lo referencie (`// spec:NNNN#RF-XX`).
+- No sobre-especificar: empezar con specs ligeras y expandir solo donde añada valor.
+- Specs en `specs/` con estado `draft` → `approved` → `implemented`.
+- La constitución del proyecto está en `docs/adr/0007-project-constitution.md`.
+
+**Comandos SDD:**
+
+- `/specify` — generar spec
+- `/plan` — plan técnico
+- `/tasks` — descomposición en tareas
+- `/converge` — verificación final (equivale a `/verify-web`)
 
 ## MCP and Memory
 
@@ -100,7 +130,7 @@ La referencia portable y la matriz de equivalencia entre clientes están en [`do
 
 **context7**: Dependency/framework documentation resolver. Use to fetch up-to-date library docs before implementing.
 
-**engram**: Persistent memory system for AI coding agents. 19 tools available (Engram v1.16.1, aligned with upstream):
+**engram**: Persistent memory system for AI coding agents. 23 tools available (Engram v3.6.0):
 
 | Category           | Tools                                                                                                            |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------- |
@@ -147,7 +177,7 @@ A complete pre-repair backup of `~/.engram/engram.db` (+ `-wal`, `-shm`) is mand
 
 ### Beta Conflict Surfacing (opt-in)
 
-Upstream `feat/memory-conflict-surfacing-cloud-sync` branch exposes `--semantic` LLM-judge scans via `engram conflicts scan --semantic --apply`. Optional and isolated via `docker-compose.beta.yml`; not enabled in this project.
+Upstream `feat/memory-conflict-surfacing-cloud-sync` branch exposes `--semantic` LLM-judge scans via `engram conflicts scan --semantic --apply`. Optional and isolated; not enabled in this project (no `docker-compose.beta.yml`).
 
 ### Memory Protocol
 

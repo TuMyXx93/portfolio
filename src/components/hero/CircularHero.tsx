@@ -6,6 +6,7 @@ import { HorizontalNavigation } from './HorizontalNavigation';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 import { useAdvancedAccessibility } from '@/contexts/AccessibilityContext';
 import { TypewriterEffect } from '@/components/common/TypewriterEffect';
+import { LanguageSelector } from '@/components/common/LanguageSelector';
 import Image from 'next/image';
 
 export const CircularHero = () => {
@@ -36,7 +37,10 @@ export const CircularHero = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero">
+    <section
+      id="home"
+      className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden section-hero"
+    >
       {/* Logo en la esquina superior con entrada animada y sutil resplandor ámbar */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -54,6 +58,11 @@ export const CircularHero = () => {
           priority
         />
       </motion.div>
+
+      {/* Selector de idioma en esquina superior derecha */}
+      <div className="absolute top-4 sm:top-6 md:top-8 right-4 sm:right-6 md:right-8 z-30">
+        <LanguageSelector />
+      </div>
 
       {/* Círculos Concéntricos de Fondo */}
       <ConcentricCircles />

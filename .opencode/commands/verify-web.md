@@ -6,7 +6,9 @@ Action:
 
 1. Run `pnpm run lint`
 2. Run `pnpm run type-check`
-3. Run `pnpm run test`
-4. Run `pnpm run build`
-5. Run `pnpm run test:e2e`
-6. Report concise pass/fail output and blockers.
+3. Run `pnpm run spec:trace`
+4. Run `pnpm run doc:drift`
+5. Run `pnpm run test`
+6. Run `pnpm run build`
+7. Run `pnpm run test:e2e`
+8. Report concise pass/fail output and blockers.

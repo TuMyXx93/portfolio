@@ -1,3 +1,5 @@
+import type { Ratelimit } from '@upstash/ratelimit';
+
 export interface RateLimitResult {
   success: boolean;
   limit: number;
@@ -67,9 +69,9 @@ const redisUrl =
 const redisToken =
   process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 
-let upstashRatelimitPromise: Promise<any> | null = null;
+let upstashRatelimitPromise: Promise<Ratelimit | null> | null = null;
 
-async function getUpstashRatelimit() {
+async function getUpstashRatelimit(): Promise<Ratelimit | null> {
   if (!redisUrl || !redisToken || process.env.NODE_ENV === 'test') {
     return null;
   }
@@ -95,6 +97,7 @@ async function getUpstashRatelimit() {
           '[RateLimit] Failed to initialize Upstash Redis, using in-memory store:',
           error
         );
+        upstashRatelimitPromise = null;
         return null;
       }
     })();

@@ -111,17 +111,51 @@ export const PROJECTS: Project[] = [
 
 export const SKILLS: Skill[] = [
   // Lenguajes & Core
-  { name: 'TypeScript', icon: 'typescript.svg', category: 'languages', badge: 'v5.9' },
-  { name: 'JavaScript (ESNext)', icon: 'javascript.svg', category: 'languages' },
-  { name: 'Python', icon: 'python.svg', category: 'languages', badge: 'Misión TIC' },
+  {
+    name: 'TypeScript',
+    icon: 'typescript.svg',
+    category: 'languages',
+    badge: 'v5.9',
+  },
+  {
+    name: 'JavaScript (ESNext)',
+    icon: 'javascript.svg',
+    category: 'languages',
+  },
+  {
+    name: 'Python',
+    icon: 'python.svg',
+    category: 'languages',
+    badge: 'Misión TIC',
+  },
   { name: 'Dart', icon: 'dart.svg', category: 'languages' },
   { name: 'HTML5 / CSS3', icon: 'html5.svg', category: 'languages' },
 
   // Frameworks & Libs
-  { name: 'React 19', icon: 'react.svg', category: 'frameworks', badge: 'Frontend' },
-  { name: 'Next.js 16', icon: 'nextjs.svg', category: 'frameworks', badge: 'App Router' },
-  { name: 'Fastify API', icon: 'fastify.svg', category: 'frameworks', badge: 'Backend' },
-  { name: 'Flutter 3', icon: 'flutter.svg', category: 'frameworks', badge: 'Mobile' },
+  {
+    name: 'React 19',
+    icon: 'react.svg',
+    category: 'frameworks',
+    badge: 'Frontend',
+  },
+  {
+    name: 'Next.js 16',
+    icon: 'nextjs.svg',
+    category: 'frameworks',
+    badge: 'App Router',
+  },
+  {
+    name: 'Fastify API',
+    icon: 'fastify.svg',
+    category: 'frameworks',
+    badge: 'Backend',
+  },
+  {
+    name: 'Flutter 3',
+    icon: 'flutter.svg',
+    category: 'frameworks',
+    badge: 'Mobile',
+  },
   { name: 'Tailwind CSS v4', icon: 'tailwind.svg', category: 'frameworks' },
   { name: 'Vite', icon: 'vite.svg', category: 'frameworks' },
   { name: 'Framer Motion', icon: 'framer.svg', category: 'frameworks' },
@@ -129,16 +163,51 @@ export const SKILLS: Skill[] = [
   // Bases de Datos & ORM
   { name: 'PostgreSQL', icon: 'postgresql.svg', category: 'databases' },
   { name: 'Prisma ORM', icon: 'prisma.svg', category: 'databases' },
-  { name: 'Redis / BullMQ', icon: 'redis.svg', category: 'databases', badge: 'Queues' },
-  { name: 'Hive NoSQL', icon: 'hive.svg', category: 'databases', badge: 'Flutter' },
+  {
+    name: 'Redis / BullMQ',
+    icon: 'redis.svg',
+    category: 'databases',
+    badge: 'Queues',
+  },
+  {
+    name: 'Hive NoSQL',
+    icon: 'hive.svg',
+    category: 'databases',
+    badge: 'Flutter',
+  },
 
   // IA, Agentes & Herramientas
-  { name: 'Agentes & CLIs de IA', icon: 'ai.svg', category: 'ai_tools', badge: 'Orquestación' },
-  { name: 'LLMs & Prompt Eng.', icon: 'brain.svg', category: 'ai_tools', badge: 'IA Avanzada' },
-  { name: 'Turborepo / pnpm', icon: 'turborepo.svg', category: 'ai_tools', badge: 'Monorepos' },
+  {
+    name: 'Agentes & CLIs de IA',
+    icon: 'ai.svg',
+    category: 'ai_tools',
+    badge: 'Orquestación',
+  },
+  {
+    name: 'LLMs & Prompt Eng.',
+    icon: 'brain.svg',
+    category: 'ai_tools',
+    badge: 'IA Avanzada',
+  },
+  {
+    name: 'Turborepo / pnpm',
+    icon: 'turborepo.svg',
+    category: 'ai_tools',
+    badge: 'Monorepos',
+  },
   { name: 'Git & GitHub Actions', icon: 'git.svg', category: 'ai_tools' },
-  { name: 'Biome CI', icon: 'biome.svg', category: 'ai_tools', badge: 'Linter/Format' },
-  { name: 'Vitest / Playwright', icon: 'test.svg', category: 'ai_tools', badge: 'QA Testing' },
+  {
+    name: 'Biome CI',
+    icon: 'biome.svg',
+    category: 'ai_tools',
+    badge: 'Linter/Format',
+  },
+  {
+    name: 'Vitest / Playwright',
+    icon: 'test.svg',
+    category: 'ai_tools',
+    badge: 'QA Testing',
+  },
   { name: 'Cloudflare R2 CDN', icon: 'cloudflare.svg', category: 'ai_tools' },
 ];
 
@@ -251,4 +320,3 @@ export const PROFILE_IMAGES = [
   'https://pub-cf08710fb7df426c96d811575acc39c4.r2.dev/profile/profile7.png',
   'https://pub-cf08710fb7df426c96d811575acc39c4.r2.dev/profile/profile8.png',
 ];
-

@@ -47,7 +47,7 @@ export const PWAInstallButton = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed bottom-4 right-4 z-50"
+          className="fixed bottom-4 left-4 z-50"
         >
           <div className="flex flex-col gap-2">
             {/* Update Available Button */}
@@ -91,7 +91,7 @@ export const PWAInstallButton = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute right-0 bottom-full mb-2 hidden sm:block"
+                      className="absolute left-0 bottom-full mb-2 hidden sm:block"
                     >
                       <div className="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
                         Nueva versión disponible
@@ -137,7 +137,7 @@ export const PWAInstallButton = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute right-0 bottom-full mb-2 hidden sm:block"
+                      className="absolute left-0 bottom-full mb-2 hidden sm:block"
                     >
                       <div className="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
                         Instalar como app

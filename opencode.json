@@ -9,7 +9,7 @@
   },
   "formatter": {
     "prettier": {
-      "command": ["npx", "prettier", "--write", "$FILE"],
+      "command": ["pnpm", "exec", "prettier", "--write", "$FILE"],
       "extensions": [
         ".ts",
         ".tsx",
@@ -31,12 +31,7 @@
     },
     "engram": {
       "type": "local",
-      "command": [
-        "C:\\Users\\HACKTU\\go\\bin\\engram.exe",
-        "mcp",
-        "--project=portfolio",
-        "--tools=agent"
-      ],
+      "command": ["engram", "mcp", "--project=portfolio", "--tools=agent"],
       "enabled": true
     }
   },

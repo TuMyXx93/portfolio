@@ -56,7 +56,9 @@ test('i18n routing redirects / to localized route and supports /es and /en', asy
   await page.goto('/es', { waitUntil: 'domcontentloaded' });
   expect(page.url()).toContain('/es');
   await expect(page).toHaveTitle(/Portfolio Profesional/i);
-  await expect(page.locator('footer')).toContainText('Todos los derechos reservados');
+  await expect(page.locator('footer')).toContainText(
+    'Todos los derechos reservados'
+  );
   await expect(page.locator('footer')).toContainText('Navegación');
 
   await page.goto('/en', { waitUntil: 'domcontentloaded' });
@@ -71,7 +73,8 @@ test('home has no critical accessibility violations', async ({ page }) => {
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.waitForFunction(
     () =>
-      !navigator.serviceWorker?.installing && !navigator.serviceWorker?.waiting
+      !(navigator.serviceWorker as { installing?: unknown })?.installing &&
+      !(navigator.serviceWorker as { waiting?: unknown })?.waiting
   );
   await page.waitForTimeout(1000);
   let results;
@@ -124,6 +127,7 @@ test('contact API rejects invalid payload', async ({ request }) => {
   expect(body.error).toContain('Validation failed');
 });
 
+// spec:0001#RF-11
 test('contact POST is not intercepted by the service worker', async ({
   page,
   browserName,

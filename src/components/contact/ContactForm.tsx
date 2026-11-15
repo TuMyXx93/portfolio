@@ -128,14 +128,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
   };
 
   const inputClassName = (fieldName: keyof FormErrors) => `
-    contact-form-control w-full px-4 py-3 rounded-lg border-2 transition-colors
+    contact-form-control w-full px-4 py-3 rounded-lg border-2 transition-all duration-200
     ${
       errors[fieldName]
-        ? 'border-red-500 focus:border-red-600 focus:ring-red-200 dark:focus:ring-red-800'
-        : 'border-gray-300 dark:border-gray-600 hover:border-amber-400 dark:hover:border-amber-600 focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800'
+        ? 'border-red-500 hover:border-red-400 focus:border-red-400 focus:ring-2 focus:ring-red-500/25'
+        : 'border-white/15 hover:border-amber-400/70 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/25'
     }
-    bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-    focus:outline-none focus:ring-4
+    bg-[#0a1628]/80 text-white placeholder-gray-400
+    focus:outline-none
     disabled:opacity-50 disabled:cursor-not-allowed
     text-base min-h-[44px]
   `;
@@ -170,7 +170,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
         <div>
           <label
             htmlFor="contact-name"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-medium text-gray-200 mb-2"
           >
             {t('contact.form.name')} *
           </label>
@@ -200,7 +200,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
         <div>
           <label
             htmlFor="contact-email"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-medium text-gray-200 mb-2"
           >
             {t('contact.form.email')} *
           </label>
@@ -231,7 +231,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
       <div>
         <label
           htmlFor="contact-subject"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-gray-200 mb-2"
         >
           {t('contact.form.subject')} *
         </label>
@@ -260,7 +260,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className = '' }) => {
       <div>
         <label
           htmlFor="contact-message"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium text-gray-200 mb-2"
         >
           {t('contact.form.message')} *
         </label>

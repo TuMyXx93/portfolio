@@ -1,8 +1,8 @@
 # ADR 0002: Sistema de Colores Progresivo y Tailwind CSS v4
 
-* **Estado:** Aprobado
-* **Fecha:** 2026-04-28
-* **Autor:** Equipo UX / Frontend Architecture
+- **Estado:** Aprobado
+- **Fecha:** 2026-04-28
+- **Autor:** Equipo UX / Frontend Architecture
 
 ## Contexto
 
@@ -15,9 +15,11 @@ Se adopta un **modo oscuro único forzado** sustentado en un **sistema de colore
 ## Consecuencias
 
 ### Positivas
-* Eliminación de complejidad de estado de tema claro/oscuro.
-* Garantía de ratios de contraste accesibles de 4.5:1 (AA) y 7:1 (AAA) verificados mediante auditoría en `RESEARCH_COLOR_SYSTEM.md`.
-* Uso de tokens semánticos globales en CSS (`globals.css`) que facilitan el mantenimiento visual.
+
+- Eliminación de complejidad de estado de tema claro/oscuro.
+- Garantía de ratios de contraste accesibles de 4.5:1 (AA) y 7:1 (AAA) verificados mediante auditoría en `RESEARCH_COLOR_SYSTEM.md`.
+- Uso de tokens semánticos globales en CSS (`globals.css`) que facilitan el mantenimiento visual.
 
 ### Negativas / Mitigaciones
-* No se ofrece tema claro alternativo; esto se compensa con herramientas especializadas de accesibilidad (modos de alto contraste y reducción de brillo en la suite de accesibilidad).
+
+- No se ofrece tema claro alternativo; esto se compensa con herramientas especializadas de accesibilidad (modos de alto contraste y reducción de brillo en la suite de accesibilidad).

@@ -92,16 +92,16 @@ export const Footer: React.FC = () => {
             <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-widest">
               {t('footer.social')}
             </h3>
-            <p className="text-sm text-gray-400">
-              {t('footer.connect')}
-            </p>
+            <p className="text-sm text-gray-400">{t('footer.connect')}</p>
             <SocialLinks size="md" orientation="horizontal" />
           </div>
         </div>
 
         {/* Barra Inferior de Derechos de Autor */}
         <div className="pt-8 text-center text-xs text-gray-500">
-          <p>© {currentYear} TumiDev. {t('footer.copyright')}.</p>
+          <p>
+            © {currentYear} TumiDev. {t('footer.copyright')}.
+          </p>
         </div>
       </div>
     </footer>

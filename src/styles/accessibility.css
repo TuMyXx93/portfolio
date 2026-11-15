@@ -85,10 +85,9 @@
 }
 
 /* Focus visible enhancements */
-.focus-visible *:focus-visible {
-  outline: 3px solid #3b82f6 !important;
+.focus-visible *:focus-visible:not(.contact-form-control) {
+  outline: 2px solid #f59e0b !important;
   outline-offset: 2px !important;
-  border-radius: 4px;
 }
 
 .focus-visible *:focus:not(:focus-visible) {
@@ -96,10 +95,10 @@
 }
 
 /* Keyboard navigation indicators */
-.keyboard-navigation *:focus {
-  outline: 2px solid #3b82f6;
+.keyboard-navigation *:focus-visible:not(.contact-form-control) {
+  outline: 2px solid #f59e0b;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0 4px rgba(247, 171, 10, 0.25);
 }
 
 /* Reading mode */
@@ -263,20 +262,14 @@
   font-size: 0.875rem;
 }
 
-/* No autoplay */
-.no-autoplay video,
-.no-autoplay audio {
-  autoplay: false !important;
-}
-
 /* No flashing content */
 .no-flashing * {
   animation-name: none !important;
 }
 
-.no-flashing *[class*="flash"],
-.no-flashing *[class*="blink"],
-.no-flashing *[class*="strobe"] {
+.no-flashing *[class*='flash'],
+.no-flashing *[class*='blink'],
+.no-flashing *[class*='strobe'] {
   display: none !important;
 }
 
@@ -286,7 +279,7 @@
     font-size: 1rem;
     line-height: 1.5rem;
   }
-  
+
   .font-size-extra-large {
     font-size: 1.125rem;
     line-height: 1.75rem;
@@ -305,11 +298,11 @@
     clip: auto !important;
     white-space: normal !important;
   }
-  
+
   .skip-link {
     display: none !important;
   }
-  
+
   .accessibility-menu {
     display: none !important;
   }
@@ -320,13 +313,13 @@
   .high-contrast {
     filter: contrast(300%) brightness(150%);
   }
-  
+
   .heading-nav-list {
     background: #1f2937;
     border-color: #4b5563;
     color: white;
   }
-  
+
   .heading-nav-item:hover,
   .heading-nav-item:focus {
     background-color: #374151;
@@ -340,13 +333,13 @@
     color: ButtonFace;
     border: 1px solid ButtonText;
   }
-  
+
   .accessibility-menu {
     background: Canvas;
     border: 1px solid ButtonText;
     color: CanvasText;
   }
-  
+
   .focus-visible *:focus-visible {
     outline: 2px solid Highlight !important;
     outline-offset: 2px !important;

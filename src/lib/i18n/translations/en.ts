@@ -51,7 +51,7 @@ export const en: Translation = {
         'WCAG 2.1 AAA standards, screen-reader navigation, and reduced-motion modes.',
       p4Title: 'Clean Code & QA',
       p4Desc:
-        'Strict TypeScript, Biome linter, automated Vitest unit tests, and Playwright E2E.',
+        'Strict TypeScript, ESLint 9 linter, automated Jest unit tests, and Playwright E2E.',
     },
     downloadCV: 'Download CV (PDF)',
     downloadCVAria: 'Download CV in PDF format ({{locale}})',
@@ -106,10 +106,14 @@ export const en: Translation = {
     approach: 'Engineering & AI Approach',
     approachText:
       'My approach combines traditional software architecture discipline with AI-assisted workflow efficiency. Artificial Intelligence acts as a high-level accelerator when paired with modern IDEs, custom CLIs, agents, and prompt orchestration, ensuring maintainability, rigorous testing, and high performance.',
-    bullet1: 'Full Stack development in scalable Monorepo architectures (Fastify, React 19, Prisma, Postgres).',
-    bullet2: 'AI-assisted development workflow: responsible integration of LLMs, CLIs, agents, and orchestrators.',
-    bullet3: 'Digital cultural preservation and mobile applications in Flutter with Hive NoSQL engine.',
-    bullet4: 'Strict quality assurance with Biome CI, automated testing (Vitest/Playwright), and WCAG AAA.',
+    bullet1:
+      'Full Stack development in scalable Monorepo architectures (Fastify, React 19, Prisma, Postgres).',
+    bullet2:
+      'AI-assisted development workflow: responsible integration of LLMs, CLIs, agents, and orchestrators.',
+    bullet3:
+      'Digital cultural preservation and mobile applications in Flutter with Hive NoSQL engine.',
+    bullet4:
+      'Strict quality assurance with ESLint 9, automated testing (Jest/Playwright), and WCAG AAA.',
     contactMe: 'Contact me',
     downloadCV: 'Download CV (PDF)',
     present: 'Present',
@@ -199,7 +203,7 @@ export const en: Translation = {
       'Systems Engineer & Full Stack Developer specialized in Monorepo architectures, React 19, Fastify, Flutter, and AI-powered software engineering.',
     nav: 'Navigation',
     social: 'Social Media',
-    connect: 'Have a project in mind? Let\'s connect.',
+    connect: "Have a project in mind? Let's connect.",
     links: {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',

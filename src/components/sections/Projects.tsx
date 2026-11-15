@@ -4,7 +4,6 @@ import { Project as ProjectType } from '@/types';
 import { PROJECTS } from '@/constants';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { useLazySection } from '@/hooks/useLazySection';
 import { Section } from '@/components/common/Section';
 import { Button } from '@/components/common/Button';
 import { useTranslation } from '@/lib/i18n/useTranslation';
@@ -86,8 +85,8 @@ const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
             </div>
           )}
 
-          {/* Overlay - visible en hover (pointer) o siempre en touch */}
-          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs z-10">
+          {/* Overlay - visible en hover (pointer), focus teclado o siempre en touch */}
+          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs z-10">
             <div className="flex flex-wrap items-center justify-center gap-3 p-2">
               <Button
                 variant="overlay"
@@ -147,25 +146,22 @@ const ProjectCard = ({ project, index, onOpenDetails }: ProjectCardProps) => {
 
 export const Projects = () => {
   const containerRef = useRef(null);
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeProject, setActiveProject] = useState<ProjectType | null>(null);
 
-  useLazySection('projects', () => {
-    PROJECTS.forEach(project => {
-      const img = document.createElement('img');
-      img.src = project.image;
-    });
-  });
-
-  const categories = [
-    { id: 'all', label: 'Todos' },
+  const allCategories = [
+    { id: 'all', label: locale === 'en' ? 'All' : 'Todos' },
     { id: 'fullstack', label: 'Full Stack' },
-    { id: 'ai', label: 'IA & Agentes' },
+    { id: 'ai', label: locale === 'en' ? 'AI & Agents' : 'IA & Agentes' },
     { id: 'frontend', label: 'Frontend' },
     { id: 'mobile', label: 'Mobile' },
   ];
+
+  const categories = allCategories.filter(
+    cat => cat.id === 'all' || PROJECTS.some(p => p.category === cat.id)
+  );
 
   const filteredProjects = PROJECTS.filter(project => {
     const matchesCategory =
