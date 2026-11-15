@@ -9,22 +9,18 @@ const languageNames: Record<Locale, string> = {
   en: 'English',
 };
 
-const languageFlags: Record<Locale, string> = {
-  es: '🇪🇸',
-  en: '🇺🇸',
+const languageCodes: Record<Locale, string> = {
+  es: 'ES',
+  en: 'EN',
 };
 
 interface LanguageSelectorProps {
   className?: string;
-  showFlag?: boolean;
-  showName?: boolean;
   direction?: 'up' | 'down';
 }
 
 export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   className = '',
-  showFlag = true,
-  showName = true,
   direction = 'down',
 }) => {
   const { locale, setLocale, t } = useTranslation();
@@ -58,32 +54,22 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       {/* Current Language Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-        aria-label={t('nav.language')}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-amber-400/30 bg-[#0d1c30]/80 hover:bg-amber-400/15 hover:border-amber-400 text-amber-400 backdrop-blur-sm transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 cursor-pointer"
+        aria-label={`${t('nav.language')}: ${languageNames[locale]}`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        {showFlag && (
-          <span
-            className="text-lg"
-            role="img"
-            aria-label={languageNames[locale]}
-          >
-            {languageFlags[locale]}
-          </span>
-        )}
-        {showName && (
-          <span className="text-sm font-medium text-white">
-            {languageNames[locale]}
-          </span>
-        )}
+        <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase">
+          {languageCodes[locale]}
+        </span>
         <svg
-          className={`w-4 h-4 text-white transition-transform ${
+          className={`w-3.5 h-3.5 transition-transform ${
             isOpen ? 'rotate-180' : ''
           }`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
@@ -114,7 +100,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               animate="visible"
               exit="exit"
               transition={{ duration: 0.2 }}
-              className={`absolute right-0 left-auto z-20 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden ${
+              className={`absolute right-0 left-auto z-20 mt-2 min-w-[5rem] bg-[#0d1c30]/95 backdrop-blur-md rounded-xl shadow-xl border border-white/15 overflow-hidden ${
                 direction === 'up' ? 'bottom-full mb-2' : 'top-full'
               }`}
               role="listbox"
@@ -124,27 +110,24 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 <button
                   key={lng}
                   onClick={() => handleLocaleChange(lng)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                  className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-left transition-colors ${
                     locale === lng
-                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-300'
+                      ? 'bg-amber-400/15 text-amber-400 font-semibold'
+                      : 'text-gray-200 hover:bg-white/10 hover:text-amber-300'
                   }`}
                   role="option"
+                  aria-label={languageNames[lng]}
                   aria-selected={locale === lng}
                 >
-                  <span
-                    className="text-lg"
-                    role="img"
-                    aria-label={languageNames[lng]}
-                  >
-                    {languageFlags[lng]}
+                  <span className="text-xs sm:text-sm tracking-wider uppercase">
+                    {languageCodes[lng]}
                   </span>
-                  <span className="font-medium">{languageNames[lng]}</span>
                   {locale === lng && (
                     <svg
-                      className="w-4 h-4 ml-auto text-blue-600 dark:text-blue-400"
+                      className="w-3.5 h-3.5 text-amber-400"
                       fill="currentColor"
                       viewBox="0 0 20 20"
+                      aria-hidden="true"
                     >
                       <path
                         fillRule="evenodd"
